@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Französisch Trainer – Unregelmässige Verben | 1. Oberstufe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f4f7ff;--card:#fff;--ink:#18213d;--muted:#66708c;
+  --primary:#6657e8;--primary2:#8b5cf6;--accent:#ffb84d;
+  --green:#24a66a;--red:#e55353;--line:#e5e9f5;
+}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+
+
+
+
+.hero{padding:54px 24px 30px;text-align:center}
+.eyebrow{display:inline-block;background:#fff0d7;color:#a96600;padding:7px 12px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.04em;margin-bottom:15px}
+h1{font-size:clamp(34px,7vw,60px);line-height:1.02;letter-spacing:-.04em}
+h1 span{color:var(--primary)}
+.hero p{max-width:650px;margin:16px auto 0;color:var(--muted);line-height:1.65;font-size:17px}
+main{max-width:820px;margin:auto;padding:15px 22px 70px}
+.status{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;margin-bottom:16px;font-size:13px;font-weight:700;color:var(--muted)}
+.bar{height:9px;background:#e8eaf4;border-radius:99px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--primary),#a855f7);border-radius:99px;transition:.35s}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(22px,5vw,38px);box-shadow:0 18px 50px rgba(38,46,90,.08)}
+.mode{display:inline-flex;align-items:center;gap:7px;background:#f0edff;color:var(--primary);padding:7px 11px;border-radius:999px;font-size:12px;font-weight:800;margin-bottom:20px}
+.question{font-size:clamp(21px,4vw,29px);line-height:1.35;font-weight:800;margin-bottom:9px}
+.context{color:var(--muted);line-height:1.6;margin-bottom:24px}
+.highlight{background:#fff0c9;padding:2px 7px;border-radius:7px;color:#8a5800;font-weight:800}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.option{border:2px solid var(--line);background:#fff;border-radius:15px;padding:16px;text-align:left;font:inherit;font-weight:750;color:var(--ink);cursor:pointer;transition:.18s}
+.option:hover{transform:translateY(-2px);border-color:#b9b0ff;background:#faf9ff}
+.option.correct{border-color:#74d5a8;background:#edfff6;color:#16734a}
+.option.wrong{border-color:#f0a0a0;background:#fff1f1;color:#ad3030}
+.option:disabled{cursor:default;transform:none}
+.feedback{margin-top:18px;min-height:24px}
+.solution{margin-top:10px;border-radius:14px;padding:14px 16px;background:#f7f8fc;color:#4f5871;line-height:1.55}
+.actions{display:flex;justify-content:flex-end;margin-top:22px}
+.next,.restart{border:0;border-radius:13px;padding:13px 20px;background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;font:inherit;font-weight:800;cursor:pointer}
+.next{opacity:.35;pointer-events:none}
+.next.active{opacity:1;pointer-events:auto}
+.result{text-align:center}
+.result .emoji{font-size:52px;margin-bottom:10px}
+.result h2{font-size:32px;margin-bottom:8px}
+.result-score{font-size:50px;font-weight:900;color:var(--primary);margin:12px 0}
+.result p{color:var(--muted);line-height:1.6;margin-bottom:20px}
+.result-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.home-btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border:2px solid var(--primary);border-radius:13px;padding:11px 20px;background:#fff;color:var(--primary);font:inherit;font-weight:800;cursor:pointer;transition:.18s}
+.home-btn:hover{background:#f0edff;transform:translateY(-2px)}
+.restart:hover{transform:translateY(-2px)}
+.hidden{display:none!important}
+.legend{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 auto 28px;max-width:760px}
+.chip{background:#fff;border:1px solid var(--line);padding:8px 11px;border-radius:999px;font-size:12px;font-weight:750;color:#59627b}
+footer{text-align:center;padding:25px;color:#8991a7;font-size:12px}
+@media(max-width:620px){.options{grid-template-columns:1fr}.hero{padding-top:38px}.card{border-radius:18px}.nav-pill{display:none}}
+
+.write-input{width:100%;box-sizing:border-box;margin-top:14px;padding:15px;border:2px solid #dfe3f2;border-radius:14px;font:inherit;font-size:1.05rem;outline:none}.write-input:focus{border-color:#6657e8}.write-input.correct{border-color:#22a06b;background:#eefbf5}.write-input.wrong{border-color:#e5484d;background:#fff1f1}.check-write{margin-top:12px;border:0;border-radius:13px;padding:12px 18px;background:#6657e8;color:white;font-weight:800;cursor:pointer}.mode-badge{display:inline-block;margin-top:8px;padding:6px 10px;border-radius:999px;background:#f0edff;color:#5145cd;font-weight:800;font-size:.8rem}
+
+/* Navy/gold theme matching main.html */
+body{background:linear-gradient(135deg,#0D1433,#121E47)!important}
+header,.topbar,nav{background:rgba(13,20,51,.96)!important}
+.hero h1,.hero-title{color:#fff!important}.hero h1 span,.hero-title span{color:#D4AF60!important}
+.hero p,.hero-sub{color:#C0D4F2!important}
+.quiz-card,.card,.result-card{border:1px solid rgba(183,148,64,.28)!important;box-shadow:0 18px 50px rgba(0,0,0,.18)!important}
+.option:hover{border-color:#B79440!important}.check-write,.primary,.btn-primary,.next.active,#next.active{background:#B79440!important;color:#0D1433!important}
+.mode-badge,.chip{background:#f7f0df!important;color:#7a5d18!important}
+
+
+/* Einheitlicher Header wie main.html */
+nav{position:sticky!important;top:0!important;z-index:100!important;min-height:74px;height:auto!important;display:flex!important;align-items:center!important;justify-content:space-between!important;padding:1rem 4rem!important;background:rgba(13,20,51,.92)!important;backdrop-filter:blur(12px);border-bottom:1px solid rgba(183,148,64,.2)!important}.nav-logo{display:flex;align-items:center;gap:.85rem;color:#fff!important;text-decoration:none!important}.nav-logo .brand-image{width:48px;height:48px;object-fit:contain;display:block;background:#F7F0E4;border-radius:2px}.nav-logo .wordmark{font-family:Jost,Arial,sans-serif;font-weight:600;letter-spacing:.18em;font-size:.9rem;color:#fff!important}.exercise-home{font-family:Jost,Arial,sans-serif;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:#D4AF60!important;border:1px solid #B79440;padding:.5rem 1.1rem;text-decoration:none;border-radius:2px}.exercise-home:hover{background:#B79440;color:#0D1433!important}@media(max-width:900px){nav{padding:.8rem 1.2rem!important}.nav-logo .brand-image{width:42px;height:42px}.nav-logo .wordmark{font-size:.78rem;letter-spacing:.12em}.exercise-home{font-size:.68rem;padding:.45rem .75rem}}
+
+/* HEADER 1:1 nach main.html */
+nav.site-header{
+ position:fixed;top:0;left:0;right:0;z-index:100;
+ display:flex;align-items:center;justify-content:space-between;
+ padding:1.2rem 4rem;
+ background:rgba(13,20,51,.92);
+ backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+ border-bottom:1px solid rgba(183,148,64,.2);
+ transition:padding .3s cubic-bezier(.4,0,.2,1);
+}
+nav.site-header.scrolled{padding:.8rem 4rem}
+.site-header .nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.site-header .monogram{
+ width:34px;height:34px;border-radius:50%;background:#B79440;
+ display:flex;align-items:center;justify-content:center;
+ font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;
+ font-size:1rem;color:#0D1433;flex-shrink:0;
+}
+.site-header .wordmark{
+ font-family:'Jost',sans-serif;font-weight:600;letter-spacing:.18em;
+ font-size:.9rem;color:#fff;
+}
+.site-header .nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none}
+.site-header .nav-links a{
+ font-family:'Jost',sans-serif;font-size:.78rem;letter-spacing:.12em;
+ text-transform:uppercase;color:#C0D4F2;font-weight:400;
+ position:relative;padding-bottom:3px;text-decoration:none;
+}
+.site-header .nav-links a:hover{color:#fff}
+.site-header .nav-cta{
+ background:transparent;border:1px solid #B79440;color:#B79440!important;
+ padding:.5rem 1.4rem;border-radius:2px;
+}
+
+@media(max-width:900px){
+ nav.site-header{padding:1rem 1.2rem}
+ nav.site-header.scrolled{padding:.75rem 1.2rem}
+ .site-header .nav-links{gap:.8rem}
+ .site-header .nav-links li:not(:last-child){display:none}
+ .site-header .wordmark{font-size:.78rem;letter-spacing:.12em}
+}
+
+
+/* Im Prüfungs-/Übungsdurchlauf keine laufende Anzahl richtiger Antworten anzeigen */
+#score{display:none!important}
+
+/* Hover-Effekte 1:1 nach main.html */
+:root{
+  --hover-navy:#0D1433;
+  --hover-gold:#B79440;
+  --hover-gold-lt:#D4AF60;
+  --hover-white:#F8FAFF;
+  --hover-ease:cubic-bezier(.4,0,.2,1);
+}
+
+/* Header-Navigation: goldene Linie fährt von links nach rechts ein */
+.site-header .nav-links a{
+  position:relative;
+  padding-bottom:3px;
+  transition:color .2s;
+}
+.site-header .nav-links a::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;
+  width:0;height:1px;
+  background:var(--hover-gold);
+  transition:width .3s var(--hover-ease);
+}
+.site-header .nav-links a:hover{color:var(--hover-white)!important}
+.site-header .nav-links a:hover::after{width:100%}
+
+/* Umrandeter Header-Button: beim Hover vollständig Gold */
+.site-header .nav-cta{
+  transition:all .25s!important;
+}
+.site-header .nav-cta:hover{
+  background:var(--hover-gold)!important;
+  color:var(--hover-navy)!important;
+}
+.site-header .nav-cta::after{display:none!important}
+
+/* Übungs-/Prüfungsbuttons: wie "Jetzt üben" der main.html */
+.next.active,
+.restart,
+.write-submit,
+button[type="submit"],
+.home-btn,
+.more-btn,
+.back-home{
+  transition:all .25s var(--hover-ease)!important;
+}
+.next.active:hover,
+.restart:hover,
+.write-submit:hover,
+button[type="submit"]:hover,
+.home-btn:hover,
+.more-btn:hover,
+.back-home:hover{
+  background:var(--hover-gold-lt)!important;
+  color:var(--hover-navy)!important;
+  transform:translateY(-2px)!important;
+  box-shadow:0 8px 24px rgba(183,148,64,.30)!important;
+}
+
+/* Antwortfelder: dieselbe Bewegung/Schatten-Sprache, ohne richtig/falsch zu überdecken */
+.option:not(:disabled){
+  transition:all .25s var(--hover-ease)!important;
+}
+.option:not(:disabled):hover{
+  transform:translateY(-2px)!important;
+  border-color:var(--hover-gold)!important;
+  box-shadow:0 8px 24px rgba(183,148,64,.18)!important;
+}
+
+/* Touch-Geräte sollen keinen hängenbleibenden Hoverzustand bekommen */
+@media(hover:none){
+ .site-header .nav-links a:hover::after{width:0}
+ .next.active:hover,.restart:hover,.write-submit:hover,button[type="submit"]:hover,
+ .home-btn:hover,.more-btn:hover,.back-home:hover,.option:not(:disabled):hover{
+   transform:none!important;box-shadow:none!important;
+ }
+}
+
+
+.smart-strip{max-width:820px;margin:0 auto 14px;padding:11px 18px;display:flex;gap:18px;flex-wrap:wrap;justify-content:center;
+background:#fff;border:1px solid #e8dcc0;border-radius:14px;color:#0D1433;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;
+box-shadow:0 8px 24px rgba(13,20,51,.06)}
+.smart-strip span{white-space:nowrap}.smart-strip span:first-child{color:#9a731f}
+#score{display:none!important}
+
+
+.learning-tip{max-width:820px;margin:12px auto;padding:0 22px}.learning-tip-btn{border:1px solid #B79440;background:#fff;color:#0D1433;padding:10px 14px;font-weight:700;cursor:pointer;transition:.25s}.learning-tip-btn:hover{background:#D4AF60;transform:translateY(-2px)}.learning-tip-body{display:none;background:#fff9ed;border-left:3px solid #B79440;padding:14px;line-height:1.6;color:#4f5871}.learning-tip-body.open{display:block}.learning-tip-body a{color:#8a6417;font-weight:700}
+
+
+.didactic-v7{max-width:820px;margin:14px auto;padding:0 22px}
+.didactic-v7-inner{background:#fff;border:1px solid #e7dcc5;border-left:4px solid #B79440;padding:16px 18px;color:#0D1433;border-radius:8px}
+.didactic-v7-title{font-weight:800;margin-bottom:5px}.didactic-v7-text{color:#5c6680;line-height:1.55}
+.didactic-v7-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
+.didactic-v7-btn{border:1px solid #B79440;background:#fff;color:#0D1433;padding:9px 12px;font-weight:700;cursor:pointer;transition:.25s}
+.didactic-v7-btn:hover{background:#D4AF60;transform:translateY(-2px);box-shadow:0 8px 20px rgba(183,148,64,.22)}
+.didactic-v7-note{display:none;margin-top:12px;padding:12px;background:#fff8e9;line-height:1.55}.didactic-v7-note.open{display:block}
+.v7-badge{display:inline-flex;background:#fff0d7;color:#8a5d00;border-radius:99px;padding:6px 10px;font-size:12px;font-weight:800;margin-top:8px}
+.v7-reflect{position:fixed;inset:0;background:rgba(5,10,30,.62);display:none;align-items:center;justify-content:center;padding:20px;z-index:9999}
+.v7-reflect.open{display:flex}.v7-reflect-card{width:min(520px,100%);background:#F7F1E6;color:#0D1433;padding:24px;border-top:4px solid #B79440;box-shadow:0 24px 70px #0005}
+.v7-reflect-card h3{font-size:22px;margin-bottom:7px}.v7-reflect-card p{color:#5d6579;line-height:1.55}.v7-reflect-choices{display:grid;gap:8px;margin-top:15px}
+.v7-reflect-choices button{margin:0;text-align:left;background:#fff;border:1px solid #ddd1b8;color:#0D1433;padding:11px;cursor:pointer}.v7-reflect-choices button:hover{border-color:#B79440;background:#fff9ed}
+
+</style>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0D1433">
+<script src="learning-core.js"></script>
+  <style id="fox-mascot-style">
+.fox-coach{position:fixed;right:5px;bottom:14px;z-index:90;width:min(180px,27vw);
+  filter:drop-shadow(0 12px 24px rgba(0,0,0,.28));transition:transform .25s ease,opacity .25s ease;
+  cursor:pointer;user-select:none}
+.fox-coach:hover{transform:translateY(-5px) scale(1.12)}
+.fox-coach img{display:block;width:100%;height:auto}
+.fox-coach.pop{animation:foxPop .48s ease}
+.fox-mini-bubble{position:absolute;right:10xp;bottom:100%;width:185px;background:#fff;color:#17213d;
+  border:1px solid rgba(183,148,64,.45);border-radius:18px;padding:10px 12px;
+  font:600 13px/1.35 Jost,Arial,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.fox-mini-bubble:after{content:"";position:absolute;right:-9px;bottom:18px;border-width:8px 0 8px 10px;
+  border-style:solid;border-color:transparent transparent transparent #fff}
+@keyframes foxPop{0%{transform:scale(.92)}55%{transform:scale(1.06)}100%{transform:scale(1)}}
+@media(max-width:760px){
+ .fox-coach{width:145px;right:5px;bottom:5px}
+ .fox-mini-bubble{display:none}
+}
+</style>
+</head>
+<body>
+<nav id="navbar" class="site-header">
+  <a href="main.html" class="nav-logo">
+    <div class="monogram">FR</div>
+    <span class="wordmark">Französisch lernen</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="main.html#lernen">Lernen</a></li>
+    <li><a href="main.html#fortschritt">Mein Fortschritt</a></li>
+    <li><a href="main.html" class="nav-cta">Startseite</a></li>
+  </ul>
+</nav>
+<header class="hero">
+  <div class="eyebrow">🇫🇷 FRANÇAIS · LEVEL 1</div>
+  <h1>Les <span>verbes irréguliers</span></h1>
+  <p>Trainiere die wichtigsten <strong>unregelmässigen französischen Verben</strong> der 1. Oberstufe im Präsens: <strong>être, avoir, aller, faire, venir, prendre, pouvoir, vouloir, devoir, savoir</strong> und weitere häufige Verben.</p>
+</header>
+
+<div class="legend">
+  <span class="chip">⭐ être & avoir</span>
+  <span class="chip">🚶 aller & venir</span>
+  <span class="chip">🛠️ faire & prendre</span>
+  <span class="chip">💬 pouvoir & vouloir</span>
+  <span class="chip">🧠 devoir & savoir</span>
+  <span class="chip">✍️ Schreibtraining</span>
+</div>
+
+<main id="quiz">
+  <div class="status">
+    <span id="step">Aufgabe 1</span>
+    <div class="bar"><div class="fill" id="fill"></div></div>
+    <span id="score"></span>
+  </div>
+
+  <section class="card" id="quizCard">
+    <div class="mode" id="mode">🇫🇷 Verbes irréguliers · Niveau 1</div>
+    <div class="question" id="question"></div>
+    <div class="context" id="context"></div>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback"></div>
+    <div class="actions"><button class="next" id="next">Weiter →</button></div>
+  </section>
+
+  <section class="card result hidden" id="result">
+    <div class="emoji">🏆</div>
+    <h2>Training geschafft!</h2>
+    <div class="result-score" id="resultScore"></div>
+    <p id="resultText"></p>
+    <div class="result-actions">
+      <button class="restart" id="restart">Neue Runde</button>
+      <button class="restart" id="mistakesBtn" style="display:none">Meine Fehler üben</button>
+      <button class="restart" id="examBtn">Prüfungsmodus</button>
+      <a class="home-btn" href="main.html">← Zurück zur Startseite</a>
+    </div>
+  </section>
+</main>
+
+<footer>Französisch Trainer · Unregelmässige Verben · 1. Oberstufe</footer>
+
+<script>
+const baseQuestions=[
+{q:'Welche Form ist korrekt?',ctx:'être · je · présent',a:["je suis","j'ai","je vais","je fais"],c:0,e:"être: je suis."},
+{q:'Schreibe die Form.',ctx:'être · tu · présent',type:'write',answer:"Tu es.",e:"être: tu es."},
+{q:'Welche Form ist korrekt?',ctx:'être · nous · présent',a:["nous sommes","nous avons","nous allons","nous faisons"],c:0,e:"être: nous sommes."},
+{q:'Schreibe: «Sie sind müde.»',ctx:'ils · être · fatigués',type:'write',answer:"Ils sont fatigués.",e:"être: ils sont."},
+{q:'Welche Form ist korrekt?',ctx:'avoir · je · présent',a:["j'ai","je suis","je vais","je peux"],c:0,e:"avoir: j’ai."},
+{q:'Schreibe die Form.',ctx:'avoir · tu · présent',type:'write',answer:"Tu as.",e:"avoir: tu as."},
+{q:'Welche Form ist korrekt?',ctx:'avoir · nous · présent',a:["nous avons","nous sommes","nous faisons","nous prenons"],c:0,e:"avoir: nous avons."},
+{q:'Schreibe: «Sie haben Zeit.»',ctx:'elles · avoir · le temps',type:'write',answer:"Elles ont le temps.",e:"avoir: elles ont."},
+{q:'Welche Form ist korrekt?',ctx:'aller · je · présent',a:["je vais","je vas","j'alle","je viens"],c:0,e:"aller: je vais."},
+{q:'Schreibe die Form.',ctx:'aller · nous · présent',type:'write',answer:"Nous allons.",e:"aller: nous allons."},
+{q:'Welche Form ist korrekt?',ctx:'aller · ils · présent',a:["ils vont","ils vontent","ils allent","ils viennent"],c:0,e:"aller: ils vont."},
+{q:'Schreibe: «Ich gehe zur Schule.»',ctx:'aller · à l’école',type:'write',answer:"Je vais à l'école.",e:"aller: je vais."},
+{q:'Welche Form ist korrekt?',ctx:'faire · je · présent',a:["je fais","je fait","je faire","je faisais"],c:0,e:"faire: je fais."},
+{q:'Schreibe die Form.',ctx:'faire · vous · présent',type:'write',answer:"Vous faites.",e:"faire: vous faites."},
+{q:'Welche Form ist korrekt?',ctx:'faire · ils · présent',a:["ils font","ils fontent","ils faisent","ils faits"],c:0,e:"faire: ils font."},
+{q:'Schreibe: «Wir machen unsere Hausaufgaben.»',ctx:'faire · nos devoirs',type:'write',answer:"Nous faisons nos devoirs.",e:"faire: nous faisons."},
+{q:'Welche Form ist korrekt?',ctx:'venir · je · présent',a:["je viens","je venis","je vient","je vais"],c:0,e:"venir: je viens."},
+{q:'Schreibe die Form.',ctx:'venir · nous · présent',type:'write',answer:"Nous venons.",e:"venir: nous venons."},
+{q:'Welche Form ist korrekt?',ctx:'venir · ils · présent',a:["ils viennent","ils venent","ils vienent","ils vont"],c:0,e:"venir: ils viennent."},
+{q:'Schreibe: «Sie kommt aus Frankreich.»',ctx:'elle · venir de France',type:'write',answer:"Elle vient de France.",e:"venir: elle vient."},
+{q:'Welche Form ist korrekt?',ctx:'prendre · je · présent',a:["je prends","je prend","je prenne","je prenais"],c:0,e:"prendre: je prends."},
+{q:'Schreibe die Form.',ctx:'prendre · nous · présent',type:'write',answer:"Nous prenons.",e:"prendre: nous prenons."},
+{q:'Welche Form ist korrekt?',ctx:'prendre · ils · présent',a:["ils prennent","ils prenent","ils prends","ils prendrent"],c:0,e:"prendre: ils prennent."},
+{q:'Schreibe: «Ich nehme den Bus.»',ctx:'prendre · le bus',type:'write',answer:"Je prends le bus.",e:"prendre: je prends."},
+{q:'Welche Form ist korrekt?',ctx:'pouvoir · je · présent',a:["je peux","je peut","je peuxs","je pouvoir"],c:0,e:"pouvoir: je peux."},
+{q:'Schreibe die Form.',ctx:'pouvoir · nous · présent',type:'write',answer:"Nous pouvons.",e:"pouvoir: nous pouvons."},
+{q:'Welche Form ist korrekt?',ctx:'pouvoir · ils · présent',a:["ils peuvent","ils pouvent","ils peuventent","ils pouvoirs"],c:0,e:"pouvoir: ils peuvent."},
+{q:'Schreibe: «Du kannst kommen.»',ctx:'tu · pouvoir venir',type:'write',answer:"Tu peux venir.",e:"pouvoir: tu peux + Infinitiv."},
+{q:'Welche Form ist korrekt?',ctx:'vouloir · je · présent',a:["je veux","je veut","je voul","je vouloir"],c:0,e:"vouloir: je veux."},
+{q:'Schreibe die Form.',ctx:'vouloir · nous · présent',type:'write',answer:"Nous voulons.",e:"vouloir: nous voulons."},
+{q:'Welche Form ist korrekt?',ctx:'vouloir · ils · présent',a:["ils veulent","ils voulent","ils veuillent","ils veut"],c:0,e:"vouloir: ils veulent."},
+{q:'Schreibe: «Ich will lernen.»',ctx:'vouloir · apprendre',type:'write',answer:"Je veux apprendre.",e:"vouloir: je veux + Infinitiv."},
+{q:'Welche Form ist korrekt?',ctx:'devoir · je · présent',a:["je dois","je doit","je dev","je devoir"],c:0,e:"devoir: je dois."},
+{q:'Schreibe die Form.',ctx:'devoir · nous · présent',type:'write',answer:"Nous devons.",e:"devoir: nous devons."},
+{q:'Welche Form ist korrekt?',ctx:'devoir · ils · présent',a:["ils doivent","ils devent","ils doient","ils dois"],c:0,e:"devoir: ils doivent."},
+{q:'Schreibe: «Wir müssen arbeiten.»',ctx:'devoir · travailler',type:'write',answer:"Nous devons travailler.",e:"devoir: nous devons + Infinitiv."},
+{q:'Welche Form ist korrekt?',ctx:'savoir · je · présent',a:["je sais","je sait","je save","je savoir"],c:0,e:"savoir: je sais."},
+{q:'Schreibe die Form.',ctx:'savoir · vous · présent',type:'write',answer:"Vous savez.",e:"savoir: vous savez."},
+{q:'Welche Form ist korrekt?',ctx:'savoir · ils · présent',a:["ils savent","ils savont","ils saventent","ils sais"],c:0,e:"savoir: ils savent."},
+{q:'Schreibe: «Ich weiss die Antwort.»',ctx:'savoir · la réponse',type:'write',answer:"Je sais la réponse.",e:"savoir: je sais."},
+{q:'Welche Form ist korrekt?',ctx:'dire · vous · présent',a:["vous dites","vous disez","vous direz","vous ditez"],c:0,e:"dire: vous dites."},
+{q:'Schreibe: «Er sagt die Wahrheit.»',ctx:'dire · la vérité',type:'write',answer:"Il dit la vérité.",e:"dire: il dit."},
+{q:'Welche Form ist korrekt?',ctx:'lire · nous · présent',a:["nous lisons","nous lirons","nous lissons","nous lisent"],c:0,e:"lire: nous lisons."},
+{q:'Schreibe: «Sie lesen ein Buch.»',ctx:'ils · lire un livre',type:'write',answer:"Ils lisent un livre.",e:"lire: ils lisent."},
+{q:'Welche Form ist korrekt?',ctx:'écrire · je · présent',a:["j'écris","j'écrit","j'écrive","j'écrire"],c:0,e:"écrire: j’écris."},
+{q:'Schreibe: «Wir schreiben eine E-Mail.»',ctx:'écrire · un e-mail',type:'write',answer:"Nous écrivons un e-mail.",e:"écrire: nous écrivons."},
+{q:'Welche Form ist korrekt?',ctx:'boire · vous · présent',a:["vous buvez","vous boivez","vous buvons","vous boire"],c:0,e:"boire: vous buvez."},
+{q:'Schreibe: «Ich trinke Wasser.»',ctx:'boire · de l’eau',type:'write',answer:"Je bois de l'eau.",e:"boire: je bois."},
+{q:'Transfer: Übersetze.',ctx:'«Wir gehen heute ins Kino.»',type:'write',answer:"Nous allons au cinéma aujourd'hui.",e:"aller: nous allons."},
+{q:'Transfer: Übersetze.',ctx:'«Sie können Französisch sprechen.»',type:'write',answer:"Ils peuvent parler français.",e:"pouvoir: ils peuvent."},
+{q:'Transfer: Übersetze.',ctx:'«Ich muss meine Hausaufgaben machen.»',type:'write',answer:"Je dois faire mes devoirs.",e:"devoir + faire: je dois faire."},
+{q:'Fehlerkorrektur.',ctx:"Nous faissons nos devoirs.",type:'write',answer:"Nous faisons nos devoirs.",e:"faire: nous faisons."},
+{q:'Fehlerkorrektur.',ctx:"Ils venent de Paris.",type:'write',answer:"Ils viennent de Paris.",e:"venir: ils viennent."},
+{q:'Fehlerkorrektur.',ctx:"Vous disez la vérité.",type:'write',answer:"Vous dites la vérité.",e:"dire: vous dites."},
+{q:'Welche Zusammenfassung ist richtig?',ctx:'Unregelmässige Verben · 1. Oberstufe',a:["Die häufigsten unregelmässigen Verben müssen mit ihren besonderen Präsensformen gelernt und aktiv angewendet werden.","Alle französischen Verben haben dieselben Endungen.","Unregelmässige Verben gibt es nur in der Vergangenheit.","Bei unregelmässigen Verben wird immer avoir verwendet."],c:0,e:"Häufige unregelmässige Verben haben eigene Formen, die durch wiederholtes Anwenden gefestigt werden."}
+];
+let queue=[],current=0,score=0,answered=false,wrongCounts={},attempts=0,correctFirst=0,roundMode='learn',mistakeOnly=false;
+const STORAGE_KEY="fr_franzoesisch_unregelmaessige_verben_1_oberstufe";
+const step=document.getElementById('step'),fill=document.getElementById('fill'),scoreEl=document.getElementById('score'),
+question=document.getElementById('question'),context=document.getElementById('context'),options=document.getElementById('options'),
+feedback=document.getElementById('feedback'),next=document.getElementById('next'),quizCard=document.getElementById('quizCard'),
+result=document.getElementById('result'),resultScore=document.getElementById('resultScore'),resultText=document.getElementById('resultText'),
+restart=document.getElementById('restart'),mode=document.getElementById('mode'),mistakesBtn=document.getElementById('mistakesBtn'),examBtn=document.getElementById('examBtn');
+
+function norm(v){return v.trim().toLowerCase().replace(/[’‘`´]/g,"'").replace(/\s+/g," ").replace(/[.!?]+$/,"")}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function getData(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{}}catch(e){return {}}}
+function saveData(data){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data))}catch(e){}}
+function questionId(x){return x.id ?? baseQuestions.indexOf(x)}
+function buildRound(onlyMistakes=false){
+  const saved=getData(), mastery=saved.mastery||{};
+  let pool=baseQuestions.map((x,i)=>({...x,id:i,review:false}));
+  if(onlyMistakes) pool=pool.filter(x=>(mastery[x.id]||0)<2 || (saved.wrongIds||[]).includes(x.id));
+  if(!pool.length) pool=baseQuestions.map((x,i)=>({...x,id:i,review:false}));
+  if(new URLSearchParams(location.search).get('smart')==='1' && window.FRLearning){
+    pool.sort((a,b)=>FRLearning.dueScore(STORAGE_KEY,b.id)-FRLearning.dueScore(STORAGE_KEY,a.id));
+  } else shuffle(pool);
+  // Max. 20 Startaufgaben; Wiederholungen können die Runde verlängern.
+  return pool.slice(0,Math.min(20,pool.length));
+}
+function reset(onlyMistakes=false){
+  roundMode=new URLSearchParams(location.search).get('mode')==='exam'?'exam':'learn';
+  mistakeOnly=onlyMistakes; queue=buildRound(onlyMistakes); current=0;score=0;attempts=0;correctFirst=0;answered=false;wrongCounts={};
+  quizCard.classList.remove('hidden');result.classList.add('hidden');load();
+}
+function load(){
+  if(current>=queue.length){finish();return}
+  answered=false; const x=queue[current];
+  step.textContent=`Aufgabe ${current+1} von ${queue.length}`; fill.style.width=(current/queue.length*100)+'%'; scoreEl.textContent=`${score} richtig`;
+  mode.textContent=roundMode==='exam'?'🎓 Prüfung':(x.review?'🔁 Wiederholung':(x.type==='write'?'⌨️ Selbst schreiben':'🇫🇷 Üben'));
+  question.innerHTML=x.q; context.innerHTML=x.ctx; options.innerHTML=''; feedback.className='feedback';feedback.innerHTML='';next.classList.remove('active');
+  if(x.type==='write'){
+    options.innerHTML='<div class="mode-badge">⌨️ Ohne Auswahl – selbst schreiben</div><input id="writeInput" class="write-input" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Antwort auf Französisch eingeben …"><button id="checkWrite" class="check-write">Antwort prüfen</button>';
+    const inp=document.getElementById('writeInput'),btn=document.getElementById('checkWrite');btn.onclick=()=>checkWrite(inp,btn,x);inp.onkeydown=e=>{if(e.key==='Enter'&&!answered)checkWrite(inp,btn,x)};setTimeout(()=>inp.focus(),50);
+  } else {x.a.forEach((t,i)=>{const b=document.createElement('button');b.className='option';b.textContent=t;b.onclick=()=>choose(i,b,x);options.appendChild(b)})}
+}
+function record(ok,x){
+  attempts++; if(ok)score++; if(ok&&!x.review)correctFirst++;
+  const data=getData(), mastery=data.mastery||{}, id=questionId(x); data.totalAttempts=(data.totalAttempts||0)+1; data.totalCorrect=(data.totalCorrect||0)+(ok?1:0); data.lastPlayed=new Date().toISOString();
+  if(ok) mastery[id]=Math.min(3,(mastery[id]||0)+1); else mastery[id]=0;
+  data.mastery=mastery; let wrong=new Set(data.wrongIds||[]); if(ok && mastery[id]>=2)wrong.delete(id); if(!ok)wrong.add(id); data.wrongIds=[...wrong]; saveData(data);
+  if(window.FRLearning) FRLearning.record(STORAGE_KEY,id,ok,!!x.review,(x.ctx||x.q||('Aufgabe '+(id+1))).replace(/<[^>]+>/g,''));
+  if(!ok && roundMode!=='exam'){wrongCounts[id]=(wrongCounts[id]||0)+1; const gap=wrongCounts[id]>=2?2:3; queue.splice(Math.min(current+gap+1,queue.length),0,{...x,review:true})}
+  scoreEl.textContent=`${score} richtig`;
+}
+function showFeedback(ok,x,answerText=''){
+  if(roundMode==='exam'){feedback.className='feedback show';feedback.innerHTML='<strong>Antwort gespeichert.</strong>';}
+  else {feedback.className='feedback show '+(ok?'good':'bad');feedback.innerHTML=ok?`<strong>✓ Richtig!</strong><br>${x.e}`:`<strong>✗ Noch nicht.</strong>${answerText}<br>${x.e}`;}
+  next.classList.add('active');
+}
+function choose(i,b,x){if(answered)return;answered=true;const ok=i===x.c;const bs=[...options.querySelectorAll('.option')];bs.forEach(el=>el.disabled=true);if(roundMode!=='exam'){bs.forEach((el,j)=>{if(j===x.c)el.classList.add('correct')});if(!ok)b.classList.add('wrong')}record(ok,x);showFeedback(ok,x)}
+function checkWrite(inp,btn,x){if(answered||!norm(inp.value))return;answered=true;inp.disabled=true;btn.disabled=true;const ok=norm(inp.value)===norm(x.answer);if(roundMode!=='exam')inp.classList.add(ok?'correct':'wrong');record(ok,x);showFeedback(ok,x,`<br>Richtige Lösung: <strong>${x.answer}</strong>`)}
+function finish(){
+  quizCard.classList.add('hidden');result.classList.remove('hidden');fill.style.width='100%';
+  const data=getData(), mastery=data.mastery||{}, mastered=Object.values(mastery).filter(v=>v>=2).length, pct=Math.round((score/Math.max(1,attempts))*100), wrongIds=data.wrongIds||[];
+  data.best=Math.max(data.best||0,pct);data.lastScore=pct;data.completed=(data.completed||0)+1;saveData(data);
+  if(window.FRLearning) FRLearning.finish(STORAGE_KEY,pct);
+  resultScore.textContent=`${score} von ${attempts} Antworten richtig (${pct} %)`;
+  resultText.innerHTML=`<strong>${mastered} von ${baseQuestions.length}</strong> Aufgaben gelten als gefestigt.<br>Persönlicher Bestwert: <strong>${data.best} %</strong>.${roundMode==='exam'?'<br>Im Prüfungsmodus wurden Lösungen erst am Schluss bewertet.':''}`;
+  mistakesBtn.style.display=wrongIds.length?'inline-block':'none';
+}
+next.onclick=()=>{current++;load()};restart.onclick=()=>{history.replaceState(null,'',location.pathname);reset(false)};mistakesBtn.onclick=()=>{history.replaceState(null,'',location.pathname);reset(true)};examBtn.onclick=()=>{history.replaceState(null,'',location.pathname+'?mode=exam');reset(false)};
+reset(false);
+</script>
+<script>
+window.addEventListener('scroll',()=> {
+ const n=document.getElementById('navbar');
+ if(n) n.classList.toggle('scrolled',window.scrollY>30);
+});
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js'));
+}
+</script>
+
+<script>
+(function(){
+ function paint(){
+   if(!window.FRLearning)return;
+   const s=FRLearning.summary(), set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+   set('smartXp','⭐ '+s.xp+' XP');set('smartLevel','Level '+FRLearning.level(s.xp));
+   set('smartStreak','🔥 '+s.streak+' Tag'+(s.streak===1?'':'e'));
+   set('smartGoal','Tagesziel '+Math.min(20,s.day.answered)+'/20');
+ }
+ window.addEventListener('load',paint);document.addEventListener('click',()=>setTimeout(paint,60));
+})();
+</script>
+
+<script>
+(()=>{
+const hint="Unregelmässige Verben folgen nicht vollständig den normalen Konjugationsmustern. Lerne besonders die häufigen Formen von être, avoir, aller, faire, venir, prendre, pouvoir, vouloir, devoir und savoir.",strategy="Infinitiv erkennen → Subjekt bestimmen → passende Präsensform abrufen → Besonderheiten im Stamm beachten → Form im ganzen Satz anwenden.";
+const H=document.getElementById('v7Hint'),S=document.getElementById('v7Strategy');
+if(H)H.textContent='Hinweis: '+hint;if(S)S.textContent='Strategie: '+strategy;
+document.getElementById('v7HintBtn')?.addEventListener('click',()=>H?.classList.toggle('open'));
+document.getElementById('v7StrategyBtn')?.addEventListener('click',()=>S?.classList.toggle('open'));
+document.querySelectorAll('[data-v7]').forEach(b=>b.addEventListener('click',()=>{try{const k='fr_didactic_reflection_v7',d=JSON.parse(localStorage.getItem(k)||'{}');d[b.dataset.v7]=(d[b.dataset.v7]||0)+1;localStorage.setItem(k,JSON.stringify(d));}catch(e){}document.getElementById('v7Reflect')?.classList.remove('open')}));
+let prev='';const f=document.getElementById('feedback');if(f)new MutationObserver(()=>{const t=f.textContent.trim();if(t&&t!==prev&&/noch nicht|falsch|nicht richtig|richtig wäre/i.test(t)){prev=t;setTimeout(()=>document.getElementById('v7Reflect')?.classList.add('open'),450)}}).observe(f,{subtree:true,childList:true,characterData:true});
+try{const x=FRLearning.summary(),qs=[];Object.values(x.modules||{}).forEach(m=>Object.values(m.questions||{}).forEach(q=>qs.push(q.strength||0)));const a=qs.length?qs.reduce((x,y)=>x+y,0)/qs.length:0;const b=document.getElementById('v7Badge');if(b)b.textContent=a<1.5?'🎯 Adaptiv · mit Unterstützung':a<3?'🎯 Adaptiv · selbstständig':'🎯 Adaptiv · aktive Erinnerung';}catch(e){}
+})();</script>
+  <div class="fox-coach" id="foxCoach" title="Klick mich für einen Lerntipp">
+    <div class="fox-mini-bubble" id="foxBubble">
+        Petit conseil ! Du schaffst das. 🇫🇷
+    </div>
+
+    <img id="foxCoachImg"
+         src="fuchs-tipp.png"
+         alt="Französischer Lernfuchs">
+</div>
+
+<script id="fox-click-tips">
+(function(){
+  const box=document.getElementById('foxCoach');
+  const bubble=document.getElementById('foxBubble');
+  if(!box||!bubble)return;
+  const tips=[
+    '<b>Allez ! 💪</b><br>Schon 10 Minuten konzentriertes Üben bringen dich weiter.',
+    '<b>Petit conseil ✨</b><br>Sprich französische Antworten ruhig laut aus – das hilft beim Erinnern.',
+    '<b>Courage ! 🦊</b><br>Fehler gehören zum Lernen. Schwierige Aufgaben einfach nochmals probieren.',
+    '<b>Très bien ! 🇫🇷</b><br>Regelmässige kurze Wiederholungen sind besser als einmal sehr lange zu lernen.'
+  ];
+  let tipIndex=0;
+  box.addEventListener('click',()=>{
+    bubble.innerHTML=tips[tipIndex++ % tips.length];
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+  });
+})();
+</script>
+
+
+<script id="fox-correct-answer-image">
+(function(){
+  const CORRECT_FOX = 'fuchs-richtig.png';
+
+  function foxImg(){
+    return document.getElementById('foxCoachImg') ||
+           document.getElementById('foxMascot') ||
+           document.querySelector('.fox-coach img') ||
+           document.querySelector('.fox-guide img');
+  }
+
+  function showCorrectFox(){
+    const img = foxImg();
+    if(!img) return;
+    img.src = CORRECT_FOX;
+
+    const bubble = document.getElementById('foxBubble');
+    if(bubble){
+      bubble.innerHTML = '<b>Très bien ! ⭐</b><br>Das ist richtig!';
+      bubble.classList.remove('is-hidden');
+    }
+
+    const box = document.getElementById('foxCoach') || document.getElementById('foxGuide');
+    if(box){
+      box.classList.remove('pop');
+      void box.offsetWidth;
+      box.classList.add('pop');
+    }
+  }
+
+  function watch(el){
+    if(!el || el.dataset.foxCorrectWatch === '1') return;
+    el.dataset.foxCorrectWatch = '1';
+    new MutationObserver(()=>{
+      if(el.classList.contains('correct')) showCorrectFox();
+    }).observe(el,{attributes:true,attributeFilter:['class']});
+    if(el.classList.contains('correct')) showCorrectFox();
+  }
+
+  document.querySelectorAll('.option,.write-input').forEach(watch);
+
+  new MutationObserver(muts=>{
+    muts.forEach(m=>m.addedNodes.forEach(n=>{
+      if(!(n instanceof Element)) return;
+      if(n.matches?.('.option,.write-input')) watch(n);
+      n.querySelectorAll?.('.option,.write-input').forEach(watch);
+    }));
+  }).observe(document.body,{childList:true,subtree:true});
+})();
+</script>
+
+
+<script id="fox-wrong-answer-image">
+(function(){
+  const WRONG_FOX = 'fuchs-falsch.png';
+
+  function foxImg(){
+    return document.getElementById('foxCoachImg') ||
+           document.getElementById('foxMascot') ||
+           document.querySelector('.fox-coach img') ||
+           document.querySelector('.fox-guide img');
+  }
+
+  function showWrongFox(){
+    const img = foxImg();
+    if(!img) return;
+    img.src = WRONG_FOX;
+
+    const bubble = document.getElementById('foxBubble');
+    if(bubble){
+      bubble.innerHTML = '<b>Presque ! ❤️</b><br>Versuch es noch einmal!';
+      bubble.classList.remove('is-hidden');
+    }
+
+    const box = document.getElementById('foxCoach') || document.getElementById('foxGuide');
+    if(box){
+      box.classList.remove('pop');
+      void box.offsetWidth;
+      box.classList.add('pop');
+    }
+  }
+
+  function watch(el){
+    if(!el || el.dataset.foxWrongWatch === '1') return;
+    el.dataset.foxWrongWatch = '1';
+    new MutationObserver(()=>{
+      if(el.classList.contains('wrong')) showWrongFox();
+    }).observe(el,{attributes:true,attributeFilter:['class']});
+    if(el.classList.contains('wrong')) showWrongFox();
+  }
+
+  document.querySelectorAll('.option,.write-input').forEach(watch);
+
+  new MutationObserver(muts=>{
+    muts.forEach(m=>m.addedNodes.forEach(n=>{
+      if(!(n instanceof Element)) return;
+      if(n.matches?.('.option,.write-input')) watch(n);
+      n.querySelectorAll?.('.option,.write-input').forEach(watch);
+    }));
+  }).observe(document.body,{childList:true,subtree:true});
+})();
+</script>
+
+</body>
+</html>
+<style>html,body{margin-top:0!important;} nav.site-header{top:0!important;}</style>

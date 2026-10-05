@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste unregelmässiger Verben · Französisch lernen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#0D1433,#121E47);font-family:Jost,sans-serif;color:#18213d}nav:not(.main-nav){position:sticky;top:0;z-index:5;background:#0D1433ee;border-bottom:1px solid #B7944055;padding:1rem 4rem;display:flex;justify-content:space-between;align-items:center}.brand{color:#fff;text-decoration:none;font-weight:600;letter-spacing:.15em}.home{color:#D4AF60;border:1px solid #B79440;padding:.5rem 1rem;text-decoration:none}.hero{text-align:center;color:#fff;padding:55px 20px 30px}.hero small{color:#D4AF60;letter-spacing:.18em}.hero h1{font:400 clamp(38px,7vw,62px) 'Cormorant Garamond';margin:10px}.hero h1 span{color:#D4AF60}.hero p{max-width:700px;margin:auto;color:#C0D4F2;line-height:1.7}.wrap{max-width:900px;margin:auto;padding:0 20px 70px}.tabs{display:flex;justify-content:center;gap:8px;margin:0 0 18px}.tab{border:1px solid #B79440;background:#fff;color:#0D1433;padding:11px 16px;font-weight:700;cursor:pointer}.tab.active{background:#B79440}.panel{display:none}.panel.active{display:block}.card{background:#fff;border:1px solid #e8dcc0;border-radius:18px;padding:clamp(22px,5vw,38px);box-shadow:0 18px 50px #0003}.block{border-bottom:1px solid #e5e9f5;padding:17px 0}.block:last-child{border:0}.block h3{margin:0 0 7px;font-family:'Cormorant Garamond';font-size:26px}.block p{margin:0;color:#566078;line-height:1.7}.example{margin-top:10px;background:#f7f0df;border-left:3px solid #B79440;padding:12px;color:#0D1433}.fox{background:#fff8e9;border-radius:12px;padding:14px;margin-top:10px}.warn{background:#fff3f3;border-radius:12px;padding:14px;margin-top:10px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}.btn{background:#B79440;color:#0D1433;padding:12px 17px;text-decoration:none;font-weight:800;border-radius:3px;transition:.2s}.btn:hover{background:#D4AF60;transform:translateY(-2px)}.back{background:#fff;border:1px solid #B79440}@media(max-width:700px){nav{padding:1rem}.tabs{flex-direction:column}.tab{width:100%}}
+
+/* Header identisch zur Hauptseite */
+:root{--navy:#0D1433;--midnight:#121E47;--gold:#B79440;--gold-lt:#D4AF60;--ice:#C0D4F2;--white:#FFFFFF;--ease:cubic-bezier(.4,0,.2,1)}
+nav.main-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 4rem;background:rgba(13,20,51,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(183,148,64,.2);transition:padding .3s var(--ease)}
+.main-nav .nav-logo{display:flex;align-items:center;gap:.75rem;color:inherit;text-decoration:none}
+.main-nav .monogram{width:34px;height:34px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:1rem;color:var(--navy);flex-shrink:0}
+.main-nav .wordmark{font-family:Jost,sans-serif;font-weight:600;letter-spacing:.18em;font-size:.9rem;color:#fff}
+.main-nav .nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none;margin:0;padding:0}
+.main-nav .nav-links a{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ice);font-weight:400;position:relative;padding-bottom:3px;text-decoration:none;transition:color .2s}
+.main-nav .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .3s var(--ease)}
+.main-nav .nav-links a:hover{color:#fff}.main-nav .nav-links a:hover::after{width:100%}
+.main-nav .nav-cta{background:transparent;border:1px solid var(--gold);color:var(--gold)!important;padding:.5rem 1.4rem;border-radius:2px;transition:all .25s!important}
+.main-nav .nav-cta:hover{background:var(--gold)!important;color:var(--navy)!important}.main-nav .nav-cta::after{display:none!important}
+body{padding-top:76px}
+@media(max-width:900px){nav.main-nav{padding:1rem 2rem}.main-nav .nav-links{display:none}}
+
+
+/* ── Übersicht unregelmässige Verben ── */
+.verb-reference{margin-top:3rem}
+.verb-reference h2{font-family:var(--font-display,'Cormorant Garamond',Georgia,serif);font-size:2.15rem;font-weight:400;margin-bottom:.65rem}
+.verb-reference-intro{color:var(--ice,#C0D4F2);line-height:1.7;margin-bottom:1.5rem;max-width:850px}
+.verb-controls{display:flex;gap:.65rem;flex-wrap:wrap;margin:1.2rem 0 1.5rem}
+.verb-filter{border:1px solid rgba(183,148,64,.38);background:transparent;color:var(--gold-lt,#D4AF60);padding:.62rem .9rem;font:600 .72rem Jost,Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:.22s}
+.verb-filter:hover,.verb-filter.active{background:var(--gold,#B79440);color:var(--navy,#0D1433);border-color:var(--gold,#B79440)}
+.verb-table-wrap{overflow-x:auto;border:1px solid rgba(183,148,64,.22);background:rgba(13,20,51,.45)}
+.verb-table{width:100%;border-collapse:collapse;min-width:940px}
+.verb-table th{background:var(--navy,#0D1433);color:var(--gold-lt,#D4AF60);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;text-align:left;padding:.9rem .85rem;border-bottom:1px solid rgba(183,148,64,.32)}
+.verb-table td{padding:.9rem .85rem;vertical-align:top;border-bottom:1px solid rgba(255,255,255,.07);color:var(--ice,#C0D4F2);font-size:.86rem;line-height:1.55}
+.verb-table tr:last-child td{border-bottom:0}.verb-table tbody tr:hover{background:rgba(183,148,64,.055)}
+.verb-name{color:#fff;font-weight:600}.verb-meaning{color:var(--gray,#8A95A8);font-size:.78rem;display:block;margin-top:.2rem}
+.verb-form{white-space:normal}.verb-note{margin-top:1rem;color:var(--gray,#8A95A8);font-size:.8rem;line-height:1.6}
+@media(max-width:700px){.verb-reference h2{font-size:1.8rem}.verb-filter{flex:1 1 calc(50% - .65rem);text-align:center}}
+
+
+.list-page{max-width:1200px;margin:0 auto;padding:4.5rem 4rem 6rem}
+.back-link{display:inline-block;margin-bottom:2rem;color:var(--gold-lt,#D4AF60);text-decoration:none;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase}
+.back-link:hover{color:#fff}
+@media(max-width:800px){.list-page{padding:3rem 1.25rem 5rem}}
+</style>
+
+<style id="verb-list-gold-headings">
+.verb-reference .section-label{
+  color:var(--gold-lt,#D4AF60) !important;
+}
+.verb-reference h2,
+.verb-reference h2 em{
+  color:var(--gold-lt,#D4AF60) !important;
+}
+</style>
+
+</head>
+<body>
+<nav class="main-nav" id="navbar">
+  <a href="main.html#hero" class="nav-logo"><div class="monogram">FR</div><span class="wordmark">Französisch lernen</span></a>
+  <ul class="nav-links">
+    <li><a href="main.html#Ler">Lernen</a></li>
+    <li><a href="main.html#theorie">Theorie</a></li>
+    <li><a href="main.html#Spi">Übungen</a></li>
+    <li><a href="main.html#Fortschritt">Mein Fortschritt</a></li>
+    <li><a href="main.html#Pruefung">Prüfung</a></li>
+    <li><a href="main.html#lernwerkstatt">Lernwerkstatt</a></li>
+    <li><a href="main.html#Spi" class="nav-cta">Jetzt üben</a></li>
+  </ul>
+</nav>
+<main class="list-page">
+<a class="back-link" href="main.html#theorie">← Zurück zur Theorie</a>
+<section class="verb-reference">
+  <p class="section-label">Nachschlagen & lernen</p>
+  <h2>Liste der <em style="color:var(--gold)">unregelmässigen Verben</em></h2>
+  <div class="gold-bar"></div>
+  <p class="verb-reference-intro">Die wichtigsten unregelmässigen Verben auf einen Blick. Im Präsens, Imparfait, Futur simple, Conditionnel présent und Subjonctif présent sind die Formen in der Reihenfolge <strong>je · tu · il/elle/on · nous · vous · ils/elles</strong> angegeben. Beim passé composé steht das participe passé.</p>
+  <div class="verb-controls">
+    <button class="verb-filter active" data-show="all">Alle Formen</button>
+    <button class="verb-filter" data-show="present">Präsens</button>
+    <button class="verb-filter" data-show="pc">Passé composé</button>
+    <button class="verb-filter" data-show="imparfait">Imparfait</button>
+    <button class="verb-filter" data-show="futur">Futur simple</button>
+    <button class="verb-filter" data-show="conditionnel">Conditionnel</button>
+    <button class="verb-filter" data-show="subjonctif">Subjonctif</button>
+  </div>
+  <div class="verb-table-wrap">
+    <table class="verb-table">
+      <thead><tr>
+        <th>Verb</th><th data-col="present">Präsens</th><th data-col="pc">Participe passé</th>
+        <th data-col="imparfait">Imparfait</th><th data-col="futur">Futur-Stamm</th>
+        <th data-col="conditionnel">Conditionnel présent</th><th data-col="subjonctif">Subjonctif présent</th>
+      </tr></thead>
+      <tbody><tr><td><span class="verb-name">être</span><span class="verb-meaning">sein</span></td><td class="verb-form" data-col="present">suis · es · est · sommes · êtes · sont</td><td class="verb-form" data-col="pc">été</td><td class="verb-form" data-col="imparfait">étais · étais · était · étions · étiez · étaient</td><td class="verb-form" data-col="futur">ser-</td><td class="verb-form" data-col="conditionnel">serais · serais · serait · serions · seriez · seraient</td><td class="verb-form" data-col="subjonctif">sois · soit · soyons · soyez · soient</td></tr>
+<tr><td><span class="verb-name">avoir</span><span class="verb-meaning">haben</span></td><td class="verb-form" data-col="present">ai · as · a · avons · avez · ont</td><td class="verb-form" data-col="pc">eu</td><td class="verb-form" data-col="imparfait">avais · avais · avait · avions · aviez · avaient</td><td class="verb-form" data-col="futur">aur-</td><td class="verb-form" data-col="conditionnel">aurais · aurais · aurait · aurions · auriez · auraient</td><td class="verb-form" data-col="subjonctif">aie · ait · ayons · ayez · aient</td></tr>
+<tr><td><span class="verb-name">aller</span><span class="verb-meaning">gehen</span></td><td class="verb-form" data-col="present">vais · vas · va · allons · allez · vont</td><td class="verb-form" data-col="pc">allé(e)(s)</td><td class="verb-form" data-col="imparfait">allais · allais · allait · allions · alliez · allaient</td><td class="verb-form" data-col="futur">ir-</td><td class="verb-form" data-col="conditionnel">irais · irais · irait · irions · iriez · iraient</td><td class="verb-form" data-col="subjonctif">aille · ailles · aille · allions · alliez · aillent</td></tr>
+<tr><td><span class="verb-name">faire</span><span class="verb-meaning">machen</span></td><td class="verb-form" data-col="present">fais · fais · fait · faisons · faites · font</td><td class="verb-form" data-col="pc">fait</td><td class="verb-form" data-col="imparfait">faisais · faisais · faisait · faisions · faisiez · faisaient</td><td class="verb-form" data-col="futur">fer-</td><td class="verb-form" data-col="conditionnel">ferais · ferais · ferait · ferions · feriez · feraient</td><td class="verb-form" data-col="subjonctif">fasse · fasses · fasse · fassions · fassiez · fassent</td></tr>
+<tr><td><span class="verb-name">venir</span><span class="verb-meaning">kommen</span></td><td class="verb-form" data-col="present">viens · viens · vient · venons · venez · viennent</td><td class="verb-form" data-col="pc">venu(e)(s)</td><td class="verb-form" data-col="imparfait">venais · venais · venait · venions · veniez · venaient</td><td class="verb-form" data-col="futur">viendr-</td><td class="verb-form" data-col="conditionnel">viendrais · viendrais · viendrait · viendrions · viendriez · viendraient</td><td class="verb-form" data-col="subjonctif">vienne · viennes · vienne · venions · veniez · viennent</td></tr>
+<tr><td><span class="verb-name">prendre</span><span class="verb-meaning">nehmen</span></td><td class="verb-form" data-col="present">prends · prends · prend · prenons · prenez · prennent</td><td class="verb-form" data-col="pc">pris</td><td class="verb-form" data-col="imparfait">prenais · prenais · prenait · prenions · preniez · prenaient</td><td class="verb-form" data-col="futur">prendr-</td><td class="verb-form" data-col="conditionnel">prendrais · prendrais · prendrait · prendrions · prendriez · prendraient</td><td class="verb-form" data-col="subjonctif">prenne · prennes · prenne · prenions · preniez · prennent</td></tr>
+<tr><td><span class="verb-name">pouvoir</span><span class="verb-meaning">können</span></td><td class="verb-form" data-col="present">peux · peux · peut · pouvons · pouvez · peuvent</td><td class="verb-form" data-col="pc">pu</td><td class="verb-form" data-col="imparfait">pouvais · pouvais · pouvait · pouvions · pouviez · pouvaient</td><td class="verb-form" data-col="futur">pourr-</td><td class="verb-form" data-col="conditionnel">pourrais · pourrais · pourrait · pourrions · pourriez · pourraient</td><td class="verb-form" data-col="subjonctif">puisse · puisses · puisse · puissions · puissiez · puissent</td></tr>
+<tr><td><span class="verb-name">vouloir</span><span class="verb-meaning">wollen</span></td><td class="verb-form" data-col="present">veux · veux · veut · voulons · voulez · veulent</td><td class="verb-form" data-col="pc">voulu</td><td class="verb-form" data-col="imparfait">voulais · voulais · voulait · voulions · vouliez · voulaient</td><td class="verb-form" data-col="futur">voudr-</td><td class="verb-form" data-col="conditionnel">voudrais · voudrais · voudrait · voudrions · voudriez · voudraient</td><td class="verb-form" data-col="subjonctif">veuille · veuilles · veuille · voulions · vouliez · veuillent</td></tr>
+<tr><td><span class="verb-name">devoir</span><span class="verb-meaning">müssen / sollen</span></td><td class="verb-form" data-col="present">dois · dois · doit · devons · devez · doivent</td><td class="verb-form" data-col="pc">dû</td><td class="verb-form" data-col="imparfait">devais · devais · devait · devions · deviez · devaient</td><td class="verb-form" data-col="futur">devr-</td><td class="verb-form" data-col="conditionnel">devrais · devrais · devrait · devrions · devriez · devraient</td><td class="verb-form" data-col="subjonctif">doive · doives · doive · devions · deviez · doivent</td></tr>
+<tr><td><span class="verb-name">savoir</span><span class="verb-meaning">wissen</span></td><td class="verb-form" data-col="present">sais · sais · sait · savons · savez · savent</td><td class="verb-form" data-col="pc">su</td><td class="verb-form" data-col="imparfait">savais · savais · savait · savions · saviez · savaient</td><td class="verb-form" data-col="futur">saur-</td><td class="verb-form" data-col="conditionnel">saurais · saurais · saurait · saurions · sauriez · sauraient</td><td class="verb-form" data-col="subjonctif">sache · saches · sache · sachions · sachiez · sachent</td></tr>
+<tr><td><span class="verb-name">dire</span><span class="verb-meaning">sagen</span></td><td class="verb-form" data-col="present">dis · dis · dit · disons · dites · disent</td><td class="verb-form" data-col="pc">dit</td><td class="verb-form" data-col="imparfait">disais · disais · disait · disions · disiez · disaient</td><td class="verb-form" data-col="futur">dir-</td><td class="verb-form" data-col="conditionnel">dirais · dirais · dirait · dirions · diriez · diraient</td><td class="verb-form" data-col="subjonctif">dise · dises · dise · disions · disiez · disent</td></tr>
+<tr><td><span class="verb-name">lire</span><span class="verb-meaning">lesen</span></td><td class="verb-form" data-col="present">lis · lis · lit · lisons · lisez · lisent</td><td class="verb-form" data-col="pc">lu</td><td class="verb-form" data-col="imparfait">lisais · lisais · lisait · lisions · lisiez · lisaient</td><td class="verb-form" data-col="futur">lir-</td><td class="verb-form" data-col="conditionnel">lirais · lirais · lirait · lirions · liriez · liraient</td><td class="verb-form" data-col="subjonctif">lise · lises · lise · lisions · lisiez · lisent</td></tr>
+<tr><td><span class="verb-name">écrire</span><span class="verb-meaning">schreiben</span></td><td class="verb-form" data-col="present">écris · écris · écrit · écrivons · écrivez · écrivent</td><td class="verb-form" data-col="pc">écrit</td><td class="verb-form" data-col="imparfait">écrivais · écrivais · écrivait · écrivions · écriviez · écrivaient</td><td class="verb-form" data-col="futur">écrir-</td><td class="verb-form" data-col="conditionnel">écrirais · écrirais · écrirait · écririons · écririez · écriraient</td><td class="verb-form" data-col="subjonctif">écrive · écrives · écrive · écrivions · écriviez · écrivent</td></tr>
+<tr><td><span class="verb-name">boire</span><span class="verb-meaning">trinken</span></td><td class="verb-form" data-col="present">bois · bois · boit · buvons · buvez · boivent</td><td class="verb-form" data-col="pc">bu</td><td class="verb-form" data-col="imparfait">buvais · buvais · buvait · buvions · buviez · buvaient</td><td class="verb-form" data-col="futur">boir-</td><td class="verb-form" data-col="conditionnel">boirais · boirais · boirait · boirions · boiriez · boiraient</td><td class="verb-form" data-col="subjonctif">boive · boives · boive · buvions · buviez · boivent</td></tr>
+<tr><td><span class="verb-name">mettre</span><span class="verb-meaning">setzen / stellen / legen</span></td><td class="verb-form" data-col="present">mets · mets · met · mettons · mettez · mettent</td><td class="verb-form" data-col="pc">mis</td><td class="verb-form" data-col="imparfait">mettais · mettais · mettait · mettions · mettiez · mettaient</td><td class="verb-form" data-col="futur">mettr-</td><td class="verb-form" data-col="conditionnel">mettrais · mettrais · mettrait · mettrions · mettriez · mettraient</td><td class="verb-form" data-col="subjonctif">mette · mettes · mette · mettions · mettiez · mettent</td></tr>
+<tr><td><span class="verb-name">partir</span><span class="verb-meaning">weggehen / abreisen</span></td><td class="verb-form" data-col="present">pars · pars · part · partons · partez · partent</td><td class="verb-form" data-col="pc">parti(e)(s)</td><td class="verb-form" data-col="imparfait">partais · partais · partait · partions · partiez · partaient</td><td class="verb-form" data-col="futur">partir-</td><td class="verb-form" data-col="conditionnel">partirais · partirais · partirait · partirions · partiriez · partiraient</td><td class="verb-form" data-col="subjonctif">parte · partes · parte · partions · partiez · partent</td></tr>
+<tr><td><span class="verb-name">sortir</span><span class="verb-meaning">hinausgehen</span></td><td class="verb-form" data-col="present">sors · sors · sort · sortons · sortez · sortent</td><td class="verb-form" data-col="pc">sorti(e)(s)</td><td class="verb-form" data-col="imparfait">sortais · sortais · sortait · sortions · sortiez · sortaient</td><td class="verb-form" data-col="futur">sortir-</td><td class="verb-form" data-col="conditionnel">sortirais · sortirais · sortirait · sortirions · sortiriez · sortiraient</td><td class="verb-form" data-col="subjonctif">sorte · sortes · sorte · sortions · sortiez · sortent</td></tr>
+<tr><td><span class="verb-name">dormir</span><span class="verb-meaning">schlafen</span></td><td class="verb-form" data-col="present">dors · dors · dort · dormons · dormez · dorment</td><td class="verb-form" data-col="pc">dormi</td><td class="verb-form" data-col="imparfait">dormais · dormais · dormait · dormions · dormiez · dormaient</td><td class="verb-form" data-col="futur">dormir-</td><td class="verb-form" data-col="conditionnel">dormirais · dormirais · dormirait · dormirions · dormiriez · dormiraient</td><td class="verb-form" data-col="subjonctif">dorme · dormes · dorme · dormions · dormiez · dorment</td></tr>
+<tr><td><span class="verb-name">ouvrir</span><span class="verb-meaning">öffnen</span></td><td class="verb-form" data-col="present">ouvre · ouvres · ouvre · ouvrons · ouvrez · ouvrent</td><td class="verb-form" data-col="pc">ouvert</td><td class="verb-form" data-col="imparfait">ouvrais · ouvrais · ouvrait · ouvrions · ouvriez · ouvraient</td><td class="verb-form" data-col="futur">ouvrir-</td><td class="verb-form" data-col="conditionnel">ouvrirais · ouvrirais · ouvrirait · ouvririons · ouvririez · ouvriraient</td><td class="verb-form" data-col="subjonctif">ouvre · ouvres · ouvre · ouvrions · ouvriez · ouvrent</td></tr>
+<tr><td><span class="verb-name">connaître</span><span class="verb-meaning">kennen</span></td><td class="verb-form" data-col="present">connais · connais · connaît · connaissons · connaissez · connaissent</td><td class="verb-form" data-col="pc">connu</td><td class="verb-form" data-col="imparfait">connaissais · connaissais · connaissait · connaissions · connaissiez · connaissaient</td><td class="verb-form" data-col="futur">connaîtr-</td><td class="verb-form" data-col="conditionnel">connaîtrais · connaîtrais · connaîtrait · connaîtrions · connaîtriez · connaîtraient</td><td class="verb-form" data-col="subjonctif">connaisse · connaisses · connaisse · connaissions · connaissiez · connaissent</td></tr>
+<tr><td><span class="verb-name">croire</span><span class="verb-meaning">glauben</span></td><td class="verb-form" data-col="present">crois · crois · croit · croyons · croyez · croient</td><td class="verb-form" data-col="pc">cru</td><td class="verb-form" data-col="imparfait">croyais · croyais · croyait · croyions · croyiez · croyaient</td><td class="verb-form" data-col="futur">croir-</td><td class="verb-form" data-col="conditionnel">croirais · croirais · croirait · croirions · croiriez · croiraient</td><td class="verb-form" data-col="subjonctif">croie · croies · croie · croyions · croyiez · croient</td></tr>
+<tr><td><span class="verb-name">vivre</span><span class="verb-meaning">leben</span></td><td class="verb-form" data-col="present">vis · vis · vit · vivons · vivez · vivent</td><td class="verb-form" data-col="pc">vécu</td><td class="verb-form" data-col="imparfait">vivais · vivais · vivait · vivions · viviez · vivaient</td><td class="verb-form" data-col="futur">vivr-</td><td class="verb-form" data-col="conditionnel">vivrais · vivrais · vivrait · vivrions · vivriez · vivraient</td><td class="verb-form" data-col="subjonctif">vive · vives · vive · vivions · viviez · vivent</td></tr>
+<tr><td><span class="verb-name">suivre</span><span class="verb-meaning">folgen</span></td><td class="verb-form" data-col="present">suis · suis · suit · suivons · suivez · suivent</td><td class="verb-form" data-col="pc">suivi</td><td class="verb-form" data-col="imparfait">suivais · suivais · suivait · suivions · suiviez · suivaient</td><td class="verb-form" data-col="futur">suivr-</td><td class="verb-form" data-col="conditionnel">suivrais · suivrais · suivrait · suivrions · suivriez · suivraient</td><td class="verb-form" data-col="subjonctif">suive · suives · suive · suivions · suiviez · suivent</td></tr>
+<tr><td><span class="verb-name">recevoir</span><span class="verb-meaning">erhalten</span></td><td class="verb-form" data-col="present">reçois · reçois · reçoit · recevons · recevez · reçoivent</td><td class="verb-form" data-col="pc">reçu</td><td class="verb-form" data-col="imparfait">recevais · recevais · recevait · recevions · receviez · recevaient</td><td class="verb-form" data-col="futur">recevr-</td><td class="verb-form" data-col="conditionnel">recevrais · recevrais · recevrait · recevrions · recevriez · recevraient</td><td class="verb-form" data-col="subjonctif">reçoive · reçoives · reçoive · recevions · receviez · reçoivent</td></tr></tbody>
+    </table>
+  </div>
+  <p class="verb-note"><strong>Hinweis:</strong> Beim passé composé wird das participe passé mit <em>avoir</em> oder bei bestimmten Verben mit <em>être</em> verbunden. Bei <em>être</em> kann eine Angleichung an Geschlecht und Zahl nötig sein.</p>
+</section>
+</main>
+<script>
+document.querySelectorAll('.verb-filter').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.verb-filter').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const show=btn.dataset.show;
+    document.querySelectorAll('.verb-table [data-col]').forEach(cell=>{
+      cell.style.display=(show==='all'||cell.dataset.col===show)?'table-cell':'none';
+    });
+  });
+});
+</script>
+</body>
+</html>

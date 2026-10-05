@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Französisch Prüfung · 2. Oberstufe</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f4f7ff;--card:#fff;--ink:#18213d;--muted:#66708c;--green:#24a66a;--red:#e55353;--line:#e5e9f5;--navy:#0D1433;--midnight:#121E47;--gold:#B79440;--gold-lt:#D4AF60;--ice:#C0D4F2}
+body{font-family:Jost,Arial,sans-serif;background:linear-gradient(135deg,var(--navy),var(--midnight));color:var(--ink);min-height:100vh}
+nav.site-header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 4rem;background:rgba(13,20,51,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(183,148,64,.2)}
+.nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}.monogram{width:34px;height:34px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;color:var(--navy)}
+.wordmark{font-weight:600;letter-spacing:.18em;font-size:.9rem;color:#fff}.nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none}.nav-links a{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ice);text-decoration:none}.nav-cta{border:1px solid var(--gold);color:var(--gold)!important;padding:.5rem 1.4rem}.nav-cta:hover{background:var(--gold);color:var(--navy)!important}
+.hero{padding:132px 24px 28px;text-align:center}.eyebrow{display:inline-block;background:#fff0d7;color:#8a5d00;padding:7px 12px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.04em;margin-bottom:15px}.hero h1{font-size:clamp(34px,7vw,60px);line-height:1.02;letter-spacing:-.04em;color:#fff}.hero h1 span{color:var(--gold-lt)}.hero p{max-width:690px;margin:16px auto 0;color:var(--ice);line-height:1.65;font-size:17px}
+.legend{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 auto 24px;max-width:820px}.chip{background:#f7f0df;color:#7a5d18;border:1px solid #e8dcc0;padding:8px 11px;border-radius:999px;font-size:12px;font-weight:750}
+main{max-width:820px;margin:auto;padding:15px 22px 70px}.status{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;margin-bottom:16px;font-size:13px;font-weight:700;color:#d4def1}.bar{height:9px;background:#344166;border-radius:99px;overflow:hidden}.fill{height:100%;width:0;background:var(--gold);border-radius:99px;transition:.35s}
+.card,.result{background:#fff;border:1px solid rgba(183,148,64,.28);border-radius:24px;padding:clamp(22px,5vw,38px);box-shadow:0 18px 50px rgba(0,0,0,.18)}.mode{display:inline-flex;background:#f7f0df;color:#7a5d18;padding:7px 11px;border-radius:999px;font-size:12px;font-weight:800;margin-bottom:20px}.question{font-size:clamp(21px,4vw,29px);line-height:1.35;font-weight:800;margin-bottom:9px}.context{color:var(--muted);line-height:1.6;margin-bottom:24px}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:12px}.option{border:2px solid var(--line);background:#fff;border-radius:15px;padding:16px;text-align:left;font:inherit;font-weight:750;color:var(--ink);cursor:pointer;transition:.2s}.option:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 8px 24px rgba(183,148,64,.18)}.option.sel{border-color:var(--gold);background:#fff9ed}
+.write-input{width:100%;padding:15px;border:2px solid #dfe3f2;border-radius:14px;font:inherit;font-size:1.05rem;outline:none}.write-input:focus{border-color:var(--gold)}
+.exam-note{margin-top:18px;min-height:24px;color:#66708c;line-height:1.55}.actions{display:flex;justify-content:space-between;gap:12px;margin-top:22px}.actions-right{display:flex;gap:10px}.btn{border:0;border-radius:13px;padding:13px 20px;font:inherit;font-weight:800;cursor:pointer;transition:.25s}.btn-back{background:#fff;border:2px solid var(--gold);color:var(--navy)}.btn-next,.btn-submit{background:var(--gold);color:var(--navy)}.btn:hover:not(:disabled){background:var(--gold-lt);transform:translateY(-2px);box-shadow:0 8px 24px rgba(183,148,64,.3)}.btn:disabled{opacity:.35;cursor:default}
+.timer{color:var(--gold-lt);font-size:18px;font-weight:800;font-variant-numeric:tabular-nums}.result{display:none;text-align:center}.result-score{font-size:50px;font-weight:900;color:var(--gold);margin:12px 0}.result p{color:var(--muted);line-height:1.6}.topicgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:22px 0}.topicrow{padding:12px;background:#f7f8fc;border-radius:10px;display:flex;justify-content:space-between}.review{display:grid;gap:12px;margin-top:24px;text-align:left}.ri{border:1px solid #e5e9f5;border-left:5px solid var(--red);border-radius:12px;padding:14px}.ri.ok{border-left-color:var(--green)}.ri small{color:#66708c}.ri p{margin:7px 0;line-height:1.5}
+footer{text-align:center;padding:25px;color:#8991a7;font-size:12px}
+@media(max-width:900px){nav.site-header{padding:1rem 1.2rem}.nav-links li:not(:last-child){display:none}.wordmark{font-size:.78rem}}
+@media(max-width:620px){.options,.topicgrid{grid-template-columns:1fr}.hero{padding-top:112px}.card,.result{border-radius:18px}.actions{align-items:flex-end}.actions-right{flex-direction:column}}
+</style>
+
+</head>
+<body>
+<nav class="site-header">
+  <a href="main.html" class="nav-logo"><div class="monogram">FR</div><span class="wordmark">Französisch lernen</span></a>
+  <ul class="nav-links"><li><a href="main.html#lernen">Lernen</a></li><li><a href="main.html#Fortschritt">Mein Fortschritt</a></li><li><a href="main.html" class="nav-cta">Startseite</a></li></ul>
+</nav>
+<header class="hero">
+  <div class="eyebrow">🇫🇷 FRANÇAIS · PRÜFUNG · 2. OBERSTUFE</div>
+  <h1>Französisch <span>Gesamtprüfung</span></h1>
+  <p>36 gemischte Aufgaben aus allen Themen der 2. Oberstufe. Während der Prüfung gibt es keine Lösungen oder Richtig-/Falsch-Rückmeldungen.</p>
+</header>
+<div class="legend"><span class="chip">⏱️ 30 Minuten</span><span class="chip">📝 36 Aufgaben</span><span class="chip">📚 12 Themen</span><span class="chip">🔒 Auswertung erst am Schluss</span></div>
+<main>
+<section id="exam">
+  <div class="status"><span id="step">Aufgabe 1</span><div class="bar"><div class="fill" id="fill"></div></div><span class="timer" id="timer">30:00</span></div>
+  <section class="card">
+    <div class="mode" id="topic">🎓 Prüfung</div>
+    <div class="question" id="q"></div><div class="context" id="ctx"></div><div class="options" id="opts"></div>
+    <div class="exam-note">Deine Antwort wird gespeichert. Die Auswertung erscheint erst nach der Abgabe.</div>
+    <div class="actions"><button class="btn btn-back" id="back">← Zurück</button><div class="actions-right"><button class="btn btn-next" id="next">Weiter →</button><button class="btn btn-submit" id="submit" style="display:none">Prüfung abgeben</button></div></div>
+  </section>
+</section>
+<section class="result" id="result"><div style="font-size:52px">🏆</div><h2>Prüfung abgeschlossen!</h2><div class="result-score" id="score"></div><p id="summary"></p><div class="topicgrid" id="topicgrid"></div><h3 style="margin-top:24px">Auswertung aller Aufgaben</h3><div class="review" id="review"></div><div style="margin-top:25px"><a class="btn btn-back" href="main.html" style="display:inline-block;text-decoration:none">← Zurück zur Startseite</a></div></section>
+</main>
+<footer>Französisch Trainer · Gesamtprüfung · 2. Oberstufe</footer>
+<script>
+const topic0=[
+ {q:'Konjugiere „prendre“ im Présent.',ctx:'Je <span class="highlight">___</span> le bus chaque matin.',a:['prends','prend','prenez','prenons'],c:0,e:'Bei „je“ lautet die Form von prendre: je prends.'},
+ {q:'Konjugiere „prendre“ im Présent.',ctx:'Nous <span class="highlight">___</span> le train pour Lausanne.',a:['prennent','prenez','prenons','prends'],c:2,e:'Bei „nous“ lautet die Form: nous prenons.'},
+ {q:'Konjugiere „venir“ im Présent.',ctx:'Tu <span class="highlight">___</span> avec nous ?',a:['viens','vient','venez','venons'],c:0,e:'Bei „tu“ lautet die Form von venir: tu viens.'},
+ {q:'Konjugiere „venir“ im Présent.',ctx:'Mes amis <span class="highlight">___</span> ce soir.',a:['vient','venez','venons','viennent'],c:3,e:'„Mes amis“ entspricht „ils“. Deshalb: ils viennent.'},
+ {q:'Konjugiere „pouvoir“ richtig.',ctx:'Vous <span class="highlight">___</span> entrer maintenant.',a:['pouvons','pouvez','peuvent','peux'],c:1,e:'Bei „vous“ lautet die Form von pouvoir: vous pouvez.'},
+ {q:'Konjugiere „vouloir“ richtig.',ctx:'Elle <span class="highlight">___</span> apprendre le français.',a:['veux','veut','voulez','voulons'],c:1,e:'Bei „elle“ lautet die Form von vouloir: elle veut.'},
+ {q:'Konjugiere „devoir“ richtig.',ctx:'Nous <span class="highlight">___</span> faire nos devoirs.',a:['devez','doivent','devons','dois'],c:2,e:'Bei „nous“ lautet die Form von devoir: nous devons.'},
+ {q:'Welche Form von „lire“ passt?',ctx:'Ils <span class="highlight">___</span> un livre intéressant.',a:['lisent','lisez','lisons','lit'],c:0,e:'Bei „ils“ lautet die Form von lire: ils lisent.'},
+ {q:'Bilde das passé composé von „manger“.',ctx:'Hier, j’<span class="highlight">___</span> une pizza.',a:['ai mangé','suis mangé','mange','avais mangé'],c:0,e:'Das passé composé von manger wird mit avoir gebildet: j’ai mangé.'},
+ {q:'Bilde das passé composé von „finir“.',ctx:'Nous <span class="highlight">___</span> nos devoirs.',a:['sommes fini','avons fini','avons finis','finissons'],c:1,e:'finir bildet das passé composé mit avoir: nous avons fini.'},
+ {q:'Bilde das passé composé von „faire“.',ctx:'Tu <span class="highlight">___</span> du sport hier.',a:['as fait','es fait','as fais','faisais'],c:0,e:'Das participe passé von faire lautet „fait“: tu as fait.'},
+ {q:'Bilde das passé composé von „aller“.',ctx:'Elle <span class="highlight">___</span> à Paris samedi.',a:['a allé','est allée','est allé','a allée'],c:1,e:'aller wird im passé composé mit être gebildet. Bei einem weiblichen Subjekt: elle est allée.'},
+ {q:'Bilde das passé composé von „aller“.',ctx:'Paul et Marc <span class="highlight">___</span> au cinéma.',a:['ont allé','sont allés','sont allé','ont allés'],c:1,e:'Mit „ils“ und aller: ils sont allés. Das participe passé erhält im Plural -s.'},
+ {q:'Bilde das futur proche.',ctx:'Je <span class="highlight">___</span> mes grands-parents demain. (visiter)',a:['visite','vais visiter','ai visité','va visiter'],c:1,e:'Das futur proche wird mit aller im Présent + Infinitiv gebildet: je vais visiter.'},
+ {q:'Bilde das futur proche.',ctx:'Nous <span class="highlight">___</span> un film ce soir. (regarder)',a:['allons regarder','avons regardé','regardons aller','allez regarder'],c:0,e:'nous allons + Infinitiv → nous allons regarder.'},
+ {q:'Bilde das futur proche.',ctx:'Elles <span class="highlight">___</span> leurs amis. (rencontrer)',a:['vont rencontrer','ont rencontré','va rencontrer','allons rencontrer'],c:0,e:'Bei „elles“ lautet aller „vont“: elles vont rencontrer.'},
+ {q:'Konjugiere das reflexive Verb „se lever“.',ctx:'Je <span class="highlight">___</span> à sept heures.',a:['me lève','se lève','te lèves','me lever'],c:0,e:'Bei „je“ steht das Reflexivpronomen „me“: je me lève.'},
+ {q:'Konjugiere „se coucher“.',ctx:'Nous <span class="highlight">___</span> tard le samedi.',a:['se couchent','vous couchez','nous couchons','nous coucher'],c:2,e:'Bei „nous“ lautet die Form: nous nous couchons.'},
+ {q:'Welche Form ist korrekt?',ctx:'Tu <span class="highlight">___</span> à quelle heure ? (se réveiller)',a:['me réveille','te réveilles','se réveille','vous réveillez'],c:1,e:'Bei „tu“ steht das Reflexivpronomen „te“: tu te réveilles.'},
+ {q:'Welche Form ist korrekt?',ctx:'Mes parents <span class="highlight">___</span> très tôt. (se lever)',a:['se lèvent','se lève','nous levons','vous levez'],c:0,e:'„Mes parents“ entspricht „ils“. Deshalb: ils se lèvent.'},
+ {q:'Welche Verbform passt?',ctx:'Hier, nous <span class="highlight">___</span> un très bon film.',a:['regardons','avons regardé','allons regarder','regarder'],c:1,e:'„Hier“ weist auf eine abgeschlossene Handlung in der Vergangenheit hin: nous avons regardé.'},
+ {q:'Welche Verbform passt?',ctx:'Demain, je <span class="highlight">___</span> avec mes amis.',a:['suis sorti','vais sortir','sors hier','ai sortir'],c:1,e:'„Demain“ passt hier zum futur proche: je vais sortir.'},
+ {q:'Welche Form von „écrire“ passt?',ctx:'Vous <span class="highlight">___</span> un message à votre professeur.',a:['écrivez','écrivons','écrivent','écris'],c:0,e:'Bei „vous“ lautet die Form von écrire: vous écrivez.'},
+ {q:'Welche Form von „mettre“ passt?',ctx:'Elle <span class="highlight">___</span> sa veste.',a:['mets','met','mettez','mettent'],c:1,e:'Bei „elle“ lautet die Form von mettre: elle met.'}
+];
+const topic1=[
+{q:'Welcher Teilungsartikel passt?',ctx:'Je mange ___ pain.',a:['du','de la','des','un'],c:0,e:'„pain“ ist männlich: du pain.'},
+{q:'Welcher Teilungsartikel passt?',ctx:'Elle boit ___ limonade.',a:['du','de la','de l’','des'],c:1,e:'„limonade“ ist weiblich: de la limonade.'},
+{q:'Schreibe den passenden Teilungsartikel.',ctx:'Nous buvons ___ eau.',type:'write',answer:"de l'",e:'Vor einem Vokal verwendet man de l’: de l’eau.'},
+{q:'Welcher Artikel passt?',ctx:'Il achète ___ légumes.',a:['du','de la','des','de l’'],c:2,e:'Bei einer unbestimmten Mehrzahl: des légumes.'},
+{q:'Welche Form folgt nach einer Mengenangabe?',ctx:'Je voudrais un kilo ___ pommes.',a:['des','de','du','les'],c:1,e:'Nach einer Mengenangabe steht de: un kilo de pommes.'},
+{q:'Schreibe die fehlende Form.',ctx:'Nous achetons beaucoup ___ fruits.',type:'write',answer:'de',e:'Nach beaucoup steht de: beaucoup de fruits.'},
+{q:'Welche Form ist korrekt?',ctx:'Elle boit un verre ___ lait.',a:['du','de','des','le'],c:1,e:'Nach einer Mengenangabe steht de: un verre de lait.'},
+{q:'Welche Form ist korrekt?',ctx:'Il mange un peu ___ fromage.',a:['du','de','des','le'],c:1,e:'Nach un peu steht de: un peu de fromage.'},
+{q:'Schreibe die fehlende Form.',ctx:'J’achète une bouteille ___ eau.',type:'write',answer:"d'",e:'Vor einem Vokal wird de zu d’: une bouteille d’eau.'},
+{q:'Setze die Verneinung richtig fort.',ctx:'Je mange du chocolat. → Je ne mange pas ___ chocolat.',a:['du','de','des','le'],c:1,e:'Nach einer Verneinung wird der Teilungsartikel normalerweise zu de: pas de chocolat.'},
+{q:'Welche Form ist korrekt?',ctx:'Elle a des frères. → Elle n’a pas ___ frères.',a:['des','les','de','du'],c:2,e:'Nach ne...pas wird des hier zu de: elle n’a pas de frères.'},
+{q:'Schreibe die fehlende Form.',ctx:'Nous ne buvons pas ___ café.',type:'write',answer:'de',e:'Nach der Verneinung: pas de café.'},
+{q:'Welche Pluralform ist korrekt?',ctx:'un cheval → ...',a:['des chevals','des chevaux','des cheval','des chevaus'],c:1,e:'cheval bildet den Plural unregelmässig auf -aux: chevaux.'},
+{q:'Welche Pluralform ist korrekt?',ctx:'un journal → ...',a:['des journals','des journaux','des journales','des journal'],c:1,e:'journal → journaux.'},
+{q:'Schreibe die Pluralform.',ctx:'un animal → des ___',type:'write',answer:'animaux',e:'animal → animaux.'},
+{q:'Welche Pluralform ist korrekt?',ctx:'un bateau → ...',a:['des bateaus','des bateaux','des bateausx','des bateau'],c:1,e:'Nomen auf -eau bilden den Plural häufig mit -x: bateaux.'},
+{q:'Welche Pluralform ist korrekt?',ctx:'un jeu → ...',a:['des jeux','des jeus','des jeuses','des jeu'],c:0,e:'jeu → jeux.'},
+{q:'Schreibe die Pluralform.',ctx:'un cadeau → des ___',type:'write',answer:'cadeaux',e:'cadeau → cadeaux.'},
+{q:'Welcher Artikel passt im Kontext?',ctx:'J’adore ___ chocolat.',a:['du','le','un','de'],c:1,e:'Bei allgemeinen Vorlieben verwendet man den bestimmten Artikel: J’adore le chocolat.'},
+{q:'Welcher Artikel passt im Kontext?',ctx:'Elle aime ___ musique française.',a:['de la','une','la','de'],c:2,e:'Bei aimer + allgemeiner Begriff: la musique.'},
+{q:'Schreibe den passenden Artikel.',ctx:'Nous aimons ___ animaux.',type:'write',answer:'les',e:'Bei einer allgemeinen Aussage im Plural: les animaux.'},
+{q:'Welche Form ist korrekt?',ctx:'Au petit-déjeuner, je bois ___ café.',a:['le','du','de','les'],c:1,e:'Hier ist eine unbestimmte Menge gemeint: du café.'},
+{q:'Welche Form ist korrekt?',ctx:'Tu veux ___ soupe ?',a:['du','de la','les','un'],c:1,e:'soupe ist weiblich; eine unbestimmte Menge: de la soupe.'},
+{q:'Schreibe den passenden Artikel.',ctx:'Il mange ___ riz.',type:'write',answer:'du',e:'riz ist männlich; bei einer unbestimmten Menge: du riz.'},
+{q:'Welche Form ist korrekt?',ctx:'Nous avons assez ___ temps.',a:['du','de','le','des'],c:1,e:'Nach assez steht de: assez de temps.'},
+{q:'Welche Form ist korrekt?',ctx:'Il y a trop ___ sucre.',a:['du','de','le','des'],c:1,e:'Nach trop steht de: trop de sucre.'},
+{q:'Schreibe die fehlende Form.',ctx:'Elle achète trois kilos ___ oranges.',type:'write',answer:"d'",e:'Nach der Mengenangabe steht de; vor Vokal wird daraus d’: trois kilos d’oranges.'},
+{q:'Welche Übersetzung ist korrekt?',ctx:'„Ich kaufe Käse.“',a:["J’achète le fromage.","J’achète du fromage.","J’achète de fromage.","J’achète des fromage."],c:1,e:'Eine nicht näher bestimmte Menge Käse: du fromage.'}
+];
+const topic2=[
+{q:'Welche Form passt?',ctx:'C’est un ___ garçon. (beau)',a:['beau','bel','belle','beaux'],c:0,e:'Vor Konsonant: un beau garçon.'},
+{q:'Welche Form passt?',ctx:'C’est une ___ maison. (beau)',a:['beau','bel','belle','belles'],c:2,e:'Weiblich: belle.'},
+{q:'Schreibe die richtige Form.',ctx:'C’est un ___ appartement. (beau)',type:'write',answer:'bel',e:'Vor Vokal: un bel appartement.'},
+{q:'Welche Form passt?',ctx:'Il porte un ___ pantalon. (nouveau)',a:['nouveau','nouvel','nouvelle','nouveaux'],c:0,e:'Vor Konsonant: nouveau.'},
+{q:'Welche Form passt?',ctx:'Nous avons un ___ élève. (nouveau)',a:['nouveau','nouvel','nouvelle','nouveaux'],c:1,e:'Vor Vokal: nouvel élève.'},
+{q:'Schreibe die richtige Form.',ctx:'C’est une ___ école. (nouveau)',type:'write',answer:'nouvelle',e:'Weiblich: nouvelle.'},
+{q:'Welche Form passt?',ctx:'C’est un ___ monsieur. (vieux)',a:['vieux','vieil','vieille','vieilles'],c:0,e:'Vor Konsonant: vieux.'},
+{q:'Welche Form passt?',ctx:'C’est un ___ ami. (vieux)',a:['vieux','vieil','vieille','vieuxs'],c:1,e:'Vor Vokal: vieil ami.'},
+{q:'Schreibe die richtige Form.',ctx:'C’est une ___ voiture. (vieux)',type:'write',answer:'vieille',e:'Weiblich: vieille.'},
+{q:'Welche Form passt?',ctx:'Les garçons sont ___. (beau)',a:['beaus','belles','beaux','bel'],c:2,e:'Männlicher Plural: beaux.'},
+{q:'Welche Form passt?',ctx:'Les maisons sont ___. (beau)',a:['beaux','belles','belle','beaus'],c:1,e:'Weiblicher Plural: belles.'},
+{q:'Schreibe die richtige Form.',ctx:'Les voitures sont ___. (nouveau)',type:'write',answer:'nouvelles',e:'Weiblicher Plural: nouvelles.'},
+{q:'Welche Form passt?',ctx:'Welche Wortstellung ist korrekt? – grand + maison',a:['une maison grande','une grande maison','une grand maison','une grandes maison'],c:1,e:'grand steht häufig vor dem Nomen.'},
+{q:'Welche Form passt?',ctx:'Welche Wortstellung ist korrekt? – rouge + voiture',a:['une rouge voiture','une voiture rouge','une voiture rouges','une rougede voiture'],c:1,e:'Farbadjektive stehen normalerweise nach dem Nomen.'},
+{q:'Schreibe die richtige Form.',ctx:'petit + fille → une ___ ___',type:'write',answer:'petite fille',e:'petit steht häufig vor dem Nomen: une petite fille.'},
+{q:'Welche Form passt?',ctx:'français + professeur',a:['un français professeur','un professeur français','un professeur française','un français professeurs'],c:1,e:'Nationalitätsadjektive stehen nach dem Nomen.'},
+{q:'Welche Form passt?',ctx:'Une femme ___. (français)',a:['français','française','françaises','françeuse'],c:1,e:'Weiblich: française.'},
+{q:'Schreibe die richtige Form.',ctx:'Des filles ___. (français)',type:'write',answer:'françaises',e:'Weiblicher Plural: françaises.'},
+{q:'Welche Form passt?',ctx:'Une fille ___. (gentil)',a:['gentil','gentile','gentille','gentilles'],c:2,e:'gentil → gentille.'},
+{q:'Welche Form passt?',ctx:'Les filles sont ___. (gentil)',a:['gentils','gentille','gentilles','gentil'],c:2,e:'Weiblicher Plural: gentilles.'},
+{q:'Schreibe die richtige Form.',ctx:'Ma sœur est ___. (gentil)',type:'write',answer:'gentille',e:'gentil → gentille.'},
+{q:'Welche Form passt?',ctx:'Une réponse ___. (complet)',a:['complet','complète','complete','complets'],c:1,e:'complet → complète.'},
+{q:'Welche Form passt?',ctx:'Une fille ___. (actif)',a:['actif','active','actife','actifs'],c:1,e:'actif → active.'},
+{q:'Schreibe die richtige Form.',ctx:'Des filles ___. (actif)',type:'write',answer:'actives',e:'Weiblicher Plural: actives.'},
+{q:'Welche Form passt?',ctx:'Une histoire ___. (intéressant)',a:['intéressant','intéressante','intéressants','intéressantes'],c:1,e:'Weiblich: intéressante.'},
+{q:'Welche Form passt?',ctx:'Des livres ___. (intéressant)',a:['intéressant','intéressante','intéressants','intéressantes'],c:2,e:'Männlicher Plural: intéressants.'},
+{q:'Schreibe die richtige Form.',ctx:'Des histoires ___. (intéressant)',type:'write',answer:'intéressantes',e:'Weiblicher Plural: intéressantes.'},
+{q:'Welche Form passt?',ctx:'Paul et Sophie sont ___. (heureux)',a:['heureux','heureuse','heureuses','heureuxes'],c:0,e:'Gemischte Gruppe: männlicher Plural heureux.'},
+{q:'Welche Form passt?',ctx:'Mes deux sœurs sont ___. (sérieux)',a:['sérieux','sérieuse','sérieuses','sérieuxes'],c:2,e:'Weiblicher Plural: sérieuses.'},
+{q:'Schreibe die richtige Form.',ctx:'Ma sœur est ___. (sérieux)',type:'write',answer:'sérieuse',e:'sérieux → sérieuse.'},
+{q:'Welche Form passt?',ctx:'„ein schönes altes Haus“',a:['une beau vieille maison','une belle vieille maison','une maison belle vieux','un belle vieille maison'],c:1,e:'une belle vieille maison.'},
+{q:'Schreibe die richtige Form.',ctx:'„eine neue französische Schülerin“ → une ___ ___ ___',type:'write',answer:'nouvelle élève française',e:'nouvelle steht vor élève; française danach.'}
+];
+const topic3=[
+{q:'Welche Antwort passt?',ctx:'Je vois Marie. Je ___ vois.',a:['la','le','lui','leur'],c:0,e:'Direktes Objekt Marie → la.'},
+{q:'Welche Antwort passt?',ctx:'Je connais Paul. Je ___ connais.',a:['le','lui','la','en'],c:0,e:'Direktes Objekt Paul → le.'},
+{q:'Schreibe die richtige Form.',ctx:'Tu regardes les photos. Tu ___ regardes.',type:'write',answer:'les',e:'Direktes Objekt Plural → les.'},
+{q:'Welche Antwort passt?',ctx:'Je téléphone à Marie. Je ___ téléphone.',a:['la','lui','le','y'],c:1,e:'téléphoner à quelqu’un → lui.'},
+{q:'Welche Antwort passt?',ctx:'Nous parlons à nos parents. Nous ___ parlons.',a:['les','leur','lui','en'],c:1,e:'à nos parents → leur.'},
+{q:'Schreibe die richtige Form.',ctx:'Il écrit à Sophie. Il ___ écrit.',type:'write',answer:'lui',e:'Indirektes Objekt Singular → lui.'},
+{q:'Welche Antwort passt?',ctx:'Je ___ donne le livre. (dir)',a:['te','tu','ton','toi'],c:0,e:'Objektpronomen vor dem Verb: te.'},
+{q:'Welche Antwort passt?',ctx:'Paul ___ parle. (uns)',a:['nous','notre','nos','on'],c:0,e:'parler à nous → nous.'},
+{q:'Schreibe die richtige Form.',ctx:'Il achète les billets. → Il ___ achète.',type:'write',answer:'les',e:'les billets → les.'},
+{q:'Welche Antwort passt?',ctx:'Je donne le cadeau à Léa. → Je ___ donne le cadeau.',a:['la','lui','le','leur'],c:1,e:'à Léa → lui.'},
+{q:'Welche Antwort passt?',ctx:'Je parle à Marc et Léa. → Je ___ parle.',a:['les','leur','lui','en'],c:1,e:'Mehrere indirekte Personen → leur.'},
+{q:'Schreibe die richtige Form.',ctx:'Tu écoutes ta sœur. → Tu ___ écoutes.',type:'write',answer:'l\'',e:'Vor Vokal wird la zu l’.'},
+{q:'Welche Antwort passt?',ctx:'Nous aimons ce film. → Nous ___ aimons.',a:['le','lui','la','y'],c:0,e:'ce film → le.'},
+{q:'Welche Antwort passt?',ctx:'Marie invite Paul et moi. → Marie ___ invite.',a:['nous','vous','leur','les'],c:0,e:'Paul et moi → nous.'},
+{q:'Schreibe die richtige Form.',ctx:'Je regarde Sophie et Emma. → Je ___ regarde.',type:'write',answer:'les',e:'Mehrere direkte Objekte → les.'},
+{q:'Welche Antwort passt?',ctx:'Welche Reihenfolge ist korrekt?',a:['Je le vois.','Je vois le.','Je lui vois.','Je vois lui.'],c:0,e:'Objektpronomen steht vor dem konjugierten Verb.'},
+{q:'Welche Antwort passt?',ctx:'J’ai vu Marie. → Je ___ ai vue.',a:['l\'','la','lui','en'],c:0,e:'la wird vor ai zu l’.'},
+{q:'Schreibe die richtige Form.',ctx:'J’ai appelé Paul. → Je ___ ai appelé.',type:'write',answer:'l\'',e:'le wird vor ai zu l’.'},
+{q:'Welche Antwort passt?',ctx:'Tu vas voir Marie. → Tu vas ___ voir.',a:['la','lui','elle','sa'],c:0,e:'Pronomen vor dem Infinitiv: la voir.'},
+{q:'Welche Antwort passt?',ctx:'Nous voulons parler à Paul. → Nous voulons ___ parler.',a:['le','lui','la','les'],c:1,e:'parler à Paul → lui parler.'},
+{q:'Schreibe die richtige Form.',ctx:'Je vais inviter mes amis. → Je vais ___ inviter.',type:'write',answer:'les',e:'Pronomen vor dem Infinitiv.'},
+{q:'Welche Antwort passt?',ctx:'C’est le livre de Paul. C’est ___ livre.',a:['son','sa','ses','leur'],c:0,e:'livre → son.'},
+{q:'Welche Antwort passt?',ctx:'Ce sont les vélos de Léa. Ce sont ___ vélos.',a:['son','ses','sa','leurs'],c:1,e:'Ein Besitzer, mehrere Dinge → ses.'},
+{q:'Schreibe die richtige Form.',ctx:'C’est la maison de mes parents. C’est ___ maison.',type:'write',answer:'leur',e:'Mehrere Besitzer, ein Gegenstand → leur.'}
+];
+const topic4=[
+{q:'Schreibe den Satz in der Verneinung.',ctx:'J’ai vu Paul hier.',type:'write',answer:"Je n'ai pas vu Paul hier.",e:"Im passé composé umschliessen ne/n’ und pas das konjugierte Hilfsverb: Je n’ai pas vu…"},
+{q:'Welche Form ist richtig?',ctx:'Elle a mangé le gâteau.',a:["Elle n'a pas mangé le gâteau.","Elle a ne pas mangé le gâteau.","Elle n'a mangé pas le gâteau.","Elle pas a mangé le gâteau."],c:0,e:"Im passé composé steht die Verneinung um das Hilfsverb: n’a pas mangé."},
+{q:'Schreibe: «Wir sind nicht nach Paris gefahren.»',ctx:'nous · aller à Paris',type:'write',answer:"Nous ne sommes pas allés à Paris.",e:"Bei passé composé mit être: ne + sommes + pas + participe passé."},
+{q:'Was bedeutet «ne … personne»?',ctx:'Je ne vois personne.',a:['nichts','niemanden','nie','nicht mehr'],c:1,e:'ne … personne bedeutet „niemand / niemanden“.'},
+{q:'Schreibe: «Ich kenne niemanden hier.»',ctx:'je · connaître · ici',type:'write',answer:"Je ne connais personne ici.",e:"personne steht hier nach dem Verb: Je ne connais personne."},
+{q:'Welche Form ist korrekt?',ctx:'Il parle à quelqu’un. → Verneinung',a:["Il ne parle à personne.","Il ne personne parle.","Il parle ne personne.","Il n'parle personne."],c:0,e:"Die korrekte Form lautet: Il ne parle à personne."},
+{q:'Schreibe: «Sie hat niemanden gesehen.»',ctx:'elle · voir · passé composé',type:'write',answer:"Elle n'a vu personne.",e:"Bei personne im passé composé steht personne nach dem Partizip: Elle n’a vu personne."},
+{q:'Was bedeutet «ne … aucun / aucune»?',ctx:'Je n’ai aucune idée.',a:['keine / kein','niemand','nur','noch nicht'],c:0,e:'ne … aucun/aucune bedeutet „kein/keine“.'},
+{q:'Schreibe: «Er hat keine Frage.»',ctx:'il · avoir · question',type:'write',answer:"Il n'a aucune question.",e:"question ist feminin: aucune question."},
+{q:'Welche Form passt?',ctx:'Nous ___ avons ___ problème.',a:["n' / aucun","ne / personne","n' / jamais","ne / rien"],c:0,e:"Vor avons wird ne zu n’: Nous n’avons aucun problème."},
+{q:'Schreibe: «Ich habe kein Geld.»',ctx:'je · avoir · argent',type:'write',answer:"Je n'ai aucun argent.",e:"aucun steht beim maskulinen Nomen argent."},
+{q:'Was bedeutet «ne … que»?',ctx:'Je ne bois que de l’eau.',a:['Ich trinke kein Wasser.','Ich trinke nur Wasser.','Ich trinke nie Wasser.','Ich trinke nichts.'],c:1,e:'ne … que bedeutet „nur“ und ist eine Einschränkung.'},
+{q:'Schreibe: «Sie isst nur Gemüse.»',ctx:'elle · manger · légumes',type:'write',answer:"Elle ne mange que des légumes.",e:"ne … que = nur: Elle ne mange que des légumes."},
+{q:'Welche Form ist richtig?',ctx:'Nous avons seulement dix minutes.',a:["Nous n'avons que dix minutes.","Nous n'avons pas dix minutes.","Nous n'avons rien dix minutes.","Nous ne que avons dix minutes."],c:0,e:"seulement kann hier durch ne … que ersetzt werden."},
+{q:'Schreibe: «Er arbeitet nur am Montag.»',ctx:'il · travailler · lundi',type:'write',answer:"Il ne travaille que le lundi.",e:"que steht direkt vor dem eingeschränkten Satzteil: le lundi."},
+{q:'Wie verneint man einen Infinitiv?',ctx:'Il préfère ne pas sortir.',a:['ne + pas + Infinitiv','ne + Infinitiv + pas','Infinitiv + ne pas','pas + ne + Infinitiv'],c:0,e:'Bei einem Infinitiv stehen ne und pas normalerweise zusammen davor: ne pas sortir.'},
+{q:'Schreibe: «Ich versuche, nicht zu lachen.»',ctx:'essayer de · rire',type:'write',answer:"J'essaie de ne pas rire.",e:"Vor dem Infinitiv: ne pas rire."},
+{q:'Welche Form ist korrekt?',ctx:'Nous décidons ___ prendre la voiture.',a:['de ne pas','ne de pas','de ne','pas de ne'],c:0,e:'Vor dem Infinitiv steht die Verneinung zusammen: de ne pas prendre.'},
+{q:'Schreibe: «Sie verspricht, nicht zu vergessen.»',ctx:'elle · promettre de · oublier',type:'write',answer:"Elle promet de ne pas oublier.",e:"Die Verneinung des Infinitivs lautet ne pas oublier."},
+{q:'Welche Form ist korrekt?',ctx:'Je mange encore de la viande. → nicht mehr',a:["Je ne mange plus de viande.","Je ne mange pas encore de viande.","Je ne mange jamais de viande.","Je mange ne plus de viande."],c:0,e:"ne … plus = nicht mehr."},
+{q:'Schreibe: «Wir gehen nie mehr dorthin.»',ctx:'nous · aller · là-bas',type:'write',answer:"Nous n'allons plus jamais là-bas.",e:"plus jamais verstärkt die Aussage: „nie mehr“."},
+{q:'Welche Aussage passt zu «Je n’ai pas encore fini»?',ctx:'Achte auf pas encore.',a:['Ich bin nie fertig.','Ich bin noch nicht fertig.','Ich bin nicht mehr fertig.','Ich habe nichts beendet.'],c:1,e:'ne … pas encore bedeutet „noch nicht“.'},
+{q:'Schreibe: «Er ist noch nicht angekommen.»',ctx:'il · arriver · passé composé',type:'write',answer:"Il n'est pas encore arrivé.",e:"pas encore steht beim passé composé nach dem Hilfsverb: Il n’est pas encore arrivé."},
+{q:'Welche Form ist korrekt?',ctx:'Elle voit quelque chose. → nichts',a:["Elle ne voit rien.","Elle ne rien voit.","Elle voit ne rien.","Elle n'a rien voit."],c:0,e:"ne … rien: Elle ne voit rien."},
+{q:'Schreibe: «Ich habe nichts verstanden.»',ctx:'je · comprendre · passé composé',type:'write',answer:"Je n'ai rien compris.",e:"Bei rien im passé composé steht rien zwischen Hilfsverb und Partizip: Je n’ai rien compris."},
+{q:'Welche Form ist korrekt?',ctx:'Il a toujours travaillé ici. → nie',a:["Il n'a jamais travaillé ici.","Il n'a travaillé jamais ici.","Il ne jamais a travaillé ici.","Il a ne jamais travaillé ici."],c:0,e:"Im passé composé steht jamais zwischen Hilfsverb und Partizip: n’a jamais travaillé."},
+{q:'Schreibe: «Sie ist nie in Frankreich gewesen.»',ctx:'elle · être · en France · passé composé',type:'write',answer:"Elle n'a jamais été en France.",e:"n’a jamais été: jamais steht zwischen Hilfsverb und Partizip."},
+{q:'Welche Verneinung passt am besten?',ctx:'Je connais seulement Marie.',a:["Je ne connais que Marie.","Je ne connais personne.","Je ne connais rien.","Je ne connais jamais Marie."],c:0,e:"„nur Marie“ = ne … que Marie."},
+{q:'Schreibe den Satz mit «aucun».',ctx:'Nous n’avons pas de solution.',type:'write',answer:"Nous n'avons aucune solution.",e:"solution ist feminin, deshalb aucune."},
+{q:'Schreibe den ganzen Satz korrekt.',ctx:'«Ich möchte nichts kaufen.» · vouloir + acheter',type:'write',answer:"Je ne veux rien acheter.",e:"Beim konjugierten vouloir steht rien nach veux; der Infinitiv acheter folgt danach."}
+];
+const topic5=[
+{q:'Bilde die Frage mit Inversion.',ctx:'Tu parles français.',type:'write',answer:"Parles-tu français ?",e:"Bei der Inversion werden Verb und Subjektpronomen mit Bindestrich verbunden: Parles-tu…?"},
+{q:'Welche Inversionsfrage ist korrekt?',ctx:'Vous aimez Paris.',a:["Aimez-vous Paris ?","Vous-aimez Paris ?","Aimez vous-Paris ?","Est-aimez-vous Paris ?"],c:0,e:"Verb + Bindestrich + Subjektpronomen: Aimez-vous…?"},
+{q:'Schreibe mit Inversion.',ctx:'Il habite à Genève.',type:'write',answer:"Habite-t-il à Genève ?",e:"Zwischen zwei Vokalen wird bei il/elle/on ein -t- eingefügt: Habite-t-il…?"},
+{q:'Warum steht in «Parle-t-elle français ?» ein -t-?',ctx:'Wähle die beste Erklärung.',a:["Zur leichteren Aussprache zwischen zwei Vokalen.","Weil parler unregelmässig ist.","Weil die Frage verneint ist.","Weil elle feminin ist."],c:0,e:"Das eingeschobene -t- erleichtert die Aussprache."},
+{q:'Bilde die Frage.',ctx:'Elle arrive demain. · Inversion',type:'write',answer:"Arrive-t-elle demain ?",e:"arrive + elle → Arrive-t-elle…?"},
+{q:'Welche Form ist korrekt?',ctx:'On commence à huit heures.',a:["Commence-t-on à huit heures ?","Commence-on à huit heures ?","On-commence à huit heures ?","Est commence-t-on ?"],c:0,e:"Bei on gilt ebenfalls das eingeschobene -t-: commence-t-on."},
+{q:'Schreibe die Frage nach dem Ort.',ctx:'Tu vas à la bibliothèque.',type:'write',answer:"Où vas-tu ?",e:"Mit Inversion: Où + Verb + Subjektpronomen."},
+{q:'Welche Frage passt zur Antwort «Demain matin.»?',ctx:'Frage mit Inversion.',a:["Quand pars-tu ?","Où pars-tu ?","Pourquoi pars-tu ?","Avec qui pars-tu ?"],c:0,e:"Nach einem Zeitpunkt fragst du mit quand."},
+{q:'Schreibe: «Warum lernst du Italienisch?»',ctx:'pourquoi · apprendre · Inversion',type:'write',answer:"Pourquoi apprends-tu l'italien ?",e:"Fragewort + invertiertes Verb/Subjekt: Pourquoi apprends-tu…?"},
+{q:'Welche Form ist korrekt?',ctx:'Frage nach der Art und Weise.',a:["Comment fais-tu ça ?","Comment tu-fais ça ?","Fais-comment-tu ça ?","Est comment fais-tu ça ?"],c:0,e:"Comment + Verb + Subjektpronomen."},
+{q:'Bilde eine Frage im passé composé.',ctx:'Tu as regardé le film. · est-ce que',type:'write',answer:"Est-ce que tu as regardé le film ?",e:"Die Zeitform bleibt erhalten: est-ce que + tu as regardé…"},
+{q:'Welche Inversionsfrage im passé composé ist korrekt?',ctx:'Vous avez fini.',a:["Avez-vous fini ?","Fini-avez-vous ?","Avez fini-vous ?","Est-avez-vous fini ?"],c:0,e:"Invertiert wird das konjugierte Hilfsverb: Avez-vous fini ?"},
+{q:'Schreibe: «Wann bist du angekommen?»',ctx:'quand · arriver · passé composé · Inversion',type:'write',answer:"Quand es-tu arrivé ?",e:"Bei être wird das Hilfsverb invertiert: es-tu arrivé."},
+{q:'Welche Frage passt?',ctx:'Elle est partie à 18 heures.',a:["À quelle heure est-elle partie ?","À quelle heure partie-elle ?","Quand elle-est partie ?","Quelle heure est partie elle ?"],c:0,e:"Im passé composé wird das Hilfsverb invertiert: est-elle partie."},
+{q:'Schreibe: «Was hast du gemacht?»',ctx:'qu’est-ce que · faire · passé composé',type:'write',answer:"Qu'est-ce que tu as fait ?",e:"Qu’est-ce que + Subjekt + Hilfsverb + Partizip."},
+{q:'Bilde eine Frage im futur proche.',ctx:'Tu vas visiter Paris.',type:'write',answer:"Est-ce que tu vas visiter Paris ?",e:"Beim futur proche bleibt aller konjugiert: est-ce que tu vas + Infinitiv."},
+{q:'Welche Inversionsfrage ist korrekt?',ctx:'Vous allez partir demain.',a:["Allez-vous partir demain ?","Partir-allez-vous demain ?","Allez partir-vous demain ?","Est allez-vous partir demain ?"],c:0,e:"Invertiert wird das konjugierte aller: Allez-vous partir…?"},
+{q:'Schreibe: «Wann wirst du lernen?»',ctx:'futur proche · quand · Inversion',type:'write',answer:"Quand vas-tu étudier ?",e:"Quand + vas-tu + Infinitiv."},
+{q:'Frage nach einer Person mit «avec qui».',ctx:'Tu vas au cinéma avec Marie.',type:'write',answer:"Avec qui est-ce que tu vas au cinéma ?",e:"Präposition + qui kann am Anfang stehen: Avec qui est-ce que…?"},
+{q:'Welche Frage passt zur Antwort «Avec Paul.»?',ctx:'Antwort: Avec Paul.',a:["Avec qui est-ce que tu travailles ?","Où est-ce que tu travailles ?","Pourquoi est-ce que tu travailles ?","Combien est-ce que tu travailles ?"],c:0,e:"Nach einer Person mit avec fragst du: Avec qui…?"},
+{q:'Schreibe: «Mit wem sprichst du?»',ctx:'avec qui · parler',type:'write',answer:"Avec qui est-ce que tu parles ?",e:"Avec qui + est-ce que + normale Satzstellung."},
+{q:'Frage nach einem Ziel.',ctx:'Tu vas à Paris.',type:'write',answer:"Où est-ce que tu vas ?",e:"Bei einem Ort/Ziel verwendest du où."},
+{q:'Welche Frage passt zur Antwort «Pour mon examen.»?',ctx:'Antwort: Pour mon examen.',a:["Pour quoi est-ce que tu étudies ?","Avec qui est-ce que tu étudies ?","Où est-ce que tu étudies ?","Quand est-ce que tu étudies ?"],c:0,e:"Nach dem Zweck kann pour quoi verwendet werden."},
+{q:'Schreibe die Frage nach dem Preis.',ctx:'Le livre coûte 20 euros.',type:'write',answer:"Combien coûte le livre ?",e:"Nach dem Preis fragt man mit combien: Combien coûte…?"},
+{q:'Welche Frage ist korrekt?',ctx:'Du fragst nach der Anzahl der Schüler.',a:["Combien d'élèves est-ce qu'il y a ?","Comment d'élèves il y a ?","Quel élèves est-ce qu'il y a ?","Combien est élèves ?"],c:0,e:"Combien de/d’ + Nomen: Combien d’élèves…?"},
+{q:'Schreibe: «Wie viele Sprachen sprichst du?»',ctx:'combien de langues · parler',type:'write',answer:"Combien de langues est-ce que tu parles ?",e:"Combien de + Nomen + est-ce que + Satz."},
+{q:'Welche Frage passt zu «C’est le livre de Marie.»?',ctx:'Frage nach dem Besitzer.',a:["À qui est ce livre ?","Qui est-ce livre ?","Avec qui est ce livre ?","Quel est de Marie ?"],c:0,e:"À qui…? kann nach Zugehörigkeit/Besitz fragen."},
+{q:'Schreibe: «Wem gehört diese Tasche?»',ctx:'à qui · être · ce sac',type:'write',answer:"À qui est ce sac ?",e:"Eine einfache Form lautet: À qui est ce sac ?"},
+{q:'Forme die Aussage in eine Frage um.',ctx:'Vous avez visité Lyon l’année dernière. · Frage nach dem Zeitpunkt',type:'write',answer:"Quand est-ce que vous avez visité Lyon ?",e:"Fragewort + est-ce que + passé composé."},
+{q:'Forme die Aussage in eine Frage um.',ctx:'Paul va voyager avec ses amis. · Frage nach den Begleitpersonen',type:'write',answer:"Avec qui est-ce que Paul va voyager ?",e:"Avec qui fragt nach den Begleitpersonen."},
+{q:'Transfer: Formuliere eine passende Frage.',ctx:'Antwort: «Parce que je veux travailler en France.»',type:'write',answer:"Pourquoi est-ce que tu apprends le français ?",e:"Bei parce que als Antwort brauchst du eine pourquoi-Frage."},
+{q:'Transfer: Formuliere eine passende Frage.',ctx:'Antwort: «Je suis arrivé à neuf heures.»',type:'write',answer:"À quelle heure est-ce que tu es arrivé ?",e:"Nach einer genauen Uhrzeit: À quelle heure…?"},
+{q:'Welche Struktur ist korrekt?',ctx:'Inversionsfrage mit Fragewort',a:["Fragewort + Verb + Subjektpronomen","Subjekt + Fragewort + Verb","Verb + Fragewort + est-ce que","Fragewort + Subjekt + Bindestrich + Verb"],c:0,e:"Grundmuster: Fragewort + Verb-Subjektpronomen, z. B. Où habites-tu ?"},
+{q:'Schreibe eine vollständige Frage.',ctx:'Du willst wissen, was dein Freund am Wochenende gemacht hat.',type:'write',answer:"Qu'est-ce que tu as fait le week-end ?",e:"Qu’est-ce que + passé composé: tu as fait."}
+];
+const topic6=[
+{q:'Welche Präposition passt zu einem femininen Land?',ctx:'Je vais ___ France.',a:["en","au","aux","à"],c:0,e:"Bei femininen Ländern verwendet man normalerweise en: en France."},
+{q:'Schreibe: «Wir fahren nach Italien.»',ctx:'aller · Italie',type:'write',answer:"Nous allons en Italie.",e:"Italie ist feminin: en Italie."},
+{q:'Welche Form ist korrekt?',ctx:'Il habite ___ Suisse.',a:["en","au","aux","de"],c:0,e:"Suisse ist feminin: en Suisse."},
+{q:'Schreibe: «Sie reist nach Spanien.»',ctx:'elle · voyager · Espagne',type:'write',answer:"Elle voyage en Espagne.",e:"Espagne beginnt mit Vokal und ist feminin: en Espagne."},
+{q:'Welche Präposition passt zu einem maskulinen Land?',ctx:'Je vais ___ Canada.',a:["au","en","aux","à la"],c:0,e:"Bei maskulinen Ländern: au Canada."},
+{q:'Schreibe: «Er wohnt in Portugal.»',ctx:'habiter · Portugal',type:'write',answer:"Il habite au Portugal.",e:"Portugal ist maskulin: au Portugal."},
+{q:'Welche Form ist korrekt?',ctx:'Nous allons ___ Japon.',a:["au","en","aux","du"],c:0,e:"Japon ist maskulin: au Japon."},
+{q:'Schreibe: «Ich fahre nach Marokko.»',ctx:'aller · Maroc',type:'write',answer:"Je vais au Maroc.",e:"Maroc ist maskulin: au Maroc."},
+{q:'Welche Präposition passt zu einem Land im Plural?',ctx:'Elle va ___ États-Unis.',a:["aux","au","en","à"],c:0,e:"Bei Ländern im Plural: aux États-Unis."},
+{q:'Schreibe: «Wir reisen in die Niederlande.»',ctx:'voyager · Pays-Bas',type:'write',answer:"Nous voyageons aux Pays-Bas.",e:"Pays-Bas steht im Plural: aux Pays-Bas."},
+{q:'Welche Form bedeutet «aus Frankreich»?',ctx:'Je viens ___ France.',a:["de","du","des","en"],c:0,e:"Bei einem femininen Land: de France."},
+{q:'Schreibe: «Er kommt aus Kanada.»',ctx:'venir · Canada',type:'write',answer:"Il vient du Canada.",e:"Aus einem maskulinen Land: du Canada."},
+{q:'Welche Form ist korrekt?',ctx:'Ils viennent ___ États-Unis.',a:["des","du","de","aux"],c:0,e:"Aus einem Land im Plural: des États-Unis."},
+{q:'Schreibe: «Sie kommt aus Italien.»',ctx:'venir · Italie',type:'write',answer:"Elle vient d'Italie.",e:"Vor Vokal wird de zu d’: d’Italie."},
+{q:'Was bedeutet «chez»?',ctx:'Je vais chez Paul.',a:["zu/bei einer Person","unter","gegenüber","zwischen"],c:0,e:"chez wird besonders bei Personen oder Berufsstellen verwendet: chez Paul, chez le médecin."},
+{q:'Schreibe: «Ich gehe zu meiner Grossmutter.»',ctx:'aller · ma grand-mère',type:'write',answer:"Je vais chez ma grand-mère.",e:"Bei einer Person verwendet man chez."},
+{q:'Welche Form ist korrekt?',ctx:'Nous sommes ___ le médecin.',a:["chez","dans","au","sur"],c:0,e:"Bei einer Person bzw. Praxis: chez le médecin."},
+{q:'Schreibe: «Sie ist bei ihren Freunden.»',ctx:'elle · ses amis',type:'write',answer:"Elle est chez ses amis.",e:"chez ses amis = bei ihren Freunden."},
+{q:'Welche Wendung bedeutet «neben»?',ctx:'La pharmacie est ___ la banque.',a:["à côté de","loin de","autour de","chez"],c:0,e:"à côté de = neben."},
+{q:'Schreibe: «Die Schule ist neben dem Bahnhof.»',ctx:'école · gare',type:'write',answer:"L'école est à côté de la gare.",e:"à côté de la gare = neben dem Bahnhof."},
+{q:'Welche Wendung bedeutet «gegenüber»?',ctx:'Le café est ___ l’hôtel.',a:["en face de","près de","derrière","chez"],c:0,e:"en face de = gegenüber."},
+{q:'Schreibe: «Die Bank ist gegenüber der Schule.»',ctx:'banque · école',type:'write',answer:"La banque est en face de l'école.",e:"en face de l’école = gegenüber der Schule."},
+{q:'Welche Wendung bedeutet «in der Nähe von»?',ctx:'J’habite ___ la gare.',a:["près de","loin de","sans","entre"],c:0,e:"près de = in der Nähe von."},
+{q:'Schreibe: «Wir wohnen in der Nähe des Zentrums.»',ctx:'habiter · le centre',type:'write',answer:"Nous habitons près du centre.",e:"près de + le → près du centre."},
+{q:'Welche Wendung bedeutet «weit weg von»?',ctx:'L’école est ___ ma maison.',a:["loin de","à côté de","sur","avec"],c:0,e:"loin de = weit weg von."},
+{q:'Schreibe: «Das Hotel ist weit vom Bahnhof entfernt.»',ctx:'hôtel · gare',type:'write',answer:"L'hôtel est loin de la gare.",e:"loin de la gare = weit vom Bahnhof entfernt."},
+{q:'Welche Wendung bedeutet «rund um»?',ctx:'Il y a des arbres ___ la maison.',a:["autour de","en face de","chez","sous"],c:0,e:"autour de = rund um."},
+{q:'Schreibe: «Wir laufen um den See herum.»',ctx:'marcher · le lac',type:'write',answer:"Nous marchons autour du lac.",e:"autour de + le → autour du lac."},
+{q:'Welche Form ist korrekt?',ctx:'Le musée est près ___ parc.',a:["du","de le","au","des"],c:0,e:"de + le wird zu du: près du parc."},
+{q:'Schreibe: «Das Café ist neben den Geschäften.»',ctx:'café · les magasins',type:'write',answer:"Le café est à côté des magasins.",e:"de + les → des: à côté des magasins."},
+{q:'Welche Präposition gehört zu «parler» bei einer Sprache?',ctx:'Je parle ___ mon professeur.',a:["à","de","en","sur"],c:0,e:"parler à quelqu’un = mit jemandem sprechen."},
+{q:'Schreibe: «Ich spreche mit meiner Lehrerin.»',ctx:'parler · ma professeure',type:'write',answer:"Je parle à ma professeure.",e:"parler à quelqu’un."},
+{q:'Welche Präposition passt?',ctx:'Nous parlons ___ notre voyage.',a:["de","à","chez","en"],c:0,e:"parler de quelque chose = über etwas sprechen."},
+{q:'Schreibe: «Sie spricht über die Schule.»',ctx:'elle · parler · école',type:'write',answer:"Elle parle de l'école.",e:"parler de + Sache/Thema."},
+{q:'Welche Präposition gehört zu «penser»?',ctx:'Je pense ___ mes vacances.',a:["à","de","chez","dans"],c:0,e:"penser à quelque chose/quelqu’un = an etwas/jemanden denken."},
+{q:'Schreibe: «Er denkt an seine Familie.»',ctx:'penser · sa famille',type:'write',answer:"Il pense à sa famille.",e:"penser à + Person/Sache."},
+{q:'Welche Form ist korrekt?',ctx:'Elle joue ___ tennis.',a:["au","à la","du","en"],c:0,e:"Bei vielen Sportarten mit jouer: jouer au tennis."},
+{q:'Schreibe: «Wir spielen Fussball.»',ctx:'jouer · football',type:'write',answer:"Nous jouons au football.",e:"jouer à + le football → jouer au football."},
+{q:'Welche Form ist korrekt?',ctx:'Il joue ___ guitare.',a:["de la","à la","du","en"],c:0,e:"Bei Instrumenten: jouer de la guitare."},
+{q:'Schreibe: «Ich spiele Klavier.»',ctx:'jouer · piano',type:'write',answer:"Je joue du piano.",e:"Instrument: jouer de + le piano → du piano."},
+{q:'Welche Präposition passt?',ctx:'Elle s’intéresse ___ musique.',a:["à la","de la","sur la","chez la"],c:0,e:"s’intéresser à quelque chose: à la musique."},
+{q:'Schreibe: «Ich interessiere mich für Sport.»',ctx:'s’intéresser · le sport',type:'write',answer:"Je m'intéresse au sport.",e:"s’intéresser à + le sport → au sport."},
+{q:'Transfer: Übersetze.',ctx:'«Ich wohne in der Schweiz, aber ich komme aus Italien.»',type:'write',answer:"J'habite en Suisse, mais je viens d'Italie.",e:"en Suisse; venir d’Italie."},
+{q:'Transfer: Übersetze.',ctx:'«Wir fahren zu unseren Freunden in Frankreich.»',type:'write',answer:"Nous allons chez nos amis en France.",e:"chez nos amis + en France."},
+{q:'Transfer: Beschreibe den Ort.',ctx:'«Das Restaurant ist gegenüber dem Bahnhof und neben dem Hotel.»',type:'write',answer:"Le restaurant est en face de la gare et à côté de l'hôtel.",e:"en face de + à côté de."},
+{q:'Transfer: Schreibe einen vollständigen Satz.',ctx:'«Paul spricht mit Marie über seine Ferien.»',type:'write',answer:"Paul parle à Marie de ses vacances.",e:"parler à quelqu’un de quelque chose."}
+];
+const topic7=[
+{q:'Welche Bildung ist korrekt?',ctx:'conditionnel présent',a:["Futur-Stamm + Imparfait-Endungen","Présent-Stamm + Futur-Endungen","Imparfait-Stamm + passé composé","Partizip + être"],c:0,e:"Das conditionnel présent verwendet den Futur-Stamm und die Endungen -ais, -ais, -ait, -ions, -iez, -aient."},
+{q:'Schreibe die Form.',ctx:'être · nous',type:'write',answer:"Nous serions.",e:"être → ser- + -ions."},
+{q:'Schreibe die Form.',ctx:'avoir · vous',type:'write',answer:"Vous auriez.",e:"avoir → aur- + -iez."},
+{q:'Welche Form ist korrekt?',ctx:'aller · ils',a:["ils iraient","ils allerions","ils allaient","ils iront"],c:0,e:"aller → ir-: ils iraient."},
+{q:'Schreibe die Form.',ctx:'faire · tu',type:'write',answer:"Tu ferais.",e:"faire → fer- + -ais."},
+{q:'Welche Form ist korrekt?',ctx:'venir · nous',a:["nous viendrions","nous venirions","nous venions","nous viendrons"],c:0,e:"venir → viendr-: nous viendrions."},
+{q:'Schreibe die Form.',ctx:'voir · elles',type:'write',answer:"Elles verraient.",e:"voir → verr- + -aient."},
+{q:'Welche Form ist korrekt?',ctx:'savoir · je',a:["je saurais","je savoirais","je savais","je saurai"],c:0,e:"savoir → saur-: je saurais."},
+{q:'Schreibe: «Du würdest wissen.»',ctx:'savoir · tu',type:'write',answer:"Tu saurais.",e:"saur- + -ais."},
+{q:'Welche Form ist korrekt?',ctx:'recevoir · il',a:["il recevrait","il recevoirait","il recevait","il recevra"],c:0,e:"recevoir → recevr-: il recevrait."},
+{q:'Schreibe: «Wir würden erhalten.»',ctx:'recevoir · nous',type:'write',answer:"Nous recevrions.",e:"recevr- + -ions."},
+{q:'Welche Form ist korrekt?',ctx:'envoyer · elle',a:["elle enverrait","elle envoyerait","elle envoyait","elle enverra"],c:0,e:"envoyer → enverr- im Futur und Conditionnel."},
+{q:'Schreibe: «Ihr würdet schicken.»',ctx:'envoyer · vous',type:'write',answer:"Vous enverriez.",e:"enverr- + -iez."},
+{q:'Welche Form ist korrekt?',ctx:'falloir',a:["il faudrait","il falloirait","il fallait","il faudraient"],c:0,e:"falloir → il faudrait."},
+{q:'Schreibe: «Man müsste mehr lernen.»',ctx:'falloir · étudier davantage',type:'write',answer:"Il faudrait étudier davantage.",e:"Il faudrait + Infinitiv kann einen Rat ausdrücken."},
+{q:'Welche Form ist korrekt?',ctx:'pleuvoir',a:["il pleuvrait","il pleuvoirait","il pleuvait conditionnel","il pleuverait"],c:0,e:"pleuvoir → pleuvr-: il pleuvrait."},
+{q:'Welche Struktur verwendet man für eine irreale/gedachte Bedingung in der Gegenwart?',ctx:'Si j’avais le temps, …',a:["si + imparfait → conditionnel présent","si + conditionnel → conditionnel","si + présent → imparfait","si + futur → conditionnel"],c:0,e:"Typisches Muster: si + imparfait, dann conditionnel présent."},
+{q:'Ergänze.',ctx:'Si j’avais plus de temps, je ___ davantage. · voyager',a:["voyagerais","voyageais","voyagerai","voyage"],c:0,e:"Im Hauptsatz steht das conditionnel: je voyagerais."},
+{q:'Schreibe den ganzen Satz.',ctx:'Si j’avais de l’argent, … acheter une voiture.',type:'write',answer:"Si j'avais de l'argent, j'achèterais une voiture.",e:"si + imparfait: j’avais; Hauptsatz: j’achèterais."},
+{q:'Welche Form ist korrekt?',ctx:'Si nous étions en vacances, nous ___ à la mer. · aller',a:["irions","allions","irons","allerions"],c:0,e:"si nous étions …, nous irions …"},
+{q:'Schreibe: «Wenn wir Zeit hätten, würden wir kommen.»',ctx:'avoir le temps · venir',type:'write',answer:"Si nous avions le temps, nous viendrions.",e:"si + imparfait → conditionnel présent."},
+{q:'Ergänze.',ctx:'Si tu habitais à Paris, tu ___ souvent le Louvre. · visiter',a:["visiterais","visitais","visiteras","visites"],c:0,e:"Der Hauptsatz steht im conditionnel: visiterais."},
+{q:'Schreibe: «Wenn sie besser Französisch spräche, würde sie in Frankreich arbeiten.»',ctx:'parler mieux français · travailler en France',type:'write',answer:"Si elle parlait mieux français, elle travaillerait en France.",e:"si + imparfait, dann conditionnel présent."},
+{q:'Welche Variante ist falsch?',ctx:'Achte auf die Regel nach «si».',a:["Si j'aurais le temps, je viendrais.","Si j'avais le temps, je viendrais.","Si nous étions libres, nous sortirions.","Si tu pouvais, tu voyagerais."],c:0,e:"Nach si steht bei diesem Bedingungstyp nicht das conditionnel, sondern das imparfait."},
+{q:'Korrigiere den Satz.',ctx:"Si j'aurais plus d'argent, je voyagerais.",type:'write',answer:"Si j'avais plus d'argent, je voyagerais.",e:"Nicht si + conditionnel: richtig ist si + imparfait."},
+{q:'Welche Form drückt einen Rat aus?',ctx:'Du solltest mehr schlafen.',a:["Tu devrais dormir davantage.","Tu dois dormais davantage.","Tu dormirais devoir.","Tu devras dormirais."],c:0,e:"devoir im conditionnel: tu devrais."},
+{q:'Schreibe: «Du solltest mit deiner Lehrerin sprechen.»',ctx:'devoir · parler à ta professeure',type:'write',answer:"Tu devrais parler à ta professeure.",e:"Tu devrais + Infinitiv."},
+{q:'Schreibe: «Ihr solltet früher kommen.»',ctx:'devoir · venir plus tôt',type:'write',answer:"Vous devriez venir plus tôt.",e:"Vous devriez + Infinitiv."},
+{q:'Welche Form ist höflich?',ctx:'Du bittest jemanden, die Tür zu öffnen.',a:["Pourriez-vous ouvrir la porte ?","Ouvrez la porte !","Vous pouvez la porte ?","Vous ouvririez porte."],c:0,e:"Pourriez-vous…? ist eine höfliche Bitte."},
+{q:'Schreibe: «Könntest du mir helfen?»',ctx:'pouvoir · tu · m’aider',type:'write',answer:"Pourrais-tu m'aider ?",e:"Inversion mit conditionnel: Pourrais-tu…?"},
+{q:'Schreibe: «Könnten Sie das wiederholen?»',ctx:'pouvoir · vous · répéter',type:'write',answer:"Pourriez-vous répéter ?",e:"Pourriez-vous…? ist eine typische höfliche Frage."},
+{q:'Welche Form drückt einen Wunsch aus?',ctx:'Ich würde gerne mehr reisen.',a:["J'aimerais voyager davantage.","J'aimerai voyager davantage.","J'aimais voyager davantage.","Je voudrais que voyager."],c:0,e:"J’aimerais + Infinitiv."},
+{q:'Schreibe: «Wir würden gerne in der Schweiz bleiben.»',ctx:'aimer · rester en Suisse',type:'write',answer:"Nous aimerions rester en Suisse.",e:"aimer im conditionnel + Infinitiv."},
+{q:'Schreibe: «Sie möchten ein Haus kaufen.»',ctx:'vouloir · ils · acheter une maison',type:'write',answer:"Ils voudraient acheter une maison.",e:"vouloir → voudr-: ils voudraient."},
+{q:'Welche Form passt?',ctx:'À ta place, je ___ avec le professeur. · parler',a:["parlerais","parlais","parlerai","parle"],c:0,e:"À ta place, je parlerais… = An deiner Stelle würde ich…"},
+{q:'Schreibe: «An deiner Stelle würde ich früher anfangen.»',ctx:'à ta place · commencer plus tôt',type:'write',answer:"À ta place, je commencerais plus tôt.",e:"À ta place + conditionnel eignet sich für Ratschläge."},
+{q:'Welche Form ist korrekt?',ctx:'Sans voiture, nous ___ le train. · prendre',a:["prendrions","prenions","prendrons","prenerions"],c:0,e:"prendre → prendr-: nous prendrions."},
+{q:'Schreibe: «Ohne Internet wäre das schwieriger.»',ctx:'sans Internet · être plus difficile',type:'write',answer:"Sans Internet, ce serait plus difficile.",e:"être → ce serait."},
+{q:'Transfer: Übersetze.',ctx:'«Wenn ich in Paris wohnen würde, würde ich jeden Tag Französisch sprechen.»',type:'write',answer:"Si j'habitais à Paris, je parlerais français tous les jours.",e:"si + imparfait → conditionnel."},
+{q:'Transfer: Übersetze.',ctx:'«Wenn wir ein Auto hätten, könnten wir öfter reisen.»',type:'write',answer:"Si nous avions une voiture, nous pourrions voyager plus souvent.",e:"avions im imparfait; pourrions im conditionnel."},
+{q:'Transfer: Übersetze.',ctx:'«An deiner Stelle würde ich diese Stelle annehmen.»',type:'write',answer:"À ta place, j'accepterais ce poste.",e:"À ta place + conditionnel."},
+{q:'Transfer: Formuliere höflich.',ctx:'Bitte eine Lehrperson, die Aufgabe noch einmal zu erklären.',type:'write',answer:"Pourriez-vous expliquer l'exercice encore une fois ?",e:"Pourriez-vous + Infinitiv ist eine höfliche Bitte."},
+{q:'Transfer: Ergänze sinnvoll.',ctx:'Si j’étais professeur, …',type:'write',answer:"Si j'étais professeur, j'aiderais mes élèves.",e:"Eine mögliche korrekte Fortsetzung: conditionnel présent im Hauptsatz."},
+{q:'Fehlerkorrektur.',ctx:'Si nous serions riches, nous achèterions une grande maison.',type:'write',answer:"Si nous étions riches, nous achèterions une grande maison.",e:"Nach si steht hier imparfait: étions."},
+{q:'Fehlerkorrektur.',ctx:'Tu devrait étudier plus.',type:'write',answer:"Tu devrais étudier plus.",e:"tu → -ais: devrais."},
+{q:'Fehlerkorrektur.',ctx:'Ils voudrions partir demain.',type:'write',answer:"Ils voudraient partir demain.",e:"ils → -aient: voudraient."},
+{q:'Welche Aussage ist richtig?',ctx:'Si + imparfait',a:["Der Hauptsatz kann im conditionnel présent stehen.","Nach si muss immer conditionnel stehen.","Beide Verben müssen im futur simple stehen.","Das Muster wird nur für die Vergangenheit verwendet."],c:0,e:"Für gedachte Bedingungen in Gegenwart/Zukunft: si + imparfait → conditionnel présent."}
+];
+const topic8=[
+{q:'Wie lautet das participe passé von «écrire»?',ctx:'écrire → ?',a:["écrit","écrivé","écru","écrire"],c:0,e:"écrire → écrit."},
+{q:'Schreibe: «Ich habe eine E-Mail geschrieben.»',ctx:'écrire · un e-mail',type:'write',answer:"J'ai écrit un e-mail.",e:"écrire → écrit."},
+{q:'Wie lautet das participe passé von «dire»?',ctx:'dire → ?',a:["dit","du","disé","dire"],c:0,e:"dire → dit."},
+{q:'Schreibe: «Sie hat die Wahrheit gesagt.»',ctx:'dire · la vérité',type:'write',answer:"Elle a dit la vérité.",e:"dire → dit."},
+{q:'Wie lautet das participe passé von «mettre»?',ctx:'mettre → ?',a:["mis","mettu","mit","metté"],c:0,e:"mettre → mis."},
+{q:'Schreibe: «Wir haben die Bücher auf den Tisch gelegt.»',ctx:'mettre · les livres · sur la table',type:'write',answer:"Nous avons mis les livres sur la table.",e:"mettre → mis."},
+{q:'Wie lautet das participe passé von «boire»?',ctx:'boire → ?',a:["bu","boivé","boit","buvé"],c:0,e:"boire → bu."},
+{q:'Schreibe: «Du hast Wasser getrunken.»',ctx:'boire · de l’eau',type:'write',answer:"Tu as bu de l'eau.",e:"boire → bu."},
+{q:'Wie lautet das participe passé von «devoir»?',ctx:'devoir → ?',a:["dû","devenu","devé","doit"],c:0,e:"devoir → dû."},
+{q:'Welche Form ist korrekt?',ctx:'pouvoir · nous',a:["nous avons pu","nous sommes pu","nous avons pouvoir","nous avons pouvé"],c:0,e:"pouvoir → pu; passé composé mit avoir."},
+{q:'Schreibe: «Ich habe nicht kommen können.»',ctx:'ne pas pouvoir · venir',type:'write',answer:"Je n'ai pas pu venir.",e:"Die Verneinung umschliesst das Hilfsverb: je n’ai pas pu."},
+{q:'Wie lautet das participe passé von «vouloir»?',ctx:'vouloir → ?',a:["voulu","voulé","vu","veut"],c:0,e:"vouloir → voulu."},
+{q:'Schreibe: «Sie haben bleiben wollen.»',ctx:'vouloir · rester',type:'write',answer:"Ils ont voulu rester.",e:"vouloir → voulu + Infinitiv."},
+{q:'Wie lautet das participe passé von «savoir»?',ctx:'savoir → ?',a:["su","savu","sait","savoir"],c:0,e:"savoir → su."},
+{q:'Schreibe: «Wir haben die Antwort gewusst.»',ctx:'savoir · la réponse',type:'write',answer:"Nous avons su la réponse.",e:"savoir → su."},
+{q:'Welche Form ist korrekt?',ctx:'ouvrir · elle',a:["elle a ouvert","elle est ouverte","elle a ouvri","elle a ouvrir"],c:0,e:"ouvrir → ouvert und wird hier mit avoir gebildet."},
+{q:'Schreibe: «Er hat die Tür geöffnet.»',ctx:'ouvrir · la porte',type:'write',answer:"Il a ouvert la porte.",e:"ouvrir → ouvert."},
+{q:'Wie bildet man das passé composé eines reflexiven Verbs?',ctx:'se lever',a:["être + participe passé","avoir + Infinitiv","avoir + participe passé","être + Infinitiv"],c:0,e:"Reflexive Verben bilden das passé composé mit être."},
+{q:'Welche Form ist korrekt?',ctx:'se lever · je (m.)',a:["je me suis levé","j'ai me levé","je suis me levé","je me suis lever"],c:0,e:"Reflexivpronomen + être + participe passé: je me suis levé."},
+{q:'Schreibe: «Ich bin um sieben Uhr aufgestanden.»',ctx:'se lever · 7 heures · Sprecher männlich',type:'write',answer:"Je me suis levé à sept heures.",e:"se lever → je me suis levé."},
+{q:'Schreibe: «Marie ist früh aufgestanden.»',ctx:'se lever · Marie · tôt',type:'write',answer:"Marie s'est levée tôt.",e:"Marie → levée."},
+{q:'Welche Form ist korrekt?',ctx:'se coucher · nous (m./gemischt)',a:["nous nous sommes couchés","nous avons couchés","nous sommes nous couchés","nous nous avons couchés"],c:0,e:"nous nous sommes couchés."},
+{q:'Schreibe: «Wir sind spät ins Bett gegangen.»',ctx:'se coucher · tard · m./gemischt',type:'write',answer:"Nous nous sommes couchés tard.",e:"Reflexives Verb mit être."},
+{q:'Welche Form ist korrekt?',ctx:'se réveiller · elles',a:["elles se sont réveillées","elles ont se réveillé","elles se sont réveillé","elles sont réveiller"],c:0,e:"Feminin Plural: réveillées."},
+{q:'Schreibe: «Die Mädchen haben sich schnell angezogen.»',ctx:'s’habiller · les filles · vite',type:'write',answer:"Les filles se sont habillées vite.",e:"s’habiller mit être; les filles → habillées."},
+{q:'Wo steht «pas» bei einem reflexiven Verb?',ctx:'Je ___ me suis ___ levé tôt.',a:["ne / pas","pas / ne","ne / jamais vor me","pas / plus"],c:0,e:"Je ne me suis pas levé tôt."},
+{q:'Schreibe: «Ich bin nicht früh aufgestanden.»',ctx:'ne pas · se lever · tôt · m.',type:'write',answer:"Je ne me suis pas levé tôt.",e:"ne + Reflexivpronomen + être + pas + participe passé."},
+{q:'Schreibe: «Sie ist nicht spät ins Bett gegangen.»',ctx:'elle · ne pas · se coucher · tard',type:'write',answer:"Elle ne s'est pas couchée tard.",e:"Elle ne s’est pas couchée tard."},
+{q:'Welche Form ist korrekt?',ctx:'ne jamais · voir · ce film',a:["Je n'ai jamais vu ce film.","Je n'ai vu jamais ce film.","Je jamais ai vu ce film.","Je ne suis jamais vu ce film."],c:0,e:"jamais steht nach dem Hilfsverb: je n’ai jamais vu."},
+{q:'Schreibe: «Wir haben noch nicht gegessen.»',ctx:'ne pas encore · manger',type:'write',answer:"Nous n'avons pas encore mangé.",e:"pas encore steht nach dem Hilfsverb."},
+{q:'Welche Form ist korrekt?',ctx:'ne plus · travailler',a:["Il n'a plus travaillé.","Il a ne plus travaillé.","Il n'a travaillé plus.","Il n'est plus travaillé."],c:0,e:"ne ... plus umschliesst das Hilfsverb."},
+{q:'Schreibe: «Ich habe nichts verstanden.»',ctx:'ne rien · comprendre',type:'write',answer:"Je n'ai rien compris.",e:"rien steht zwischen Hilfsverb und participe passé."},
+{q:'Wo steht ein direktes Objektpronomen im passé composé?',ctx:'Je ___ ai vu hier. · Marie → la',a:["l' vor dem Hilfsverb","la nach dem participe passé","la vor dem participe passé","l' am Satzende"],c:0,e:"Das Pronomen steht vor dem Hilfsverb: je l’ai vue hier."},
+{q:'Schreibe: «Ich habe sie gestern gesehen.»',ctx:'Marie → la · voir · hier',type:'write',answer:"Je l'ai vue hier.",e:"Das direkte Objekt steht vor dem Hilfsverb; bei vorausgehendem direkten Objekt wird das participe passé hier angeglichen: vue."},
+{q:'Welche Form ist korrekt?',ctx:'les lettres → les · écrire',a:["Je les ai écrites.","J'ai les écrit.","Je les ai écrit.","Je suis les écrites."],c:0,e:"Das direkte Objekt les steht vor avoir; lettres ist feminin plural → écrites."},
+{q:'Schreibe: «Ich habe die Bücher gelesen.» → ersetze «les livres» durch ein Pronomen.',ctx:'lire · les livres',type:'write',answer:"Je les ai lus.",e:"les steht vor ai; livres ist maskulin plural → lus."},
+{q:'Welche Form ist korrekt?',ctx:'parler à Marie → lui',a:["Je lui ai parlé.","J'ai lui parlé.","Je l'ai parlée.","Je suis lui parlé."],c:0,e:"Indirektes Objektpronomen lui steht vor dem Hilfsverb; parlé wird nicht wegen lui angeglichen."},
+{q:'Schreibe: «Wir haben ihnen geschrieben.»',ctx:'écrire à nos amis → leur',type:'write',answer:"Nous leur avons écrit.",e:"leur steht vor avons."},
+{q:'Welche Zeitangabe passt gut zum passé composé?',ctx:'Wähle die typische abgeschlossene Zeitangabe.',a:["hier","tous les jours","normalement","d'habitude"],c:0,e:"hier bezeichnet einen abgeschlossenen Zeitpunkt in der Vergangenheit."},
+{q:'Ergänze.',ctx:'Hier soir, nous ___ un bon film. · voir',a:["avons vu","voyions","sommes vus","avons voir"],c:0,e:"Hier soir + abgeschlossene Handlung → avons vu."},
+{q:'Schreibe: «Letzte Woche habe ich meine Grosseltern besucht.»',ctx:'la semaine dernière · rendre visite à mes grands-parents',type:'write',answer:"La semaine dernière, j'ai rendu visite à mes grands-parents.",e:"rendre visite à → j’ai rendu visite à."},
+{q:'Schreibe: «Heute Morgen ist sie um sechs Uhr aufgestanden.»',ctx:'ce matin · se lever · 6 heures',type:'write',answer:"Ce matin, elle s'est levée à six heures.",e:"Reflexives Verb mit être; feminin: levée."},
+{q:'Transfer: Übersetze.',ctx:'«Gestern habe ich meine Hausaufgaben gemacht und danach einen Film gesehen.»',type:'write',answer:"Hier, j'ai fait mes devoirs et après j'ai vu un film.",e:"faire → fait; voir → vu."},
+{q:'Transfer: Übersetze.',ctx:'«Wir sind am Samstag nach Genf gefahren und am Sonntag zurückgekommen.»',type:'write',answer:"Nous sommes allés à Genève samedi et nous sommes revenus dimanche.",e:"aller und revenir werden hier mit être gebildet."},
+{q:'Transfer: Übersetze.',ctx:'«Marie ist spät aufgestanden, aber sie ist pünktlich angekommen.»',type:'write',answer:"Marie s'est levée tard, mais elle est arrivée à l'heure.",e:"Zwei Verben mit être; beide werden an Marie angeglichen."},
+{q:'Transfer: Übersetze.',ctx:'«Ich habe das Buch gekauft, aber ich habe es noch nicht gelesen.»',type:'write',answer:"J'ai acheté le livre, mais je ne l'ai pas encore lu.",e:"le livre → l’ vor dem Hilfsverb; lu bleibt maskulin singular."},
+{q:'Fehlerkorrektur.',ctx:"Elle s'a levée à huit heures.",type:'write',answer:"Elle s'est levée à huit heures.",e:"Reflexive Verben verwenden être: elle s’est levée."},
+{q:'Fehlerkorrektur.',ctx:"Nous avons venus hier.",type:'write',answer:"Nous sommes venus hier.",e:"venir wird mit être gebildet."},
+{q:'Fehlerkorrektur.',ctx:"Je n'ai compris rien.",type:'write',answer:"Je n'ai rien compris.",e:"rien steht zwischen Hilfsverb und participe passé."},
+{q:'Fehlerkorrektur.',ctx:"Les lettres ? Je les ai écrit.",type:'write',answer:"Les lettres ? Je les ai écrites.",e:"Das vorausgehende direkte Objekt les bezieht sich auf lettres: feminin plural → écrites."},
+{q:'Welche Zusammenfassung passt zu Niveau 2?',ctx:'Passé composé',a:["Hilfsverb wählen, participe passé bilden, bei être/reflexiven Verben und vorausgehendem direktem Objekt auf Angleichung achten","Immer avoir verwenden und nie angleichen","Immer être verwenden","Nur regelmässige -er-Verben können im passé composé stehen"],c:0,e:"Auf Niveau 2 kommen neben der Bildung besonders reflexive Verben, Pronomen, Verneinungen und Angleichungen hinzu."}
+];
+const topic9=[
+{q:'Bilde den Imparfait-Stamm.',ctx:'boire → nous buvons → ?',a:["buv-","boiv-","boir-","bu-"],c:0,e:"nous buvons ohne -ons → buv-."},
+{q:'Schreibe die Form.',ctx:'boire · je',type:'write',answer:"Je buvais.",e:"buv- + -ais = je buvais."},
+{q:'Bilde den Stamm.',ctx:'lire → nous lisons → ?',a:["lis-","lir-","lisons-","lu-"],c:0,e:"nous lisons → lis-."},
+{q:'Schreibe: «Sie lasen viel.»',ctx:'lire · ils · beaucoup',type:'write',answer:"Ils lisaient beaucoup.",e:"lis- + -aient."},
+{q:'Bilde den Stamm.',ctx:'écrire → nous écrivons → ?',a:["écriv-","écrit-","écrir-","écri-"],c:0,e:"nous écrivons → écriv-."},
+{q:'Schreibe die Form.',ctx:'écrire · vous',type:'write',answer:"Vous écriviez.",e:"écriv- + -iez."},
+{q:'Bilde den Stamm.',ctx:'venir → nous venons → ?',a:["ven-","vien-","viendr-","venu-"],c:0,e:"nous venons → ven-."},
+{q:'Schreibe: «Sie kam oft zu Besuch.»',ctx:'elle · venir souvent nous voir',type:'write',answer:"Elle venait souvent nous voir.",e:"Wiederholte Handlung → imparfait."},
+{q:'Welche Form ist korrekt?',ctx:'voir · nous',a:["nous voyions","nous voyons","nous verrions","nous voyionss"],c:0,e:"nous voyons → voy- + -ions = voyions."},
+{q:'Schreibe die Form.',ctx:'voir · vous',type:'write',answer:"Vous voyiez.",e:"voy- + -iez = voyiez."},
+{q:'Welche Form ist korrekt?',ctx:'croire · ils',a:["ils croyaient","ils croient","ils croiraient","ils croyent"],c:0,e:"nous croyons → croy-; ils croyaient."},
+{q:'Schreibe: «Ich glaubte ihm.»',ctx:'croire · je · le croire',type:'write',answer:"Je le croyais.",e:"croire → croy-; je croyais."},
+{q:'Welche Form ist korrekt?',ctx:'manger · je',a:["je mangeais","je mangais","je mangiais","je mangerais"],c:0,e:"Bei -ger bleibt vor -ais/-ait/-aient das e erhalten: mangeais."},
+{q:'Schreibe: «Wir assen oft zusammen.»',ctx:'manger · nous · souvent ensemble',type:'write',answer:"Nous mangions souvent ensemble.",e:"Bei nous lautet die Form mangions, ohne zusätzliches e."},
+{q:'Welche Form ist korrekt?',ctx:'commencer · je',a:["je commençais","je commencais","je commencerais","je commençait"],c:0,e:"Bei -cer wird c vor a zu ç: je commençais."},
+{q:'Schreibe: «Sie begann um acht Uhr.»',ctx:'commencer · elle · à huit heures',type:'write',answer:"Elle commençait à huit heures.",e:"commencer → commençait."},
+{q:'Welche Form ist korrekt?',ctx:'commencer · nous',a:["nous commencions","nous commençions","nous commencais","nous commencerions"],c:0,e:"Vor i bleibt c: nous commencions."},
+{q:'Welche Form ist korrekt?',ctx:'étudier · nous',a:["nous étudiions","nous étudions","nous étudierions","nous étudiionss"],c:0,e:"Stamm étudi- + -ions ergibt étudiions."},
+{q:'Schreibe: «Ihr studiertet Französisch.»',ctx:'étudier · vous · le français',type:'write',answer:"Vous étudiiez le français.",e:"étudi- + -iez = étudiiez."},
+{q:'Welche Form ist korrekt?',ctx:'se souvenir · je',a:["je me souvenais","je me suis souvenu","je me souviendrais","je souvenais me"],c:0,e:"nous nous souvenons → souven-; je me souvenais."},
+{q:'Schreibe: «Wir erinnerten uns an die Reise.»',ctx:'se souvenir du voyage',type:'write',answer:"Nous nous souvenions du voyage.",e:"Reflexivpronomen + imparfait: nous nous souvenions."},
+{q:'Schreibe: «Sie fühlte sich müde.»',ctx:'elle · se sentir fatiguée',type:'write',answer:"Elle se sentait fatiguée.",e:"nous nous sentons → sent-; elle se sentait."},
+{q:'Welche Form passt zu einer wiederholten Handlung?',ctx:'Tous les samedis, nous ___ au marché. · aller',a:["allions","sommes allés","irons","irions"],c:0,e:"Tous les samedis → Gewohnheit → imparfait."},
+{q:'Schreibe: «Jeden Abend sahen wir fern.»',ctx:'chaque soir · regarder la télévision',type:'write',answer:"Chaque soir, nous regardions la télévision.",e:"Wiederholte Handlung → imparfait."},
+{q:'Welche Form passt zu einer Hintergrundbeschreibung?',ctx:'La mer ___ calme et le soleil ___. · être / briller',a:["était / brillait","a été / a brillé","était / a brillé soudain","sera / brillera"],c:0,e:"Zwei Hintergrundbeschreibungen → imparfait."},
+{q:'Schreibe: «Die Leute waren freundlich und die Stadt war ruhig.»',ctx:'les gens · être gentils / la ville · être calme',type:'write',answer:"Les gens étaient gentils et la ville était calme.",e:"Beschreibungen/Zustände → imparfait."},
+{q:'Welche Form passt?',ctx:'À cette époque, j’___ quinze ans. · avoir',a:["avais","ai eu","aurais","aurai"],c:0,e:"Alter als Zustand in der Vergangenheit → imparfait."},
+{q:'Schreibe: «Damals kannten wir Paris nicht.»',ctx:'à cette époque · ne pas connaître Paris',type:'write',answer:"À cette époque, nous ne connaissions pas Paris.",e:"Zustand/Wissen → imparfait."},
+{q:'Welche Kombination ist typisch?',ctx:'Je ___ quand le téléphone ___. · dormir / sonner',a:["dormais / a sonné","ai dormi / sonnait","dormais / sonnait soudain","ai dormi / a sonné toujours"],c:0,e:"Laufende Hintergrundhandlung → imparfait; eintretendes Ereignis → passé composé."},
+{q:'Schreibe: «Ich machte meine Hausaufgaben, als Paul anrief.»',ctx:'faire mes devoirs · quand · Paul téléphoner',type:'write',answer:"Je faisais mes devoirs quand Paul a téléphoné.",e:"Laufende Handlung: faisais; neues Ereignis: a téléphoné."},
+{q:'Welche Kombination passt?',ctx:'Il ___ quand nous ___ de la maison. · pleuvoir / sortir',a:["pleuvait / sommes sortis","a plu / sortions","pleuvait / sortions soudain","a plu / sommes sortis toujours"],c:0,e:"Wetter/Hintergrund → pleuvait; konkrete Handlung → sommes sortis."},
+{q:'Schreibe: «Es schneite, als wir angekommen sind.»',ctx:'neiger · quand · arriver',type:'write',answer:"Il neigeait quand nous sommes arrivés.",e:"Hintergrund → neigeait; abgeschlossenes Ereignis → sommes arrivés."},
+{q:'Welche Zeit passt?',ctx:'Soudain, Marie ___ la porte. · ouvrir',a:["a ouvert","ouvrait","ouvrirait","avait ouvert toujours"],c:0,e:"Soudain signalisiert ein plötzliches abgeschlossenes Ereignis → passé composé."},
+{q:'Welche Zeit passt?',ctx:'Quand j’étais enfant, je ___ souvent chez ma grand-mère. · aller',a:["allais","suis allé","irai","irais"],c:0,e:"Frühere Gewohnheit → imparfait."},
+{q:'Schreibe: «Früher trank mein Vater jeden Morgen Kaffee.»',ctx:'avant · mon père · boire du café chaque matin',type:'write',answer:"Avant, mon père buvait du café chaque matin.",e:"Wiederholte Gewohnheit → buvait."},
+{q:'Welche Kombination passt?',ctx:'Nous ___ tranquillement quand quelqu’un ___ à la porte. · manger / frapper',a:["mangions / a frappé","avons mangé / frappait","mangions / frappait soudain","avons mangé / a frappé toujours"],c:0,e:"Laufende Situation → mangions; eintretendes Ereignis → a frappé."},
+{q:'Schreibe: «Wir gingen spazieren, wenn das Wetter schön war.»',ctx:'se promener · quand · faire beau',type:'write',answer:"Nous nous promenions quand il faisait beau.",e:"Wiederholte Situation und Wetterbeschreibung → imparfait."},
+{q:'Welche Form ist korrekt?',ctx:'ne jamais · comprendre · elle',a:["elle ne comprenait jamais","elle n'a jamais compris tous les jours","elle jamais ne comprenait","elle ne jamais comprenait"],c:0,e:"ne ... jamais umschliesst das Verb: elle ne comprenait jamais."},
+{q:'Schreibe: «Wir gingen nicht oft ins Kino.»',ctx:'ne pas souvent · aller au cinéma',type:'write',answer:"Nous n'allions pas souvent au cinéma.",e:"n’allions pas souvent."},
+{q:'Schreibe: «Er wollte immer Lehrer werden.»',ctx:'vouloir toujours devenir professeur',type:'write',answer:"Il voulait toujours devenir professeur.",e:"Wunsch/Zustand über längere Zeit → imparfait."},
+{q:'Welche Form passt?',ctx:'Elle ___ parler français, mais elle était timide. · savoir',a:["savait","a su","saura","saurait"],c:0,e:"Wissen/Fähigkeit als Zustand → savait."},
+{q:'Schreibe: «Ich konnte nicht schlafen.»',ctx:'ne pas pouvoir dormir',type:'write',answer:"Je ne pouvais pas dormir.",e:"Zustand/Fähigkeit → pouvais."},
+{q:'Transfer: Übersetze.',ctx:'«Als ich zehn Jahre alt war, wohnte ich in Lausanne.»',type:'write',answer:"Quand j'avais dix ans, j'habitais à Lausanne.",e:"Alter und Wohnsituation als Zustände → imparfait."},
+{q:'Transfer: Übersetze.',ctx:'«Jeden Sommer fuhren wir nach Frankreich und besuchten unsere Freunde.»',type:'write',answer:"Chaque été, nous allions en France et nous rendions visite à nos amis.",e:"Wiederholte Handlungen → imparfait."},
+{q:'Transfer: Übersetze.',ctx:'«Ich las, als meine Mutter nach Hause gekommen ist.»',type:'write',answer:"Je lisais quand ma mère est rentrée à la maison.",e:"Laufende Handlung → lisais; eintretendes Ereignis → est rentrée."},
+{q:'Transfer: Übersetze.',ctx:'«Die Sonne schien, aber plötzlich begann es zu regnen.»',type:'write',answer:"Le soleil brillait, mais soudain il a commencé à pleuvoir.",e:"Hintergrund → brillait; plötzliches Ereignis → a commencé."},
+{q:'Transfer: Übersetze.',ctx:'«Während wir warteten, sprachen wir über die Schule.»',type:'write',answer:"Pendant que nous attendions, nous parlions de l'école.",e:"Zwei gleichzeitig laufende Hintergrundhandlungen → imparfait."},
+{q:'Fehlerkorrektur.',ctx:"Je mangeais quand Paul téléphonait soudain.",type:'write',answer:"Je mangeais quand Paul a téléphoné soudain.",e:"Das plötzlich eintretende Einzelereignis steht im passé composé."},
+{q:'Fehlerkorrektur.',ctx:"Nous voyions souvent nos amis et nous avons joué ensemble tous les jours.",type:'write',answer:"Nous voyions souvent nos amis et nous jouions ensemble tous les jours.",e:"tous les jours zeigt eine Gewohnheit → jouions."},
+{q:'Fehlerkorrektur.',ctx:"Elle mangais toujours à midi.",type:'write',answer:"Elle mangeait toujours à midi.",e:"manger behält vor -ait das e: mangeait."},
+{q:'Fehlerkorrektur.',ctx:"Je commencais l'école à huit heures chaque jour.",type:'write',answer:"Je commençais l'école à huit heures chaque jour.",e:"commencer → je commençais mit ç."},
+{q:'Welche Zusammenfassung passt zu Niveau 2?',ctx:'Imparfait',a:["Gewohnheit/Hintergrund → imparfait; abgeschlossenes eintretendes Ereignis oft → passé composé","Jede Vergangenheit steht im imparfait","Nach soudain steht immer imparfait","Passé composé beschreibt immer Gewohnheiten"],c:0,e:"Niveau 2 trainiert besonders die Funktion des imparfait im Zusammenspiel mit dem passé composé."}
+];
+const topic10=[
+{q:'Welchen Futur-Stamm hat «voir»?',ctx:'voir → ?',a:["verr-","voir-","voy-","vu-"],c:0,e:"voir → verr-."},
+{q:'Schreibe: «Ich werde dich morgen sehen.»',ctx:'voir · te · demain',type:'write',answer:"Je te verrai demain.",e:"voir → verr-; je verrai."},
+{q:'Welchen Futur-Stamm hat «savoir»?',ctx:'savoir → ?',a:["saur-","sav-","savoir-","su-"],c:0,e:"savoir → saur-."},
+{q:'Schreibe: «Wir werden die Antwort wissen.»',ctx:'savoir · la réponse',type:'write',answer:"Nous saurons la réponse.",e:"savoir → saur-; nous saurons."},
+{q:'Welchen Futur-Stamm hat «devoir»?',ctx:'devoir → ?',a:["devr-","doiv-","devoir-","dû-"],c:0,e:"devoir → devr-."},
+{q:'Schreibe: «Du wirst mehr arbeiten müssen.»',ctx:'devoir · travailler davantage',type:'write',answer:"Tu devras travailler davantage.",e:"devoir → devr-; tu devras."},
+{q:'Welchen Futur-Stamm hat «recevoir»?',ctx:'recevoir → ?',a:["recevr-","reçoiv-","recevoir-","reçu-"],c:0,e:"recevoir → recevr-."},
+{q:'Schreibe: «Sie wird eine Nachricht erhalten.»',ctx:'elle · recevoir un message',type:'write',answer:"Elle recevra un message.",e:"recevoir → recevr-; elle recevra."},
+{q:'Welchen Futur-Stamm hat «envoyer»?',ctx:'envoyer → ?',a:["enverr-","envoy-","envoyer-","envoi-"],c:0,e:"envoyer → enverr-."},
+{q:'Schreibe: «Ich werde dir eine E-Mail schicken.»',ctx:'envoyer · te · un e-mail',type:'write',answer:"Je t'enverrai un e-mail.",e:"envoyer → enverr-; je t’enverrai."},
+{q:'Welche Form ist korrekt?',ctx:'acheter · je · futur simple',a:["j'achèterai","j'acheterai","j'achetais","j'achèterais"],c:0,e:"acheter → achèter- im futur simple."},
+{q:'Schreibe: «Wir werden ein neues Auto kaufen.»',ctx:'acheter · une nouvelle voiture',type:'write',answer:"Nous achèterons une nouvelle voiture.",e:"acheter → achèter-; nous achèterons."},
+{q:'Welche Form ist korrekt?',ctx:'appeler · elle · futur simple',a:["elle appellera","elle appelerait","elle appelera","elle appelait"],c:0,e:"appeler → appeller-; elle appellera."},
+{q:'Schreibe: «Sie werden mich später anrufen.»',ctx:'appeler · me · plus tard',type:'write',answer:"Ils m'appelleront plus tard.",e:"appeler → appeller-; ils m’appelleront."},
+{q:'Welche Form ist korrekt?',ctx:'jeter · tu · futur simple',a:["tu jetteras","tu jeteras","tu jetais","tu jetterais"],c:0,e:"jeter → jetter-; tu jetteras."},
+{q:'Welche Form ist korrekt?',ctx:'courir · nous · futur simple',a:["nous courrons","nous courirons","nous courions","nous courrions"],c:0,e:"courir → courr-; nous courrons."},
+{q:'Schreibe: «Ich werde morgen laufen.»',ctx:'courir · demain',type:'write',answer:"Je courrai demain.",e:"courir → courr-; je courrai."},
+{q:'Welche Form ist korrekt?',ctx:'mourir · il · futur simple',a:["il mourra","il mourirra","il mourait","il mourrait"],c:0,e:"mourir → mourr-; il mourra."},
+{q:'Welche Form ist korrekt?',ctx:'tenir · vous · futur simple',a:["vous tiendrez","vous tenirez","vous teniez","vous tiendriez"],c:0,e:"tenir → tiendr-; vous tiendrez."},
+{q:'Schreibe: «Wir werden unser Versprechen halten.»',ctx:'tenir · notre promesse',type:'write',answer:"Nous tiendrons notre promesse.",e:"tenir → tiendr-; nous tiendrons."},
+{q:'Welche Form ist korrekt?',ctx:'falloir · futur simple',a:["il faudra","il fallera","il fallait","il faudrait"],c:0,e:"falloir → faudr-; il faudra."},
+{q:'Schreibe: «Man wird warten müssen.»',ctx:'falloir attendre',type:'write',answer:"Il faudra attendre.",e:"il faudra + Infinitiv."},
+{q:'Welche Form ist korrekt?',ctx:'pleuvoir · futur simple',a:["il pleuvra","il pleuvera","il pleuvait","il pleuvrait"],c:0,e:"pleuvoir → pleuvr-; il pleuvra."},
+{q:'Schreibe: «Morgen wird es vielleicht regnen.»',ctx:'demain · peut-être · pleuvoir',type:'write',answer:"Demain, il pleuvra peut-être.",e:"pleuvoir → il pleuvra."},
+{q:'Welche Zeit verwendet Französisch nach «quand», wenn beide Handlungen in der Zukunft liegen?',ctx:'Quand tu ___, nous mangerons. · arriver',a:["arriveras","arrives","arrivais","es arrivé"],c:0,e:"Im Französischen steht nach quand bei echtem Zukunftsbezug häufig ebenfalls futur simple."},
+{q:'Schreibe: «Wenn du ankommst, werden wir essen.»',ctx:'quand · tu arriver / nous manger',type:'write',answer:"Quand tu arriveras, nous mangerons.",e:"Zwei zukünftige Handlungen: arriveras / mangerons."},
+{q:'Welche Kombination ist korrekt?',ctx:'Dès que Marie ___, elle nous ___. · finir / appeler',a:["aura fini / appellera","finira / appelait","finissait / appellera","a fini / appellera demain toujours"],c:0,e:"Für eine bereits abgeschlossene zukünftige Handlung kann futur antérieur stehen: aura fini; danach appellera."},
+{q:'Schreibe: «Sobald ich nach Hause komme, werde ich dich anrufen.»',ctx:'dès que · rentrer à la maison / appeler',type:'write',answer:"Dès que je rentrerai à la maison, je t'appellerai.",e:"Nach dès que steht bei Zukunftsbezug futur simple."},
+{q:'Schreibe: «Wenn wir Zeit haben, werden wir ins Kino gehen.»',ctx:'si · avoir le temps / aller au cinéma',type:'write',answer:"Si nous avons le temps, nous irons au cinéma.",e:"Wichtig: Nach si steht hier Präsens, nicht futur simple; der Hauptsatz steht im Futur."},
+{q:'Welche Form ist korrekt?',ctx:'Si tu ___ demain, nous sortirons. · venir',a:["viens","viendras","venais","es venu"],c:0,e:"Nach si + reale Zukunft verwendet man Präsens: si tu viens."},
+{q:'Schreibe: «Wenn es morgen schön ist, werden wir spazieren gehen.»',ctx:'si · faire beau / se promener',type:'write',answer:"S'il fait beau demain, nous nous promènerons.",e:"si + présent; Hauptsatz im futur simple."},
+{q:'Welche Form ist korrekt?',ctx:'ne jamais · oublier · je',a:["je n'oublierai jamais","je ne jamais oublierai","je n'oublierais jamais","je n'ai jamais oublierai"],c:0,e:"ne ... jamais umschliesst die Futurform."},
+{q:'Schreibe: «Wir werden nichts sagen.»',ctx:'ne rien · dire',type:'write',answer:"Nous ne dirons rien.",e:"dire → dir-; ne ... rien."},
+{q:'Welche Form ist korrekt?',ctx:'ne plus · travailler · elle',a:["elle ne travaillera plus","elle ne plus travaillera","elle ne travaillait plus demain","elle n'aura plus travailler"],c:0,e:"elle ne travaillera plus."},
+{q:'Schreibe: «Sie werden nicht mehr hier wohnen.»',ctx:'ils · ne plus · habiter ici',type:'write',answer:"Ils n'habiteront plus ici.",e:"ne ... plus umschliesst die Futurform."},
+{q:'Welche Form ist korrekt?',ctx:'le livre → le · lire · je',a:["Je le lirai.","Je lirai le.","Je lui lirai.","Je l'ai lirai."],c:0,e:"Das Objektpronomen steht vor der konjugierten Futurform: je le lirai."},
+{q:'Schreibe: «Ich werde sie morgen sehen.»',ctx:'Marie → la · voir · demain',type:'write',answer:"Je la verrai demain.",e:"la steht vor verrai."},
+{q:'Schreibe: «Wir werden ihnen schreiben.»',ctx:'à nos amis → leur · écrire',type:'write',answer:"Nous leur écrirons.",e:"leur steht vor der Futurform; écrire → écrir-."},
+{q:'Welche Form ist korrekt?',ctx:'se lever · je · futur simple',a:["je me lèverai","je me leverai","je me levais","je me lèverais"],c:0,e:"se lever → je me lèverai."},
+{q:'Schreibe: «Wir werden früh aufstehen.»',ctx:'se lever · tôt',type:'write',answer:"Nous nous lèverons tôt.",e:"Reflexivpronomen vor der Futurform: nous nous lèverons."},
+{q:'Welche Form ist korrekt?',ctx:'se souvenir · tu · futur simple',a:["tu te souviendras","tu te souvenirais","tu te souvenais","tu souviendras te"],c:0,e:"se souvenir → souviendr-; tu te souviendras."},
+{q:'Schreibe: «Du wirst dich an diesen Tag erinnern.»',ctx:'se souvenir de ce jour',type:'write',answer:"Tu te souviendras de ce jour.",e:"se souvenir → tu te souviendras."},
+{q:'Transfer: Übersetze.',ctx:'«In zehn Jahren werde ich vielleicht in Frankreich leben.»',type:'write',answer:"Dans dix ans, je vivrai peut-être en France.",e:"vivre → vivr-; je vivrai."},
+{q:'Transfer: Übersetze.',ctx:'«Wenn ich Zeit habe, werde ich dir helfen.»',type:'write',answer:"Si j'ai le temps, je t'aiderai.",e:"si + présent; Hauptsatz im futur simple."},
+{q:'Transfer: Übersetze.',ctx:'«Wenn du deine Hausaufgaben beendet hast, wirst du ausgehen können.»',type:'write',answer:"Quand tu auras fini tes devoirs, tu pourras sortir.",e:"Die erste Handlung ist vor der zweiten zukünftigen Handlung abgeschlossen → futur antérieur + futur simple."},
+{q:'Transfer: Übersetze.',ctx:'«Nächstes Jahr werden wir mehr Französisch sprechen und weniger Deutsch benutzen.»',type:'write',answer:"L'année prochaine, nous parlerons davantage français et nous utiliserons moins l'allemand.",e:"Zwei zukünftige Handlungen → futur simple."},
+{q:'Transfer: Übersetze.',ctx:'«Sie wird dir die Antwort geben, sobald sie sie kennt.»',type:'write',answer:"Elle te donnera la réponse dès qu'elle la connaîtra.",e:"Bei Zukunftsbezug steht nach dès que futur simple: connaîtra."},
+{q:'Fehlerkorrektur.',ctx:"Si tu viendras demain, nous irons au cinéma.",type:'write',answer:"Si tu viens demain, nous irons au cinéma.",e:"Nach si steht bei realer Zukunft Präsens: si tu viens."},
+{q:'Fehlerkorrektur.',ctx:"Quand tu arrives demain, je te montrerai la ville.",type:'write',answer:"Quand tu arriveras demain, je te montrerai la ville.",e:"Bei zukünftigem quand-Satz verwendet Französisch futur simple: arriveras."},
+{q:'Fehlerkorrektur.',ctx:"Je te voirai demain.",type:'write',answer:"Je te verrai demain.",e:"voir hat den Futur-Stamm verr-."},
+{q:'Fehlerkorrektur.',ctx:"Nous receverons une réponse bientôt.",type:'write',answer:"Nous recevrons une réponse bientôt.",e:"recevoir → recevr-; nous recevrons."},
+{q:'Fehlerkorrektur.',ctx:"Ils envoyeront les documents demain.",type:'write',answer:"Ils enverront les documents demain.",e:"envoyer → enverr-; ils enverront."},
+{q:'Welche Zusammenfassung passt zu Niveau 2?',ctx:'Futur simple',a:["Unregelmässige Stämme lernen; nach si bei realer Zukunft Präsens, nach quand/dès que bei Zukunftsbezug Futur verwenden","Nach si steht immer futur simple","Objektpronomen stehen nach dem Futurverb","Alle Verben behalten immer unverändert ihren Infinitiv"],c:0,e:"Niveau 2 verbindet sichere Futurbildung mit Nebensätzen, Pronomen und weiteren unregelmässigen Stämmen."}
+];
+const topic11=[
+{q:'Welche Form ist korrekt?',ctx:'tenir · je · présent',a:["je tiens","je tens","je tient","je tenais"],c:0,e:"tenir: je tiens."},
+{q:'Schreibe die Form.',ctx:'tenir · nous · présent',type:'write',answer:"Nous tenons.",e:"tenir: nous tenons."},
+{q:'Welche Form ist korrekt?',ctx:'tenir · ils · présent',a:["ils tiennent","ils tenent","ils tienent","ils tiens"],c:0,e:"tenir: ils tiennent."},
+{q:'Schreibe: «Sie hält das Buch.»',ctx:'elle · tenir le livre',type:'write',answer:"Elle tient le livre.",e:"tenir: elle tient."},
+{q:'Welche Form ist korrekt?',ctx:'devenir · je · présent',a:["je deviens","je devenis","je devient","je devenir"],c:0,e:"devenir folgt venir: je deviens."},
+{q:'Schreibe: «Wir werden müde.»',ctx:'devenir · fatigués',type:'write',answer:"Nous devenons fatigués.",e:"devenir: nous devenons."},
+{q:'Welche Form ist korrekt?',ctx:'revenir · ils · présent',a:["ils reviennent","ils revenent","ils revienent","ils retournent toujours"],c:0,e:"revenir folgt venir: ils reviennent."},
+{q:'Schreibe: «Sie kommt heute zurück.»',ctx:'elle · revenir aujourd’hui',type:'write',answer:"Elle revient aujourd'hui.",e:"revenir: elle revient."},
+{q:'Welche Form ist korrekt?',ctx:'apprendre · je · présent',a:["j'apprends","j'apprent","j'apprene","j'apprenais"],c:0,e:"apprendre folgt prendre: j’apprends."},
+{q:'Schreibe die Form.',ctx:'apprendre · nous · présent',type:'write',answer:"Nous apprenons.",e:"apprendre: nous apprenons."},
+{q:'Welche Form ist korrekt?',ctx:'apprendre · ils · présent',a:["ils apprennent","ils apprenent","ils apprendent","ils apprends"],c:0,e:"apprendre: ils apprennent."},
+{q:'Schreibe: «Ich lerne Französisch.»',ctx:'apprendre · le français',type:'write',answer:"J'apprends le français.",e:"apprendre: j’apprends."},
+{q:'Welche Form ist korrekt?',ctx:'comprendre · tu · présent',a:["tu comprends","tu comprend","tu comprennes","tu comprenais"],c:0,e:"comprendre folgt prendre: tu comprends."},
+{q:'Schreibe: «Wir verstehen die Frage.»',ctx:'comprendre · la question',type:'write',answer:"Nous comprenons la question.",e:"comprendre: nous comprenons."},
+{q:'Welche Form ist korrekt?',ctx:'comprendre · elles · présent',a:["elles comprennent","elles comprenent","elles comprendent","elles comprends"],c:0,e:"comprendre: elles comprennent."},
+{q:'Welche Form ist korrekt?',ctx:'mettre · je · présent',a:["je mets","je met","je mette","je mettais"],c:0,e:"mettre: je mets."},
+{q:'Schreibe die Form.',ctx:'mettre · nous · présent',type:'write',answer:"Nous mettons.",e:"mettre: nous mettons."},
+{q:'Welche Form ist korrekt?',ctx:'mettre · ils · présent',a:["ils mettent","ils metent","ils mets","ils mettront"],c:0,e:"mettre: ils mettent."},
+{q:'Schreibe: «Ich ziehe meine Jacke an.»',ctx:'mettre · ma veste',type:'write',answer:"Je mets ma veste.",e:"mettre: je mets."},
+{q:'Welche Form ist korrekt?',ctx:'partir · je · présent',a:["je pars","je parts","je partis","je part"],c:0,e:"partir: je pars."},
+{q:'Schreibe die Form.',ctx:'partir · nous · présent',type:'write',answer:"Nous partons.",e:"partir: nous partons."},
+{q:'Welche Form ist korrekt?',ctx:'partir · ils · présent',a:["ils partent","ils partissent","ils parts","ils partont"],c:0,e:"partir: ils partent."},
+{q:'Schreibe: «Der Zug fährt um acht Uhr ab.»',ctx:'le train · partir à huit heures',type:'write',answer:"Le train part à huit heures.",e:"partir: il part."},
+{q:'Welche Form ist korrekt?',ctx:'sortir · tu · présent',a:["tu sors","tu sorts","tu sortis","tu sortes"],c:0,e:"sortir: tu sors."},
+{q:'Schreibe: «Wir gehen heute Abend aus.»',ctx:'sortir · ce soir',type:'write',answer:"Nous sortons ce soir.",e:"sortir: nous sortons."},
+{q:'Welche Form ist korrekt?',ctx:'dormir · il · présent',a:["il dort","il dors","il dormit","il dorme"],c:0,e:"dormir: il dort."},
+{q:'Schreibe: «Die Kinder schlafen.»',ctx:'les enfants · dormir',type:'write',answer:"Les enfants dorment.",e:"dormir: ils dorment."},
+{q:'Welche Form ist korrekt?',ctx:'servir · je · présent',a:["je sers","je sert","je servis","je serve"],c:0,e:"servir: je sers."},
+{q:'Schreibe: «Wir servieren das Essen.»',ctx:'servir · le repas',type:'write',answer:"Nous servons le repas.",e:"servir: nous servons."},
+{q:'Welche Form ist korrekt?',ctx:'ouvrir · je · présent',a:["j'ouvre","j'ouvris","j'ouvres","j'ouvrir"],c:0,e:"ouvrir wird im Präsens ähnlich wie ein -er-Verb konjugiert: j’ouvre."},
+{q:'Schreibe die Form.',ctx:'ouvrir · nous · présent',type:'write',answer:"Nous ouvrons.",e:"ouvrir: nous ouvrons."},
+{q:'Welche Form ist korrekt?',ctx:'ouvrir · ils · présent',a:["ils ouvrent","ils ouvrissent","ils ouvrrent","ils ouvront"],c:0,e:"ouvrir: ils ouvrent."},
+{q:'Schreibe: «Sie öffnet das Fenster.»',ctx:'elle · ouvrir la fenêtre',type:'write',answer:"Elle ouvre la fenêtre.",e:"ouvrir: elle ouvre."},
+{q:'Welche Form ist korrekt?',ctx:'offrir · tu · présent',a:["tu offres","tu offris","tu offerts","tu offrir"],c:0,e:"offrir folgt im Präsens dem Muster von ouvrir: tu offres."},
+{q:'Schreibe: «Wir bieten ein Geschenk an.»',ctx:'offrir · un cadeau',type:'write',answer:"Nous offrons un cadeau.",e:"offrir: nous offrons."},
+{q:'Welche Form ist korrekt?',ctx:'connaître · je · présent',a:["je connais","je connait","je connaîs","je connaissais"],c:0,e:"connaître: je connais."},
+{q:'Schreibe die Form.',ctx:'connaître · nous · présent',type:'write',answer:"Nous connaissons.",e:"connaître: nous connaissons."},
+{q:'Welche Form ist korrekt?',ctx:'connaître · ils · présent',a:["ils connaissent","ils connaisent","ils connais","ils connaissont"],c:0,e:"connaître: ils connaissent."},
+{q:'Schreibe: «Ich kenne diese Stadt gut.»',ctx:'connaître · bien cette ville',type:'write',answer:"Je connais bien cette ville.",e:"connaître: je connais."},
+{q:'Welche Form ist korrekt?',ctx:'croire · je · présent',a:["je crois","je croit","je croive","je croyais"],c:0,e:"croire: je crois."},
+{q:'Schreibe die Form.',ctx:'croire · nous · présent',type:'write',answer:"Nous croyons.",e:"croire: nous croyons."},
+{q:'Welche Form ist korrekt?',ctx:'croire · ils · présent',a:["ils croient","ils croyent","ils croivent","ils crois"],c:0,e:"croire: ils croient."},
+{q:'Schreibe: «Wir glauben diese Geschichte.»',ctx:'croire · cette histoire',type:'write',answer:"Nous croyons cette histoire.",e:"croire: nous croyons."},
+{q:'Welche Form ist korrekt?',ctx:'vivre · je · présent',a:["je vis","je vit","je vive","je vivais"],c:0,e:"vivre: je vis."},
+{q:'Schreibe: «Sie leben in Genf.»',ctx:'ils · vivre à Genève',type:'write',answer:"Ils vivent à Genève.",e:"vivre: ils vivent."},
+{q:'Welche Form ist korrekt?',ctx:'suivre · nous · présent',a:["nous suivons","nous suivissons","nous suivents","nous suivions seulement"],c:0,e:"suivre: nous suivons."},
+{q:'Schreibe: «Ich folge dem Lehrer.»',ctx:'suivre · le professeur',type:'write',answer:"Je suis le professeur.",e:"suivre: je suis. Achtung: Die Form sieht gleich aus wie je suis von être."},
+{q:'Welche Form ist korrekt?',ctx:'recevoir · je · présent',a:["je reçois","je recevis","je recois","je reçoit"],c:0,e:"recevoir: je reçois."},
+{q:'Schreibe die Form.',ctx:'recevoir · nous · présent',type:'write',answer:"Nous recevons.",e:"recevoir: nous recevons."},
+{q:'Welche Form ist korrekt?',ctx:'recevoir · ils · présent',a:["ils reçoivent","ils recevent","ils recoivent","ils reçoit"],c:0,e:"recevoir: ils reçoivent."},
+{q:'Schreibe: «Sie erhält eine Nachricht.»',ctx:'elle · recevoir un message',type:'write',answer:"Elle reçoit un message.",e:"recevoir: elle reçoit."},
+{q:'Welche Form ist korrekt?',ctx:'se souvenir · je · présent',a:["je me souviens","je me souvenis","je souviens me","je me souvient"],c:0,e:"se souvenir folgt venir: je me souviens."},
+{q:'Schreibe: «Wir erinnern uns an den Namen.»',ctx:'se souvenir du nom',type:'write',answer:"Nous nous souvenons du nom.",e:"Reflexivpronomen + souvenir: nous nous souvenons."},
+{q:'Transfer: Übersetze.',ctx:'«Sie verstehen die Aufgabe nicht.»',type:'write',answer:"Ils ne comprennent pas l'exercice.",e:"comprendre: ils comprennent; Verneinung ne ... pas."},
+{q:'Transfer: Übersetze.',ctx:'«Ich komme um sechs Uhr zurück.»',type:'write',answer:"Je reviens à six heures.",e:"revenir: je reviens."},
+{q:'Transfer: Übersetze.',ctx:'«Wir kennen ihn, aber wir wissen seinen Namen nicht.»',type:'write',answer:"Nous le connaissons, mais nous ne savons pas son nom.",e:"Person kennen → connaître; eine Information wissen → savoir."},
+{q:'Transfer: Übersetze.',ctx:'«Sie nimmt ihren Mantel und geht hinaus.»',type:'write',answer:"Elle prend son manteau et elle sort.",e:"prendre: prend; sortir: sort."},
+{q:'Fehlerkorrektur.',ctx:"Ils comprenent la question.",type:'write',answer:"Ils comprennent la question.",e:"comprendre: ils comprennent."},
+{q:'Fehlerkorrektur.',ctx:"Nous metons nos chaussures.",type:'write',answer:"Nous mettons nos chaussures.",e:"mettre: nous mettons mit doppeltem t."},
+{q:'Fehlerkorrektur.',ctx:"Je connais la réponse, donc je la peux dire.",type:'write',answer:"Je connais la réponse, donc je peux la dire.",e:"Bei pouvoir + Infinitiv steht das Objektpronomen vor dem Infinitiv: je peux la dire."},
+{q:'Welche Zusammenfassung passt zu Niveau 2?',ctx:'Verbes irréguliers',a:["Verbgruppen und Stammwechsel erkennen und die Formen im Satz sicher anwenden.","Alle unregelmässigen Verben werden gleich konjugiert.","Nur être und avoir sind unregelmässig.","Im Präsens braucht jedes unregelmässige Verb ein Hilfsverb."],c:0,e:"Auf Niveau 2 werden weitere Verbgruppen, Stammwechsel und die Anwendung im Satz trainiert."}
+];
+const TOPICS=[
+{name:'Verben & Konjugation',questions:topic0},
+{name:'Artikel & Nomen',questions:topic1},
+{name:'Adjektive',questions:topic2},
+{name:'Pronomen',questions:topic3},
+{name:'Verneinungen',questions:topic4},
+{name:'Fragen bilden',questions:topic5},
+{name:'Präpositionen',questions:topic6},
+{name:'Conditionnel',questions:topic7},
+{name:'Passé composé',questions:topic8},
+{name:'Imparfait',questions:topic9},
+{name:'Futur simple',questions:topic10},
+{name:'Unregelmässige Verben',questions:topic11}
+];
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function norm(v){return String(v??'').trim().toLowerCase().replace(/[’‘`]/g,"'").replace(/\s+/g," ")}
+let questions=[];
+TOPICS.forEach(t=>shuffle([...t.questions]).slice(0,3).forEach((q,i)=>questions.push({...q,topic:t.name,sourceIndex:i})));
+questions=shuffle(questions);
+let pos=0, answers={}, finished=false, seconds=30*60;
+const $=id=>document.getElementById(id), qEl=$('q'),ctx=$('ctx'),opts=$('opts'),step=$('step'),topic=$('topic'),fill=$('fill');
+
+function render(){
+ const x=questions[pos], saved=answers[pos];
+ step.textContent=`Aufgabe ${pos+1} von ${questions.length}`; topic.textContent=x.topic; fill.style.width=`${(pos+1)/questions.length*100}%`;
+ qEl.innerHTML=x.q;ctx.innerHTML=x.ctx||'';opts.innerHTML='';
+ if(x.type==='write'){
+   const inp=document.createElement('input');inp.className='write-input';inp.placeholder='Antwort auf Französisch eingeben …';inp.value=saved?.value||'';
+   inp.oninput=()=>answers[pos]={type:'write',value:inp.value};opts.appendChild(inp);
+ }else{
+   (x.a||[]).forEach((txt,i)=>{const b=document.createElement('button');b.className='option'+(saved?.value===i?' sel':'');b.textContent=txt;b.onclick=()=>{answers[pos]={type:'choice',value:i};render()};opts.appendChild(b)})
+ }
+ $('back').disabled=pos===0;$('next').style.display=pos===questions.length-1?'none':'inline-block';$('submit').style.display=pos===questions.length-1?'inline-block':'none';
+}
+$('back').onclick=()=>{if(pos>0){pos--;render()}};$('next').onclick=()=>{if(pos<questions.length-1){pos++;render()}};
+$('submit').onclick=()=>{if(confirm('Prüfung wirklich abgeben? Danach können die Antworten nicht mehr geändert werden.')) finish(false)};
+
+function evaluate(x,a){
+ if(x.type==='write'){const own=a?.value||'';return {ok:!!own&&norm(own)===norm(x.answer),own:own||'Keine Antwort',right:x.answer}}
+ const v=a?.value;return {ok:Number.isInteger(v)&&v===x.c,own:Number.isInteger(v)?x.a[v]:'Keine Antwort',right:x.a[x.c]};
+}
+function finish(auto){
+ if(finished)return;finished=true;clearInterval(timer);
+ let correct=0, by={}; const rows=[];
+ questions.forEach((x,i)=>{const e=evaluate(x,answers[i]);if(e.ok)correct++;by[x.topic]??={c:0,n:0};by[x.topic].n++;if(e.ok)by[x.topic].c++;
+ rows.push(`<div class="ri ${e.ok?'ok':''}"><small>${x.topic} · Aufgabe ${i+1}</small><p><b>${x.q}</b><br>${x.ctx||''}</p><p>Deine Antwort: <b>${e.own}</b><br>Richtige Antwort: <b>${e.right}</b></p><p>${x.e||''}</p></div>`)});
+ const pct=Math.round(correct/questions.length*100);
+ $('exam').style.display='none';$('result').style.display='block';$('score').textContent=`${correct}/${questions.length} · ${pct}%`;
+ $('summary').innerHTML=(auto?'<b>Zeit abgelaufen – die Prüfung wurde automatisch abgegeben.</b><br>':'')+'Jetzt siehst du erstmals, welche Antworten richtig oder falsch waren.';
+ $('topicgrid').innerHTML=TOPICS.map(t=>`<div class="topicrow"><span>${t.name}</span><b>${by[t.name]?.c||0}/${by[t.name]?.n||0}</b></div>`).join('');
+ $('review').innerHTML=rows.join('');
+ try{const key='fr_exam_2_oberstufe';const d=JSON.parse(localStorage.getItem(key)||'[]');d.push({date:new Date().toISOString(),correct,total:questions.length,pct,topics:by});localStorage.setItem(key,JSON.stringify(d.slice(-30)))}catch(e){}
+}
+const timer=setInterval(()=>{seconds--;const m=Math.floor(Math.max(0,seconds)/60),s=Math.max(0,seconds)%60;$('timer').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;if(seconds<=0)finish(true)},1000);
+render();
+</script></body></html>

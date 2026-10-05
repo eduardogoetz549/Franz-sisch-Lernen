@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Französisch lernen · Niveau</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ── RESET & BASE ─────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy:     #0D1433;
+    --midnight: #121E47;
+    --steel:    #2E406B;
+    --gold:     #B79440;
+    --gold-lt:  #D4AF60;
+    --ice:      #C0D4F2;
+    --offwhite: #F5F7FC;
+    --white:    #FFFFFF;
+    --gray:     #8A95A8;
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body:    'Jost', sans-serif;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body { background: var(--navy); color: var(--offwhite); font-family: var(--font-body); font-weight: 300; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  /* ── SCROLLBAR ────────────────────────────── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+  /* ── NAV ──────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(13,20,51,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(183,148,64,0.2);
+    transition: padding 0.3s var(--ease);
+  }
+  nav.scrolled { padding: 0.8rem 4rem; }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .nav-logo .monogram {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 1rem; color: var(--navy);
+    flex-shrink: 0;
+  }
+  .nav-logo .wordmark {
+    font-family: var(--font-body); font-weight: 600;
+    letter-spacing: 0.18em; font-size: 0.9rem;
+    color: var(--white);
+  }
+  .nav-links {
+    display: flex; align-items: center; gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ice); font-weight: 400;
+    position: relative; padding-bottom: 3px;
+    transition: color 0.2s;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 1px; background: var(--gold);
+    transition: width 0.3s var(--ease);
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    background: transparent; border: 1px solid var(--gold);
+    color: var(--gold) !important; padding: 0.5rem 1.4rem;
+    border-radius: 2px; transition: all 0.25s !important;
+  }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--navy) !important; }
+  .nav-cta::after { display: none !important; }
+
+  /* ── HERO ─────────────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    position: relative; overflow: hidden;
+    padding: 8rem 4rem 6rem;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 30%, #1a2654 0%, var(--navy) 60%);
+  }
+  .hero-orb {
+    position: absolute; border-radius: 50%;
+    animation: float 8s ease-in-out infinite;
+  }
+  .orb-1 {
+    width: 600px; height: 600px;
+    top: -200px; right: -150px;
+    background: radial-gradient(circle, rgba(46,64,107,0.8) 0%, transparent 70%);
+    animation-delay: 0s;
+  }
+  .orb-2 {
+    width: 300px; height: 300px;
+    bottom: -100px; left: 10%;
+    background: radial-gradient(circle, rgba(183,148,64,0.12) 0%, transparent 70%);
+    animation-delay: -3s;
+  }
+  .orb-3 {
+    width: 180px; height: 180px;
+    top: 30%; right: 18%;
+    border: 1px solid rgba(183,148,64,0.3);
+    background: transparent;
+    animation-delay: -5s;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.02); }
+  }
+
+  .hero-content {
+    position: relative; z-index: 1;
+    max-width: 900px; text-align: center;
+  }
+  .hero-eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s var(--ease) both;
+  }
+  .hero-title {
+    font-family: var(--font-display); font-weight: 300;
+    font-size: clamp(3rem, 7vw, 6rem); line-height: 1.05;
+    color: var(--white); margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s 0.15s var(--ease) both;
+  }
+  .hero-title em { color: var(--gold); font-style: italic; }
+  .hero-sub {
+    font-size: 1.05rem; color: var(--ice); font-weight: 300;
+    line-height: 1.7; max-width: 580px; margin: 0 auto 2.8rem;
+    animation: fadeUp 0.8s 0.3s var(--ease) both;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.45s var(--ease) both;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--navy);
+    padding: 0.85rem 2.2rem; border-radius: 2px;
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    transition: all 0.25s var(--ease);
+  }
+  .btn-primary:hover { background: var(--gold-lt); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(183,148,64,0.3); }
+  .btn-ghost {
+    background: transparent; color: var(--white);
+    padding: 0.85rem 2.2rem; border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.25);
+    font-size: 0.8rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase;
+    transition: all 0.25s var(--ease);
+  }
+  .btn-ghost:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    font-size: 0.65rem; letter-spacing: 0.15em; color: var(--gray); text-transform: uppercase;
+    animation: fadeIn 1s 1s var(--ease) both;
+  }
+  .scroll-line {
+    width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse { 0%,100%{opacity:0.4; transform:scaleY(1)} 50%{opacity:1; transform:scaleY(1.2)} }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  /* ── SECTION BASE ─────────────────────────── */
+  section { padding: 7rem 4rem; }
+  .section-label {
+    font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: var(--font-display); font-weight: 300;
+    font-size: clamp(2rem, 4vw, 3.2rem); color: var(--white);
+    line-height: 1.15; margin-bottom: 1.2rem;
+  }
+  .section-title em { color: var(--gold); font-style: italic; }
+  .section-body {
+    font-size: 1rem; color: var(--ice); line-height: 1.8; max-width: 600px;
+  }
+  .gold-bar { width: 48px; height: 2px; background: var(--gold); margin: 1.2rem 0 2rem; }
+
+  /* ── Ler ────────────────────────────────── */
+  #Ler { background: var(--offwhite); color: var(--navy); }
+  #Ler .section-title { color: var(--navy); }
+  #Ler .section-body { color: var(--steel); }
+  .Ler-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+    align-items: center; max-width: 1200px; margin: 0 auto;
+  }
+  .Ler-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem;
+  }
+  .stat { border-left: 2px solid var(--gold); padding-left: 1.2rem; }
+  .stat-number {
+    font-family: var(--font-display); font-size: 2.8rem;
+    font-weight: 300; color: var(--navy); line-height: 1;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--steel); margin-top: 0.3rem; }
+  .Ler-visual {
+    background: var(--navy); border-radius: 4px;
+    padding: 3rem; position: relative; overflow: hidden;
+    min-height: 380px; display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .Ler-visual::before {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 280px; height: 280px; border-radius: 50%;
+    border: 1px solid rgba(183,148,64,0.25);
+  }
+  .Ler-visual::after {
+    content: ''; position: absolute; top: -20px; right: -20px;
+    width: 180px; height: 180px; border-radius: 50%;
+    background: rgba(46,64,107,0.6);
+  }
+  .Ler-quote {
+    font-family: var(--font-display); font-size: 3.4rem;
+    color: var(--white); line-height: 1.5; font-style: italic;
+    position: relative; z-index: 1;
+  }
+  .Ler-quote span { color: var(--gold); 
+  }
+  .external {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+ }
+.external img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 4px;
+  background: var(--white);
+  padding: 0.4rem;
+  transition: transform 0.2s var(--ease);
+ }
+.external img:hover {
+  transform: translateY(-3px);
+ }
+
+  /* ── Spi ─────────────────────────────── */
+  #Spi { background: var(--midnight); }
+  .Spi-header { max-width: 1200px; margin: 0 auto 4rem; }
+  .Spi-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px; max-width: 1200px; margin: 0 auto;
+    background: rgba(183,148,64,0.1);
+    border: 1px solid rgba(183,148,64,0.1);
+  }
+  .service-card {
+    background: var(--navy); padding: 2.8rem 2.2rem;
+    position: relative; overflow: hidden;
+    transition: background 0.3s var(--ease);
+    display: block;
+    cursor: pointer;
+  }
+  .service-card:hover { background: var(--midnight); }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 0; background: var(--gold);
+    transition: height 0.4s var(--ease);
+  }
+  .service-card:hover::before { height: 100%; }
+  .service-num {
+    display: none;
+  }
+  .service-title {
+    font-family: var(--font-display);
+    font-size: 1.65rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 0.9rem;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+  }
+  .service-desc { font-size: 0.9rem; color: var(--gray); line-height: 1.7; }
+
+  /* ── Pru ──────────────────────────────── */
+  #Pru { background: var(--offwhite); }
+  #Pru .section-title { color: var(--navy); }
+  .Pru-container { max-width: 1200px; margin: 0 auto; }
+  .Pru-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; margin-top: 4rem; position: relative;
+  }
+  .Pru-steps::before {
+    content: ''; position: absolute; top: 28px; left: 10%;
+    width: 80%; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .Pru-step { padding: 0 1.5rem; text-align: center; }
+  .step-circle {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--navy); border: 2px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-family: var(--font-body); font-weight: 600;
+    font-size: 0.85rem; color: var(--gold); letter-spacing: 0.05em;
+  }
+  .step-title { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 0.6rem; }
+  .step-desc { font-size: 0.83rem; color: var(--steel); line-height: 1.6; }
+
+  /* ── TESTIMONIAL ──────────────────────────── */
+  #testimonial {
+    background: var(--navy);
+    text-align: center; padding: 7rem 4rem;
+  }
+  .testimonial-content { max-width: 780px; margin: 0 auto; }
+  .quote-mark {
+    font-family: var(--font-display); font-size: 8rem; line-height: 0.5;
+    color: rgba(183,148,64,0.2); margin-bottom: 2rem; display: block;
+  }
+  .testimonial-text {
+    font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 300; font-style: italic; color: var(--white);
+    line-height: 1.5; margin-bottom: 2rem;
+  }
+  .testimonial-author { font-size: 0.8rem; color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase; }
+
+  /* ── Hil ──────────────────────────────── */
+  #Hil { background: var(--midnight); }
+  .Hil-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 6rem; max-width: 1200px; margin: 0 auto;
+    align-items: start;
+  }
+  .Hil-info { }
+  .Hil-item { margin-bottom: 1.8rem; }
+  .Hil-item-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+  .Hil-item-value { font-size: 1rem; color: var(--ice); }
+  .Hil-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); }
+  .form-input, .form-textarea {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 2px; padding: 0.9rem 1rem;
+    color: var(--white); font-family: var(--font-body); font-size: 0.9rem;
+    transition: border-color 0.2s;
+    outline: none; resize: none;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--gold); }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.2); }
+  .form-textarea { min-height: 130px; }
+  .btn-submit {
+    background: var(--gold); color: var(--navy); border: none;
+    padding: 0.9rem 2.2rem; font-family: var(--font-body);
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer; border-radius: 2px;
+    transition: all 0.25s var(--ease); align-self: flex-start;
+  }
+  .btn-submit:hover { background: var(--gold-lt); transform: translateY(-2px); }
+
+  /* ── FOOTER ───────────────────────────────── */
+  footer {
+    background: var(--navy);
+    border-top: 1px solid rgba(183,148,64,0.2);
+    padding: 2.5rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-logo { display: flex; align-items: center; gap: 0.6rem; }
+  .footer-logo .monogram {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--gold); display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 600; font-size: 0.75rem; color: var(--navy);
+  }
+  .footer-logo .wordmark { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em; color: var(--white); }
+  .footer-copy { font-size: 0.72rem; color: var(--gray); }
+  .footer-links { display: flex; gap: 1.8rem; }
+  .footer-links a { font-size: 0.72rem; color: var(--gray); transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ── SCROLL REVEAL ────────────────────────── */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── RESPONSIVE ───────────────────────────── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 2rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 2rem; }
+    #hero { padding: 7rem 2rem 5rem; }
+    .Ler-grid, .Hil-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .Spi-grid { grid-template-columns: 1fr; }
+    .Pru-steps { grid-template-columns: 1fr 1fr; }
+    .Pru-steps::before { display: none; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+  }
+.nav-logo .brand-image{width:48px;height:48px;object-fit:contain;display:block;background:#F7F0E4;border-radius:2px;flex-shrink:0}@media(max-width:900px){.nav-logo .brand-image{width:42px;height:42px}}
+
+.learning-dashboard{max-width:1200px;margin:0 auto;padding:0 4rem 4rem}.dash-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(183,148,64,.2);border:1px solid rgba(183,148,64,.2)}
+.dash-card{background:#121E47;padding:1.5rem}.dash-num{font-family:var(--font-display);font-size:2.2rem;color:var(--gold-lt)}.dash-label{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray)}
+.goal-track{height:7px;background:#26345d;border-radius:8px;overflow:hidden;margin-top:.8rem}.goal-fill{height:100%;background:var(--gold);width:0;transition:.4s}
+.today-box{max-width:1200px;margin:0 auto 3rem;padding:2rem;border:1px solid rgba(183,148,64,.35);background:#121E47;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
+.today-box h3{font-family:var(--font-display);font-size:2rem;font-weight:400}.today-box p{color:var(--ice);max-width:650px}.btn-smart{display:inline-block;background:var(--gold);color:var(--navy);padding:.85rem 1.5rem;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;transition:.25s}
+.btn-smart:hover{background:var(--gold-lt);transform:translateY(-2px);box-shadow:0 8px 24px rgba(183,148,64,.3)}
+.analytics{max-width:1200px;margin:0 auto;padding:0 4rem 4rem}.weak-list{display:grid;gap:10px;margin-top:1rem}.weak-row{display:grid;grid-template-columns:1fr auto;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08);color:var(--ice)}.weak-row b{color:var(--gold-lt)}
+@media(max-width:800px){.learning-dashboard,.analytics{padding-left:1.25rem;padding-right:1.25rem}.dash-grid{grid-template-columns:1fr 1fr}}
+
+
+/* Lernwerkstatt */
+.learning-lab{background:#F7F1E6;color:#0D1433;padding:6rem 4rem}
+.lab-wrap{max-width:1200px;margin:auto}.lab-head{max-width:760px;margin-bottom:2.5rem}
+.lab-kicker{color:#9A731F;text-transform:uppercase;letter-spacing:.16em;font-size:.75rem;font-weight:600}
+.lab-head h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(2.6rem,6vw,4.8rem);font-weight:400;margin:.5rem 0}
+.lab-head p{line-height:1.8;color:#4E5871}.lab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.lab-card{background:#fff;border:1px solid #E8DCC0;padding:1.6rem;min-height:210px;transition:.25s cubic-bezier(.4,0,.2,1)}
+.lab-card:hover{transform:translateY(-4px);border-color:#B79440;box-shadow:0 12px 30px rgba(13,20,51,.10)}
+.lab-icon{font-size:1.7rem}.lab-card h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.7rem;margin:.65rem 0}
+.lab-card p,.lab-card li{color:#566078;line-height:1.65;font-size:.93rem}.lab-card ul{padding-left:1.1rem;margin:.6rem 0}
+.lab-btn{border:0;background:#B79440;color:#0D1433;padding:.75rem 1rem;font:600 .75rem Jost,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.25s}
+.lab-btn:hover{background:#D4AF60;transform:translateY(-2px);box-shadow:0 8px 24px rgba(183,148,64,.3)}
+.lab-panel{display:none;margin-top:1rem;padding:1rem;background:#F9F5EC;border-left:3px solid #B79440;line-height:1.65}
+.lab-panel.open{display:block}.lab-input{width:100%;margin:.5rem 0;padding:.75rem;border:1px solid #D7CCB4;background:white;font:inherit}
+.study-plan{margin-top:2rem;background:#0D1433;color:#fff;padding:2rem}.study-plan h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;font-weight:400}
+.plan-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#4A4560;margin-top:1.2rem}.plan-step{background:#121E47;padding:1.2rem}.plan-step b{color:#D4AF60}.saved-note{font-size:.82rem;color:#7D6A3A;margin-top:.5rem}
+@media(max-width:850px){.learning-lab{padding:4rem 1.25rem}.lab-grid{grid-template-columns:1fr}.plan-steps{grid-template-columns:1fr}}
+
+
+.v7-competence{background:#fff;color:#0D1433;padding:6rem 4rem}.v7-comp-wrap{max-width:1200px;margin:auto}.v7-comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}.v7-comp-card{border:1px solid #E8DCC0;padding:1.5rem;transition:.25s}.v7-comp-card:hover{transform:translateY(-4px);border-color:#B79440;box-shadow:0 12px 30px rgba(13,20,51,.08)}.v7-comp-card h3{font-family:var(--font-display);font-size:1.55rem;margin:.5rem 0}.v7-comp-card p{color:#606a82;line-height:1.65}.v7-comp-icon{font-size:1.6rem}@media(max-width:850px){.v7-competence{padding:4rem 1.25rem}.v7-comp-grid{grid-template-columns:1fr}}
+
+
+/* ── LERN-MASKOTTCHEN ───────────────────── */
+.fox-guide{position:fixed;right:22px;bottom:22px;z-index:120;display:flex;align-items:flex-end;gap:10px;filter:drop-shadow(0 12px 28px rgba(0,0,0,.28))}
+.fox-guide img{width:150px;height:auto;object-fit:contain;object-position:center;border:0;border-radius:0;background:transparent;cursor:pointer;transition:.25s var(--ease)}
+.fox-guide img:hover{transform:translateY(-5px) rotate(-2deg)scale(1.2)}
+.fox-bubble{max-width:220px;background:#fff;color:var(--navy);padding:.85rem 1rem;border-radius:16px 16px 4px 16px;font-size:.82rem;line-height:1.45;box-shadow:0 10px 30px rgba(0,0,0,.18);transition:.25s var(--ease)}
+.fox-bubble b{color:#8b6518}.fox-bubble.is-hidden{opacity:0;transform:translateY(8px);pointer-events:none}
+@media(max-width:700px){.fox-guide{right:8px;bottom:8px}.fox-guide img{width:100px;height:auto}.fox-bubble{max-width:180px;font-size:.74rem;padding:.7rem .8rem}}
+
+</style>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0D1433">
+<script src="learning-core.js"></script>
+
+<style id="fox-hover-swap-style">
+.fox-guide img{transition:transform .25s cubic-bezier(.4,0,.2,1),filter .2s ease,opacity .15s ease!important}
+.fox-guide img.fox-hovering{filter:brightness(1.04) drop-shadow(0 5px 10px rgba(183,148,64,.18))}
+</style>
+
+<style id="topic-card-layout">
+#Spi .Spi-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;max-width:1200px;margin:0 auto;background:transparent;border:0}
+.topic-card{background:#0D1433;border:none;padding:1.65rem;min-height:220px;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:.25s var(--ease)}
+.topic-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:#B79440;transition:height .4s var(--ease)}
+.topic-card:hover::before{height:100%}
+.topic-card:hover{transform:translateY(-4px);background:#111b40;box-shadow:0 14px 34px rgba(0,0,0,.18)}
+.topic-top{display:flex;align-items:flex-start;gap:.85rem;margin-bottom:.7rem}.topic-number{color:#D4AF60;font-size:.72rem;letter-spacing:.14em;font-weight:600;border:1px solid rgba(183,148,64,.35);padding:.28rem .45rem;flex-shrink:0}
+.topic-card h3{font-family:var(--font-display);font-size:1.55rem;font-weight:500;color:#fff;line-height:1.15}.topic-card p{color:#9eabc3;font-size:.86rem;line-height:1.55;margin-bottom:1.25rem}
+.level-picker{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin-top:auto}.level-btn{display:flex;align-items:center;justify-content:center;min-height:42px;padding:.65rem .35rem;border:1px solid rgba(192,212,242,.22);color:#C0D4F2;background:rgba(255,255,255,.025);font-size:.72rem;font-weight:500;letter-spacing:.05em;transition:.2s var(--ease)}
+.level-btn:hover{background:#B79440;color:#0D1433;border-color:#B79440;transform:translateY(-2px)}
+@media(max-width:950px){#Spi .Spi-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){#Spi .Spi-grid{grid-template-columns:1fr}.topic-card{min-height:auto;padding:1.35rem}}
+</style>
+
+<style id="vokabeltrainer-card-border">
+.today-box > .service-card{
+  border:1px solid rgba(183,148,64,0.10);
+}
+.today-box > .service-card:hover{
+  border:1px solid rgba(183,148,64,0.10);
+}
+</style>
+
+</head>
+<body>
+<div class="fox-guide" id="foxGuide" aria-live="polite">
+  <div class="fox-bubble" id="foxBubble"><b>Salut ! 👋</b><br>Schön, dass du da bist. Bereit für eine kleine Französisch-Runde?</div>
+  <img id="foxMascot" src="fuchs-idle.png" alt="Französisch-Lernmaskottchen – kleiner Fuchs" title="Klick mich für einen Lerntipp">
+</div>
+
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <div class="monogram">FR</div>
+    <span class="wordmark">Französisch lernen</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#Ler">Lernen</a></li>
+    <li><a href="#theorie">Theorie</a></li>
+    <li><a href="#Spi">Übungen</a></li>
+    <li><a href="#Fortschritt">Mein Fortschritt</a></li><li><a href="#Pruefung">Prüfung</a></li><li><a href="#lernwerkstatt">Lernwerkstatt</a></li>
+    <li><a href="#Spi" class="nav-cta">Jetzt üben</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-orb orb-1"></div>
+  <div class="hero-orb orb-2"></div>
+  <div class="hero-orb orb-3"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">FRANÇAIS · NIVEAU 1–3</p>
+    <h1 class="hero-title"><em>Französisch</em><br>verstehen & anwenden.</h1>
+    <p class="hero-sub">Interaktive Übungen für die Niveau 1, 2 und 3 – mit Auswahlaufgaben, Schreibübungen und gezielter Wiederholung.</p>
+    <div class="hero-actions">
+      <a href="#Spi" class="btn-primary">Übungen starten</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- Ler -->
+<section id="Ler">
+  <div class="Ler-grid">
+    <div class="reveal">
+      <p class="section-label">Französisch lernen</p>
+      <h2 class="section-title">Schritt für Schritt<br>zu mehr <em>Sicherheit.</em></h2>
+      <div class="gold-bar"></div>
+      <p class="section-body">Wähle dein Thema und deine Schulstufe. Die Übungen verbinden Erkennen und selbstständiges Schreiben. Falsch beantwortete Aufgaben erscheinen später erneut, damit schwierige Inhalte gezielt wiederholt werden.</p>
+      <div class="Ler-stats">
+        <div class="stat"><div class="stat-number">3</div><div class="stat-label">Schulstufen</div></div>
+        <div class="stat"><div class="stat-number">5</div><div class="stat-label">Themenbereiche</div></div>
+        <div class="stat"><div class="stat-number">39</div><div class="stat-label">Übungsmodule</div></div>
+      </div>
+    </div>
+    <div class="Ler-visual reveal reveal-delay-2">
+      <p class="Ler-quote">Comprendre.<br><span>Pratiquer.</span><br>Progresser.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Spi -->
+<section id="theorie" style="background:#F5F7FC;color:#0D1433">
+<div class="Spi-header reveal"><p class="section-label">Theorie</p><h2 class="section-title" style="color:#0D1433">Französisch <em>verstehen</em></h2><div class="gold-bar"></div><p class="section-body" style="color:#2E406B">12 Themen statt 36 einzelner Seiten: Öffne ein Thema und wechsle dort direkt zwischen Niveau 1, 2 und 3.</p></div>
+<div class="Spi-grid"><a href="franzoesisch-theorie-verben-konjugation.html" class="service-card reveal"><div class="service-num">01</div><div class="service-title">🔤 Verben & Konjugation</div><div class="service-desc">Theorie für Niveau 1, 2 und 3 · Regeln, Beispiele, Merksätze und typische Fehler.</div></a><a href="franzoesisch-theorie-artikel-nomen.html" class="service-card reveal"><div class="service-num">02</div><div class="service-title">📘 Artikel & Nomen</div><div class="service-desc">Theorie für Niveau 1, 2 und 3 · Regeln, Beispiele, Merksätze und typische Fehler.</div></a><a href="franzoesisch-theorie-adjektive.html" class="service-card reveal"><div class="service-num">03</div><div class="service-title">🎨 Adjektive</div><div class="service-desc">Theorie für Niveau 1, 2 und 3 · Regeln, Beispiele, Merksätze und typische Fehler.</div></a><a href="franzoesisch-theorie-pronomen.html" class="service-card reveal"><div class="service-num">04</div><div class="service-title">👤 Pronomen</div><div class="service-desc">Theorie für Niveau 1, 2 und 3 · Regeln, Beispiele, Merksätze und typische Fehler.</div></a><a href="franzoesisch-theorie-verneinungen.html" class="service-card reveal"><div class="service-num">05</div><div class="service-title">🚫 Verneinungen</div><div class="service-desc">Theorie für Niveau 1, 2 und 3 · Regeln, Beispiele, Merksätze und typische Fehler.</div></a><a href="franzoesisch-theorie-fragen.html" class="service-card reveal"><div class="service-num">06</div><div class="service-title">❓ Fragen bilden</div><div class="service-desc">Theorie für Niveau 1, 2 und 3 · Regeln, Beispiele, Merksätze und typische Fehler.</div></a><a href="franzoesisch-theorie-praepositionen.html" class="service-card reveal"><div class="service-num">07</div><div class="service-title">📍 Präpositionen</div><div class="service-desc">Theorie für Niveau 1, 2 und 3 · Regeln, Beispiele, Merksätze und typische Fehler.</div></a><a href="franzoesisch-theorie-conditionnel.html" class="service-card reveal"><div class="service-num">08</div><div class="service-title">💭 Conditionnel</div><div class="service-desc">Theorie für Niveau 1, 2 und 3 · Regeln, Beispiele, Merksätze und typische Fehler.</div></a><a href="franzoesisch-theorie-passe-compose.html" class="service-card reveal"><div class="service-num">09</div><div class="service-title">⏮️ Passé composé</div><div class="service-desc">Theorie für Niveau 1, 2 und 3 · Regeln, Beispiele, Merksätze und typische Fehler.</div></a><a href="franzoesisch-theorie-imparfait.html" class="service-card reveal"><div class="service-num">10</div><div class="service-title">🕰️ Imparfait</div><div class="service-desc">Theorie für Niveau 1, 2 und 3 · Regeln, Beispiele, Merksätze und typische Fehler.</div></a><a href="franzoesisch-theorie-futur-simple.html" class="service-card reveal"><div class="service-num">11</div><div class="service-title">⏭️ Futur simple</div><div class="service-desc">Theorie für Niveau 1, 2 und 3 · Regeln, Beispiele, Merksätze und typische Fehler.</div></a><a href="franzoesisch-theorie-unregelmaessige-verben.html" class="service-card reveal"><div class="service-num">12</div><div class="service-title">⚡ Unregelmässige Verben</div><div class="service-desc">Theorie für Niveau 1, 2 und 3 · wichtige unregelmässige Verben, ihre Formen und Anwendung.</div></a>
+<a href="franzoesisch-unregelmaessige-verben-liste.html" class="service-card reveal">
+  <div class="service-title">📚 Liste der unregelmässigen Verben</div>
+  <div class="service-desc">Nachschlagen & lernen · übersichtliche Verbliste mit Präsens sowie wichtigen Zeitformen und Modi.</div>
+</a>
+<a href="franzoesisch-theorie-subjonctif.html" class="service-card reveal"><div class="service-num">13</div><div class="service-title">✨ Subjonctif</div><div class="service-desc">Theorie für Niveau 1, 2 und 3 · Bildung, Auslöser, unregelmässige Formen sowie Subjonctif oder Indikativ.</div></a></div></section>
+<section id="Spi">
+<div class="Spi-header reveal"><p class="section-label">Interaktive Übungen</p><h2 class="section-title">Thema wählen. <em>Niveau starten.</em></h2><div class="gold-bar"></div><p class="section-body">Wähle zuerst eines der 12 Themen und starte danach direkt mit Niveau 1, 2 oder 3.</p></div>
+<div class="Spi-grid"><article class="topic-card reveal"><div class="topic-top"><h3>Verben & Konjugation</h3></div><p>Verben sicher bilden und in verschiedenen Personen anwenden.</p><div class="level-picker"><a class="level-btn" href="franzoesisch-verben-konjugation-1-oberstufe-mit-gemischten-schreibuebungen.html">Niveau 1</a><a class="level-btn" href="franzoesisch-verben-konjugation-2-oberstufe-mit-gemischten-schreibuebungen.html">Niveau 2</a><a class="level-btn" href="franzoesisch-verben-konjugation-3-oberstufe-mit-gemischten-schreibuebungen.html">Niveau 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Artikel & Nomen</h3></div><p>Artikel, Geschlecht und Zahl von Nomen richtig verwenden.</p><div class="level-picker"><a class="level-btn" href="franzoesisch-artikel-nomen-1-oberstufe.html">Niveau 1</a><a class="level-btn" href="franzoesisch-artikel-nomen-2-oberstufe.html">Niveau 2</a><a class="level-btn" href="franzoesisch-artikel-nomen-3-oberstufe.html">Niveau 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Adjektive</h3></div><p>Adjektive erkennen, bilden und korrekt an Nomen angleichen.</p><div class="level-picker"><a class="level-btn" href="franzoesisch-adjektive-1-oberstufe.html">Niveau 1</a><a class="level-btn" href="franzoesisch-adjektive-2-oberstufe.html">Niveau 2</a><a class="level-btn" href="franzoesisch-adjektive-3-oberstufe.html">Niveau 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Pronomen</h3></div><p>Personal-, Objekt- und weitere Pronomen richtig einsetzen.</p><div class="level-picker"><a class="level-btn" href="franzoesisch-pronomen-1-oberstufe.html">Niveau 1</a><a class="level-btn" href="franzoesisch-pronomen-2-oberstufe.html">Niveau 2</a><a class="level-btn" href="franzoesisch-pronomen-3-oberstufe.html">Niveau 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Verneinungen</h3></div><p>Französische Sätze mit verschiedenen Formen korrekt verneinen.</p><div class="level-picker"><a class="level-btn" href="franzoesisch-verneinungen-1-oberstufe.html">Niveau 1</a><a class="level-btn" href="franzoesisch-verneinungen-2-oberstufe.html">Niveau 2</a><a class="level-btn" href="franzoesisch-verneinungen-3-oberstufe.html">Niveau 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Fragen bilden</h3></div><p>Fragen mit Intonation, est-ce que, Fragewörtern und Inversion bilden.</p><div class="level-picker"><a class="level-btn" href="franzoesisch-fragen-1-oberstufe.html">Niveau 1</a><a class="level-btn" href="franzoesisch-fragen-2-oberstufe.html">Niveau 2</a><a class="level-btn" href="franzoesisch-fragen-3-oberstufe.html">Niveau 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Präpositionen</h3></div><p>Wichtige Präpositionen und feste Verbindungen sicher anwenden.</p><div class="level-picker"><a class="level-btn" href="franzoesisch-praepositionen-1-oberstufe.html">Niveau 1</a><a class="level-btn" href="franzoesisch-praepositionen-2-oberstufe.html">Niveau 2</a><a class="level-btn" href="franzoesisch-praepositionen-3-oberstufe.html">Niveau 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Conditionnel</h3></div><p>Wünsche, Möglichkeiten und Bedingungen passend ausdrücken.</p><div class="level-picker"><a class="level-btn" href="franzoesisch-conditionnel-1-oberstufe.html">Niveau 1</a><a class="level-btn" href="franzoesisch-conditionnel-2-oberstufe.html">Niveau 2</a><a class="level-btn" href="franzoesisch-conditionnel-3-oberstufe.html">Niveau 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Passé composé</h3></div><p>Abgeschlossene Handlungen in der Vergangenheit korrekt ausdrücken.</p><div class="level-picker"><a class="level-btn" href="franzoesisch-passe-compose-1-oberstufe.html">Niveau 1</a><a class="level-btn" href="franzoesisch-passe-compose-2-oberstufe.html">Niveau 2</a><a class="level-btn" href="franzoesisch-passe-compose-3-oberstufe.html">Niveau 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Imparfait</h3></div><p>Gewohnheiten, Zustände und Hintergründe in der Vergangenheit beschreiben.</p><div class="level-picker"><a class="level-btn" href="franzoesisch-imparfait-1-oberstufe.html">Niveau 1</a><a class="level-btn" href="franzoesisch-imparfait-2-oberstufe.html">Niveau 2</a><a class="level-btn" href="franzoesisch-imparfait-3-oberstufe.html">Niveau 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Futur simple</h3></div><p>Zukünftige Handlungen und Ereignisse sicher formulieren.</p><div class="level-picker"><a class="level-btn" href="franzoesisch-futur-simple-1-oberstufe.html">Niveau 1</a><a class="level-btn" href="franzoesisch-futur-simple-2-oberstufe.html">Niveau 2</a><a class="level-btn" href="franzoesisch-futur-simple-3-oberstufe.html">Niveau 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Unregelmässige Verben</h3></div><p>Die wichtigsten unregelmässigen Verben gezielt trainieren.</p><div class="level-picker"><a class="level-btn" href="franzoesisch-unregelmaessige-verben-1-oberstufe.html">Niveau 1</a><a class="level-btn" href="franzoesisch-unregelmaessige-verben-2-oberstufe.html">Niveau 2</a><a class="level-btn" href="franzoesisch-unregelmaessige-verben-3-oberstufe.html">Niveau 3</a></div></article><article class="topic-card reveal"><div class="topic-top"><h3>Subjonctif</h3></div><p>Wünsche, Gefühle, Zweifel, Notwendigkeit und typische Auslöser sicher anwenden.</p><div class="level-picker"><a class="level-btn" href="franzoesisch-subjonctif-1-oberstufe.html">Niveau 1</a><a class="level-btn" href="franzoesisch-subjonctif-2-oberstufe.html">Niveau 2</a><a class="level-btn" href="franzoesisch-subjonctif-3-oberstufe.html">Niveau 3</a></div></article></div>
+</section>
+
+
+<section id="Heute" style="background:#0D1433;padding-top:5rem">
+  <div class="Spi-header reveal"><p class="section-label">Dein persönlicher Lernplan</p><h2 class="section-title">Heute <em>lernen</em></h2><div class="gold-bar"></div>
+  <p class="section-body">Die App priorisiert fällige Wiederholungen, frühere Fehler und unsichere Aufgaben.</p></div>
+  <div class="learning-dashboard"><div class="dash-grid">
+    <div class="dash-card"><div class="dash-num" id="dStreak">0</div><div class="dash-label">Tageserie</div></div>
+    <div class="dash-card"><div class="dash-num" id="dGoal">0/20</div><div class="dash-label">Tagesziel</div><div class="goal-track"><div class="goal-fill" id="dGoalFill"></div></div></div>
+  </div></div>
+  <div class="today-box"><div><h3 id="todayTitle">Deine nächste Einheit</h3><p id="todayText">Die App sucht das Thema, bei dem Wiederholung gerade am meisten bringt.</p></div><a id="todayBtn" class="btn-smart" href="#Lernen">Heute lernen</a><a href="franzoesisch-vokabeltrainer.html" class="service-card reveal"><div class="service-num">13</div><div class="service-title">Vokabeltrainer</div><div class="service-desc">Deutsch → Französisch · intelligente Wiederholungen und Karteikarten.</div></a>
+</div>
+</section>
+<section id="Fortschritt" style="background:#0D1433">
+  <div class="Spi-header reveal">
+    <p class="section-label">Dein Lernstand</p>
+    <h2 class="section-title">Mein <em>Fortschritt</em></h2>
+    <div class="gold-bar"></div>
+    <p class="section-body">Hier wird der Fortschritt deiner tatsächlichen Übungen automatisch zusammengefasst. Oben siehst du, was du heute erledigt hast und welche Übungen du insgesamt bereits abgeschlossen hast.</p>
+  </div>
+  <div style="max-width:1200px;margin:0 auto 2rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem">
+    <div class="analytics" style="margin:0">
+      <p class="section-label">Heute</p>
+      <h3 style="font-family:var(--font-display);font-size:1.6rem;font-weight:400;margin-bottom:1rem">Heute erledigt</h3>
+      <div class="weak-list" id="todayCompletedList"></div>
+    </div>
+    <div class="analytics" style="margin:0">
+      <p class="section-label">Gesamt</p>
+      <h3 style="font-family:var(--font-display);font-size:1.6rem;font-weight:400;margin-bottom:1rem">Insgesamt erledigt</h3>
+      <div class="weak-list" id="totalCompletedList"></div>
+    </div>
+  </div>
+
+</section>
+<section id="Pruefung" style="background:#121E47">
+  <div class="Spi-header reveal">
+    <p class="section-label">Prüfungstraining</p>
+    <h2 class="section-title">Dein Wissen <em>prüfen</em></h2>
+    <div class="gold-bar"></div>
+    <p class="section-body">Starte eine Gesamtprüfung über alle Themen eines Niveaus. Während der Prüfung erhältst du keine Hinweise oder direkte Rückmeldung. Die vollständige Auswertung erscheint erst am Schluss.</p>
+  </div>
+  <div class="Spi-grid">
+    <a href="franzoesisch-pruefung-1-oberstufe.html" class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-title">Gesamtprüfung · Niveau 1</div>
+      <div class="service-desc">39 gemischte Aufgaben · 13 Themen · 30 Minuten · Auswertung erst am Schluss.</div>
+    </a>
+    <a href="franzoesisch-pruefung-2-oberstufe.html" class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-title">Gesamtprüfung · Niveau 2</div>
+      <div class="service-desc">39 gemischte Aufgaben · 13 Themen · 30 Minuten · Auswertung erst am Schluss.</div>
+    </a>
+    <a href="franzoesisch-pruefung-3-oberstufe.html" class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-title">Gesamtprüfung · Niveau 3</div>
+      <div class="service-desc">39 gemischte Aufgaben · 13 Themen · 30 Minuten · Auswertung erst am Schluss.</div>
+    </a>
+  </div>
+</section>
+<!-- Pru -->
+<section id="Pru">
+  <div class="Pru-container">
+    <div class="reveal">
+      <p class="section-label">Empfohlener Lernweg</p>
+      <h2 class="section-title" style="color:var(--navy)">So wirst du <em style="color:var(--gold)">sicherer</em></h2>
+      <div class="gold-bar"></div>
+    </div>
+    <div class="Pru-steps">
+      <div class="Pru-step reveal"><div class="step-circle">01</div><div class="step-title">Thema wählen</div><div class="step-desc">Starte mit Verben, Artikeln & Nomen, Adjektiven oder Pronomen.</div></div>
+      <div class="Pru-step reveal"><div class="step-circle">02</div><div class="step-title">Stufe wählen</div><div class="step-desc">Wähle die 1., 2. oder Niveau 3 passend zu deinem Niveau.</div></div>
+      <div class="Pru-step reveal"><div class="step-circle">03</div><div class="step-title">Aktiv üben</div><div class="step-desc">Beantworte Auswahlfragen und schreibe französische Formen selbst.</div></div>
+      <div class="Pru-step reveal"><div class="step-circle">04</div><div class="step-title">Wiederholen</div><div class="step-desc">Fehlerhafte Aufgaben kommen erneut – bis die Form sitzt.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<section class="learning-lab" id="lernwerkstatt">
+ <div class="lab-wrap">
+  <div class="lab-head">
+   <div class="lab-kicker">Lernen lernen</div>
+   <h2>Deine Lernwerkstatt</h2>
+   <p>Hier lernst du nicht nur Französisch, sondern auch, <strong>wie</strong> du sinnvoll übst. Probiere eine Methode aus und finde heraus, welche dir beim Erinnern hilft.</p>
+  </div>
+  <div class="lab-grid">
+   <article class="lab-card"><div class="lab-icon">🧠</div><h3>Merkhilfen & Eselsbrücken</h3><p>Verbinde eine schwierige Regel oder ein Wort mit einem Bild, Satz oder einer persönlichen Idee.</p><button class="lab-btn" data-panel="mnemo">Ausprobieren</button><div class="lab-panel" id="mnemo"><b>So geht's:</b> Wähle etwas, das du oft vergisst. Erfinde eine kurze, auffällige Verbindung.<input class="lab-input" id="mnemoText" placeholder="Meine Eselsbrücke …"><button class="lab-btn" onclick="saveLab('mnemoText')">Speichern</button><div class="saved-note">Wird nur auf diesem Gerät gespeichert.</div></div></article>
+   <article class="lab-card"><div class="lab-icon">🗂️</div><h3>Lernkartei</h3><p>Arbeite nach dem Prinzip: <strong>Neu → Unsicher → Gelernt → Sicher</strong>. Unsichere Inhalte kommen früher wieder.</p><button class="lab-btn" onclick="location.href='franzoesisch-vokabeltrainer.html'">Kartei starten</button></article>
+   <article class="lab-card"><div class="lab-icon">✍️</div><h3>Aktiv erinnern</h3><p>Nicht nur lesen: Decke die Lösung ab, rufe sie aus dem Gedächtnis ab und schreibe sie erst dann auf.</p><button class="lab-btn" data-panel="recall">Methode ansehen</button><div class="lab-panel" id="recall">1. Aufgabe lesen.<br>2. Lösung nicht anschauen.<br>3. Antwort laut sagen oder aufschreiben.<br>4. Kontrollieren.<br>5. Falsches später nochmals abrufen.</div></article>
+   <article class="lab-card"><div class="lab-icon">🗺️</div><h3>Mindmap</h3><p>Ordne ein Thema in Hauptbegriffe und Beispiele. Das hilft besonders bei Regeln und Zusammenhängen.</p><button class="lab-btn" data-panel="mindmap">Vorlage öffnen</button><div class="lab-panel" id="mindmap"><input class="lab-input" id="mindTopic" placeholder="Thema, z. B. Pronomen"><input class="lab-input" id="mindBranches" placeholder="Äste, z. B. direkt · indirekt · y · en"><button class="lab-btn" onclick="saveLab('mindTopic','mindBranches')">Speichern</button></div></article>
+   <article class="lab-card"><div class="lab-icon">🔎</div><h3>Aus Fehlern lernen</h3><p>Frage nach einem Fehler nicht nur „Was ist richtig?“, sondern auch „Warum war meine Antwort falsch?“</p><button class="lab-btn" data-panel="errors">3-Schritt-Technik</button><div class="lab-panel" id="errors"><b>1.</b> Fehler benennen. <br><b>2.</b> Regel in eigenen Worten erklären. <br><b>3.</b> Eine ähnliche Aufgabe lösen. Deine App priorisiert unsichere Aufgaben automatisch.</div></article>
+   <article class="lab-card"><div class="lab-icon">💡</div><h3>Strategie wählen</h3><p><b>Verben:</b> Person → Stamm → Endung.<br><b>Vokabeln:</b> abdecken → erinnern → prüfen.<br><b>Pronomen:</b> Satzteil finden → ersetzen → Stellung prüfen.<br><b>Adjektive:</b> Nomen bestimmen → Geschlecht/Zahl → angleichen.</p></article>
+  </div>
+  <div class="study-plan">
+   <h3>⏱️ Deine 15-Minuten-Lerneinheit</h3>
+   <div class="plan-steps"><div class="plan-step"><b>5 Min.</b><br>Fällige Inhalte und alte Fehler wiederholen.</div><div class="plan-step"><b>7 Min.</b><br>Aktiv Aufgaben lösen – möglichst ohne Hilfe.</div><div class="plan-step"><b>3 Min.</b><br>Fehler erklären und schwierige Inhalte nochmals abrufen.</div></div>
+   <div style="margin-top:1.3rem"><a class="lab-btn" href="franzoesisch-15-minuten-lerneinheit.html" style="display:inline-block;text-decoration:none">15-Minuten-Einheit starten</a></div>
+  </div>
+ </div>
+</section>
+
+
+<section class="v7-competence" id="kompetenzlernen"><div class="v7-comp-wrap">
+<p class="section-label">Kompetenzorientiert lernen</p><h2 class="section-title">Nicht nur lösen – <em>verstehen und anwenden</em></h2><div class="gold-bar"></div>
+<div class="v7-comp-grid">
+<div class="v7-comp-card"><div class="v7-comp-icon">🔎</div><h3>Entdecken</h3><p>Vorwissen aktivieren und Regeln zuerst an Beispielen selbst erkennen.</p></div>
+<div class="v7-comp-card"><div class="v7-comp-icon">🧭</div><h3>Eigene Lernwege</h3><p>Hinweise, Strategien, Merkhilfen und Lernwerkstatt nach Bedarf nutzen.</p></div>
+<div class="v7-comp-card"><div class="v7-comp-icon">🎯</div><h3>Differenzieren</h3><p>Unsichere Inhalte häufiger wiederholen; bei wachsender Sicherheit selbstständiger abrufen.</p></div>
+<div class="v7-comp-card"><div class="v7-comp-icon">✍️</div><h3>Anwenden</h3><p>Auswahl, eigenes Schreiben und Sprachgebrauch miteinander verbinden.</p></div>
+<div class="v7-comp-card"><div class="v7-comp-icon">🔁</div><h3>Fehler nutzen</h3><p>Nach Fehlern den eigenen Lösungsweg kurz reflektieren und erneut versuchen.</p></div>
+<div class="v7-comp-card"><div class="v7-comp-icon">🤝</div><h3>Gemeinsam lernen</h3><p>Eigene Lernkartensets exportieren, teilen und von Mitschüler:innen importieren.</p></div>
+</div></div></section>
+
+<footer>
+  <div class="footer-logo">
+    <div class="monogram">FR</div>
+    <span class="wordmark">Französisch lernen</span>
+  </div>
+  <p class="footer-copy">© 2026 · Französisch Lerntrainer</p>
+  <div class="footer-links"><a href="#hero">Nach oben ↑</a></div>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+<script>
+const modules=[{"file": "franzoesisch-verben-konjugation-1-oberstufe-mit-gemischten-schreibuebungen.html", "key": "fr_franzoesisch_verben_konjugation_1_oberstufe_mit_gemischten_schreibuebungen", "title": "Verben & Konjugation · Niveau 1"}, {"file": "franzoesisch-verben-konjugation-2-oberstufe-mit-gemischten-schreibuebungen.html", "key": "fr_franzoesisch_verben_konjugation_2_oberstufe_mit_gemischten_schreibuebungen", "title": "Verben & Konjugation · Niveau 2"}, {"file": "franzoesisch-verben-konjugation-3-oberstufe-mit-gemischten-schreibuebungen.html", "key": "fr_franzoesisch_verben_konjugation_3_oberstufe_mit_gemischten_schreibuebungen", "title": "Verben & Konjugation · Niveau 3"}, {"file": "franzoesisch-artikel-nomen-1-oberstufe.html", "key": "fr_franzoesisch_artikel_nomen_1_oberstufe", "title": "Artikel & Nomen · Niveau 1"}, {"file": "franzoesisch-artikel-nomen-2-oberstufe.html", "key": "fr_franzoesisch_artikel_nomen_2_oberstufe", "title": "Artikel & Nomen · Niveau 2"}, {"file": "franzoesisch-artikel-nomen-3-oberstufe.html", "key": "fr_franzoesisch_artikel_nomen_3_oberstufe", "title": "Artikel & Nomen · Niveau 3"}, {"file": "franzoesisch-adjektive-1-oberstufe.html", "key": "fr_franzoesisch_adjektive_1_oberstufe", "title": "Adjektive · Niveau 1"}, {"file": "franzoesisch-adjektive-2-oberstufe.html", "key": "fr_franzoesisch_adjektive_2_oberstufe", "title": "Adjektive · Niveau 2"}, {"file": "franzoesisch-adjektive-3-oberstufe.html", "key": "fr_franzoesisch_adjektive_3_oberstufe", "title": "Adjektive · Niveau 3"}, {"file": "franzoesisch-pronomen-1-oberstufe.html", "key": "fr_franzoesisch_pronomen_1_oberstufe", "title": "Pronomen · Niveau 1"}, {"file": "franzoesisch-pronomen-2-oberstufe.html", "key": "fr_franzoesisch_pronomen_2_oberstufe", "title": "Pronomen · Niveau 2"}, {"file": "franzoesisch-pronomen-3-oberstufe.html", "key": "fr_franzoesisch_pronomen_3_oberstufe", "title": "Pronomen · Niveau 3"}];
+const grid=document.getElementById('progressGrid');
+modules.forEach(m=>{let d={};try{d=JSON.parse(localStorage.getItem(m.key))||{}}catch(e){}const score=d.lastScore??'–',best=d.best??'–',done=d.completed||0;const card=document.createElement('div');card.className='service-card';card.style.cursor='default';card.innerHTML=`<div class="service-num">${score}${score==='–'?'':'%'}</div><div class="service-title">${m.title}</div><div class="service-desc">Letztes Ergebnis: ${score}${score==='–'?'':'%'} · Bestwert: ${best}${best==='–'?'':'%'} · Abgeschlossene Runden: ${done}</div>`;grid.appendChild(card)});
+document.getElementById('resetProgress')?.addEventListener('click',()=>{
+  if(confirm('Möchtest du den gesamten Französisch-Lernfortschritt auf diesem Gerät wirklich löschen?')){
+    modules.forEach(m=>localStorage.removeItem(m.key));
+    location.reload();
+  }
+});
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js'));
+}
+</script>
+
+<script>
+window.addEventListener('load',()=>{
+ if(!window.FRLearning)return;
+
+ const byId=id=>document.getElementById(id);
+ const s=FRLearning.summary();
+ const history=Array.isArray(s.history)?s.history:[];
+ const todayKey=new Date().toLocaleDateString('en-CA');
+
+ // Alle 36 Übungslinks direkt aus den 12 Themenkarten lesen.
+ const exercises=[...document.querySelectorAll('#Spi .level-btn')].map(a=>{
+   const href=(a.getAttribute('href')||'').split('?')[0];
+   const card=a.closest('.topic-card');
+   const topic=card?.querySelector('h3')?.textContent.trim()||'Übung';
+   const level=Number((a.textContent.match(/\d+/)||[])[0]||0);
+   const key='fr_'+href.replace(/\.html$/,'').replace(/-/g,'_');
+   return {href,key,topic,level,title:`${topic} · Niveau ${level}`};
+ });
+
+ const examInfo=[1,2,3].map(level=>({
+   level,
+   href:`franzoesisch-pruefung-${level}-oberstufe.html`,
+   key:`fr_exam_${level}_oberstufe`,
+   title:`Gesamtprüfung · Niveau ${level}`
+ }));
+
+ const completedEver=new Set(history.map(h=>h.module));
+ const completedToday=new Set(history.filter(h=>h.date===todayKey).map(h=>h.module));
+
+ const titleFor=k=>{
+   const x=exercises.find(e=>e.key===k);
+   return x?x.title:k.replace(/^fr_/,'').replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+ };
+ const completedUnique=arr=>[...new Set(arr.map(h=>h.module))];
+ const renderCompleted=(id,mods,hist,emptyText)=>{
+   const el=byId(id); if(!el)return;
+   if(!mods.length){el.innerHTML=`<div class="weak-row"><span>${emptyText}</span><b>–</b></div>`;return;}
+   el.innerHTML=mods.map(k=>{
+     const runs=hist.filter(h=>h.module===k);
+     const last=runs[runs.length-1]||{};
+     return `<div class="weak-row"><span>${titleFor(k)} <small>· ${runs.length} ${runs.length===1?'Runde':'Runden'}</small></span><b>${Number.isFinite(Number(last.pct))?Math.round(Number(last.pct))+'%':'erledigt'}</b></div>`;
+   }).join('');
+ };
+
+ const todayHistory=history.filter(h=>h.date===todayKey);
+ renderCompleted('todayCompletedList',completedUnique(todayHistory),todayHistory,'Heute noch keine Übung abgeschlossen.');
+ renderCompleted('totalCompletedList',completedUnique(history),history,'Noch keine Übung abgeschlossen.');
+
+ byId('dStreak').textContent=s.streak;
+ byId('dGoal').textContent=Math.min(20,s.day.answered)+'/20';
+ byId('dGoalFill').style.width=Math.min(100,s.day.answered/20*100)+'%';
+
+ // Prüfung gilt als erledigt, sobald in ihrem lokalen Speicher ein Abschluss/Resultat vorhanden ist.
+ function examDone(exam){
+   try{
+     const d=JSON.parse(localStorage.getItem(exam.key)||'null');
+     if(!d)return false;
+     return !!(d.completed || d.finished || d.submitted || d.lastScore!=null || d.score!=null ||
+       (Array.isArray(d.history)&&d.history.length));
+   }catch(e){return false}
+ }
+
+ // Stabile Tagesauswahl: innerhalb desselben Tages bleibt der Vorschlag gleich.
+ function dayPick(arr,salt=''){
+   if(!arr.length)return null;
+   const seed=todayKey+'|'+salt;
+   let h=2166136261;
+   for(let i=0;i<seed.length;i++){h^=seed.charCodeAt(i);h=Math.imul(h,16777619)}
+   return arr[(h>>>0)%arr.length];
+ }
+
+ // Sobald alle 12 Übungen eines Niveaus mindestens einmal abgeschlossen sind,
+ // wird zuerst die entsprechende noch nicht absolvierte Gesamtprüfung vorgeschlagen.
+ let suggestion=null;
+ for(const exam of examInfo){
+   const levelExercises=exercises.filter(e=>e.level===exam.level);
+   const levelComplete=levelExercises.length===13 && levelExercises.every(e=>completedEver.has(e.key));
+   if(levelComplete && !examDone(exam)){
+     suggestion={...exam,isExam:true};
+     break;
+   }
+ }
+
+ // Sonst bevorzugt die App Übungen, die insgesamt noch nie abgeschlossen wurden.
+ if(!suggestion){
+   let pool=exercises.filter(e=>!completedEver.has(e.key) && !completedToday.has(e.key));
+   if(!pool.length) pool=exercises.filter(e=>!completedToday.has(e.key));
+   if(!pool.length) pool=exercises;
+   suggestion=dayPick(pool,'daily-exercise');
+ }
+
+ if(suggestion){
+   byId('todayBtn').href=suggestion.href;
+   byId('todayTitle').textContent=suggestion.title;
+   byId('todayText').textContent=suggestion.isExam
+     ? `Du hast alle 12 Übungen von Niveau ${suggestion.level} abgeschlossen. Jetzt ist die Gesamtprüfung dieses Niveaus dran.`
+     : completedEver.has(suggestion.key)
+       ? 'Diese Übung hast du heute noch nicht gemacht. Morgen erhältst du wieder einen neuen zufälligen Vorschlag.'
+       : 'Diese Übung hast du insgesamt noch nicht abgeschlossen. Der Vorschlag wechselt jeden Tag.';
+   byId('todayBtn').textContent=suggestion.isExam?'Prüfung starten':'Übung starten';
+ }
+});
+</script>
+
+
+<script>
+document.querySelectorAll('[data-panel]').forEach(b=>b.addEventListener('click',()=>{
+ const p=document.getElementById(b.dataset.panel); if(p)p.classList.toggle('open');
+}));
+function saveLab(){
+ const data={};[...arguments].forEach(id=>{const e=document.getElementById(id);if(e)data[id]=e.value});
+ try{const old=JSON.parse(localStorage.getItem('fr_learning_methods')||'{}');Object.assign(old,data);localStorage.setItem('fr_learning_methods',JSON.stringify(old));}catch(e){}
+ const b=event?.target;if(b){const old=b.textContent;b.textContent='✓ Gespeichert';setTimeout(()=>b.textContent=old,1200)}
+}
+window.addEventListener('load',()=>{
+ try{const d=JSON.parse(localStorage.getItem('fr_learning_methods')||'{}');Object.entries(d).forEach(([id,v])=>{const e=document.getElementById(id);if(e)e.value=v})}catch(e){}
+});
+</script>
+
+
+<script>
+(function(){
+ const bubble=document.getElementById('foxBubble'), fox=document.getElementById('foxMascot');
+ if(!bubble||!fox)return;
+ const tips=[
+  '<b>Allez ! 💪</b><br>Schon 10 Minuten konzentriertes Üben bringen dich weiter.',
+  '<b>Petit conseil ✨</b><br>Sprich französische Antworten ruhig laut aus – das hilft beim Erinnern.',
+  '<b>Courage ! 🦊</b><br>Fehler gehören zum Lernen. Schwierige Aufgaben einfach nochmals probieren.',
+  '<b>Très bien ! 🇫🇷</b><br>Regelmässige kurze Wiederholungen sind besser als einmal sehr lange zu lernen.'
+ ];
+ let i=0, hideTimer;
+ function say(msg){bubble.innerHTML=msg;bubble.classList.remove('is-hidden');clearTimeout(hideTimer);hideTimer=setTimeout(()=>bubble.classList.add('is-hidden'),9000)}
+ fox.addEventListener('click',()=>{i=(i+1)%tips.length;say(tips[i])});
+ document.querySelectorAll('#Spi .service-card').forEach(a=>a.addEventListener('mouseenter',()=>{
+   const t=a.querySelector('.service-title')?.textContent||'diese Übung';
+   say('<b>Gute Wahl! 📚</b><br>'+t+' – du schaffst das!');
+ }));
+ const progress=document.getElementById('Fortschritt');
+ if(progress&&'IntersectionObserver' in window){new IntersectionObserver(es=>{if(es[0].isIntersecting)say('<b>Regarde ! ⭐</b><br>Hier siehst du, was du bereits geschafft hast.');},{threshold:.35}).observe(progress)}
+})();
+</script>
+
+
+<script id="fox-hover-swap">
+(function(){
+  const fox = document.querySelector('.fox-guide img');
+  if(!fox) return;
+  const idle = 'fuchs-idle.png';
+  const hover = 'fuchs-hover.png'
+  const preload = new Image(); preload.src = hover;
+
+  fox.addEventListener('mouseenter', function(){
+    fox.src = hover;
+    fox.style.transition = 'transform 0.2s ease';
+
+  fox.addEventListener('blur', function(){ fox.src = idle; });
+})();
+</script>
+
+</body>
+</html>
