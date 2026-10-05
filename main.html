@@ -445,7 +445,7 @@
 /* ── LERN-MASKOTTCHEN ───────────────────── */
 .fox-guide{position:fixed;right:22px;bottom:22px;z-index:120;display:flex;align-items:flex-end;gap:10px;filter:drop-shadow(0 12px 28px rgba(0,0,0,.28))}
 .fox-guide img{width:150px;height:auto;object-fit:contain;object-position:center;border:0;border-radius:0;background:transparent;cursor:pointer;transition:.25s var(--ease)}
-.fox-guide img:hover{transform:translateY(-5px) rotate(-2deg)scale(1.2)}
+.fox-guide img:hover{transform:translateY(-4px) scale(1.05);filter:brightness(1.06) drop-shadow(0 6px 12px rgba(183,148,64,.28))}
 .fox-bubble{max-width:220px;background:#fff;color:var(--navy);padding:.85rem 1rem;border-radius:16px 16px 4px 16px;font-size:.82rem;line-height:1.45;box-shadow:0 10px 30px rgba(0,0,0,.18);transition:.25s var(--ease)}
 .fox-bubble b{color:#8b6518}.fox-bubble.is-hidden{opacity:0;transform:translateY(8px);pointer-events:none}
 @media(max-width:700px){.fox-guide{right:8px;bottom:8px}.fox-guide img{width:100px;height:auto}.fox-bubble{max-width:180px;font-size:.74rem;padding:.7rem .8rem}}
@@ -459,7 +459,7 @@
 
 <style id="fox-hover-swap-style">
 .fox-guide img{transition:transform .25s cubic-bezier(.4,0,.2,1),filter .2s ease,opacity .15s ease!important}
-.fox-guide img.fox-hovering{filter:brightness(1.04) drop-shadow(0 5px 10px rgba(183,148,64,.18))}
+@media(prefers-reduced-motion:reduce){.fox-guide img{transition:none!important}.fox-guide img:hover{transform:none}}
 </style>
 
 <style id="topic-card-layout">
@@ -505,6 +505,9 @@
 .account-card [hidden]{display:none!important}
 #accountMessage{margin-top:1rem;color:#f4db99}
 @media(max-width:600px){.account-link{font-size:.7rem}.nav-logo .wordmark{font-size:.8rem}}
+</style>
+<style id="pwa-style">
+.pwa-install-box{max-width:1100px;margin:2rem auto;padding:1.5rem 2rem;border:1px solid rgba(183,148,64,.4);background:#121E47;color:#C0D4F2;font-family:Jost,sans-serif;line-height:1.7}.pwa-install-box h2{color:#D4AF60;font-family:'Cormorant Garamond',serif;font-size:2rem}.pwa-install-btn{margin-top:1rem;background:#B79440;color:#0D1433;border:1px solid #B79440;padding:.8rem 1.3rem;font:inherit;cursor:pointer;transition:transform .2s,background .2s,box-shadow .2s}.pwa-install-btn:hover{background:#D4AF60;transform:translateY(-3px);box-shadow:0 7px 20px #0004}.pwa-install-btn:focus-visible{outline:3px solid #fff;outline-offset:3px}.pwa-install-box [hidden]{display:none!important}@media(max-width:700px){.pwa-install-box{margin:1.5rem 1rem;padding:1.3rem}}@media(prefers-reduced-motion:reduce){.pwa-install-btn{transition:none}}
 </style>
 </head>
 <body>
@@ -769,7 +772,7 @@ document.getElementById('resetProgress')?.addEventListener('click',()=>{
 </script>
 <script>
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js'));
+  window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(err=>console.warn('Service Worker konnte nicht geladen werden:',err)));
 }
 </script>
 
@@ -919,23 +922,7 @@ window.addEventListener('load',()=>{
 </script>
 
 
-<script id="fox-hover-swap">
-(function(){
-  const fox = document.querySelector('.fox-guide img');
-  if(!fox) return;
-  const idle = 'fuchs-idle.png';
-  const hover = 'fuchs-hover.png'
-  const preload = new Image(); preload.src = hover;
 
-  fox.addEventListener('mouseenter', function(){
-    fox.src = hover;
-    fox.style.transition = 'transform 0.2s ease';
-  });
-  fox.addEventListener('mouseleave', function(){ fox.src = idle; });
-
-  fox.addEventListener('blur', function(){ fox.src = idle; });
-})();
-</script>
 
 
 <script id="account-auth">
@@ -1014,5 +1001,20 @@ window.addEventListener('load',()=>{
 })();
 </script>
 
+<section class="pwa-install-box" id="appInstallation" aria-labelledby="appInstallTitle">
+<h2 id="appInstallTitle">Deine Lernplattform als App</h2><p>Öffne deine Übungen direkt vom Startbildschirm oder Desktop.</p>
+<button type="button" class="pwa-install-btn" id="installAppBtn">App installieren</button>
+<p id="installAppStatus" role="status" aria-live="polite"></p>
+<div id="installAppHelp" hidden><p><strong>Android / Computer:</strong> Öffne das Browsermenü und wähle „App installieren“, „Seite als App installieren“ oder „Zum Startbildschirm hinzufügen“.</p><p><strong>iPhone / iPad:</strong> Öffne die Seite in Safari, tippe auf Teilen und dann auf „Zum Home-Bildschirm“.</p></div>
+</section>
+<script id="pwa-install-script">
+(()=>{let installPrompt=null;const btn=document.getElementById('installAppBtn'),status=document.getElementById('installAppStatus'),help=document.getElementById('installAppHelp');const standalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+function installed(){btn.hidden=true;help.hidden=true;status.textContent='Du verwendest die Lernplattform als App.';}
+if(standalone())installed();
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;if(!standalone())btn.hidden=false;});
+window.addEventListener('appinstalled',()=>{installPrompt=null;btn.hidden=true;help.hidden=true;status.textContent='Die App wurde installiert.';});
+btn.addEventListener('click',async()=>{if(!installPrompt){help.hidden=!help.hidden;return}const prompt=installPrompt;installPrompt=null;try{await prompt.prompt();const choice=await prompt.userChoice;if(choice.outcome!=='accepted'){status.textContent='Du kannst die Installation später erneut über das Browsermenü starten.';help.hidden=false;}}catch(e){status.textContent='Bitte starte die Installation über das Browsermenü.';help.hidden=false;}});
+})();
+</script>
 </body>
 </html>
