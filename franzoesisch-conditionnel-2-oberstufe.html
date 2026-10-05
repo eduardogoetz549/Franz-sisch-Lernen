@@ -298,7 +298,7 @@ box-shadow:0 8px 24px rgba(13,20,51,.06)}
     <div class="result-actions">
       <button class="restart" id="restart">Neue Runde</button>
       <button class="restart" id="mistakesBtn" style="display:none">Meine Fehler üben</button>
-      <button class="restart" id="examBtn">Prüfungsmodus</button>
+      <button class="restart" id="examBtn">Zur Gesamtprüfung · Niveau 2</button>
       <a class="home-btn" href="main.html">← Zurück zur Startseite</a>
     </div>
   </section>
@@ -421,7 +421,7 @@ function finish(){
   resultText.innerHTML=`<strong>${mastered} von ${baseQuestions.length}</strong> Aufgaben gelten als gefestigt.<br>Persönlicher Bestwert: <strong>${data.best} %</strong>.${roundMode==='exam'?'<br>Im Prüfungsmodus wurden Lösungen erst am Schluss bewertet.':''}`;
   mistakesBtn.style.display=wrongIds.length?'inline-block':'none';
 }
-next.onclick=()=>{current++;load()};restart.onclick=()=>{history.replaceState(null,'',location.pathname);reset(false)};mistakesBtn.onclick=()=>{history.replaceState(null,'',location.pathname);reset(true)};examBtn.onclick=()=>{history.replaceState(null,'',location.pathname+'?mode=exam');reset(false)};
+next.onclick=()=>{current++;load()};restart.onclick=()=>{history.replaceState(null,'',location.pathname);reset(false)};mistakesBtn.onclick=()=>{history.replaceState(null,'',location.pathname);reset(true)};examBtn.onclick=()=>{location.href='franzoesisch-pruefung-2-oberstufe.html'};
 reset(false);
 </script>
 <script>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Französisch Trainer – Futur simple | 1. Oberstufe</title>
+<title>Französisch Trainer – Passé composé | Niveau 1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -259,19 +259,12 @@ box-shadow:0 8px 24px rgba(13,20,51,.06)}
   </ul>
 </nav>
 <header class="hero">
-  <div class="eyebrow">🇫🇷 FRANÇAIS · LEVEL 1</div>
-  <h1>Le <span>futur simple</span></h1>
-  <p>Lerne die Grundlagen des <strong>futur simple</strong>: Bildung mit dem Infinitiv, die Endungen <strong>-ai, -as, -a, -ons, -ez, -ont</strong>, wichtige unregelmässige Stämme und einfache Aussagen über die Zukunft.</p>
+  <div class="eyebrow">🇫🇷 FRANÇAIS · NIVEAU 1</div>
+  <h1>Le <span>passé composé · niveau 1</span></h1>
+  <p>Lerne die Grundlagen: <strong>avoir und être</strong>, regelmässige Partizipien und erste wichtige Sonderformen. Trainiere abgeschlossene Handlungen mit Auswahl- und Schreibaufgaben.</p>
 </header>
 
-<div class="legend">
-  <span class="chip">🔮 Zukunft</span>
-  <span class="chip">🔤 -ai / -as / -a</span>
-  <span class="chip">🧩 Infinitiv-Stamm</span>
-  <span class="chip">⭐ wichtige Ausnahmen</span>
-  <span class="chip">🚫 Verneinung</span>
-  <span class="chip">✍️ selbst schreiben</span>
-</div>
+<div class="legend"><span class="chip">⏳ abgeschlossene Handlungen</span><span class="chip">🧩 avoir · être</span><span class="chip">🔤 participe passé</span><span class="chip">✍️ selbst schreiben</span></div>
 
 <main id="quiz">
   <div class="status">
@@ -281,7 +274,7 @@ box-shadow:0 8px 24px rgba(13,20,51,.06)}
   </div>
 
   <section class="card" id="quizCard">
-    <div class="mode" id="mode">🇫🇷 Futur simple</div>
+    <div class="mode" id="mode">🇫🇷 Passé composé · Niveau 1</div>
     <div class="question" id="question"></div>
     <div class="context" id="context"></div>
     <div class="options" id="options"></div>
@@ -303,67 +296,241 @@ box-shadow:0 8px 24px rgba(13,20,51,.06)}
   </section>
 </main>
 
-<footer>Französisch Trainer · Futur simple · 1. Oberstufe</footer>
+<footer>Französisch Trainer · Passé composé · Niveau 1</footer>
 
 <script>
 const baseQuestions=[
-{q:'Wofür verwendet man das futur simple?',ctx:'Grundbedeutung',a:["Für Handlungen und Ereignisse in der Zukunft","Nur für die Vergangenheit","Nur für Gewohnheiten","Nur für Befehle"],c:0,e:"Das futur simple drückt zukünftige Handlungen oder Ereignisse aus."},
-{q:'Welche Endungsreihe gehört zum futur simple?',ctx:'je, tu, il/elle, nous, vous, ils/elles',a:["-ai, -as, -a, -ons, -ez, -ont","-ais, -ais, -ait, -ions, -iez, -aient","-e, -es, -e, -ons, -ez, -ent","-ai, -as, -ait, -ions, -iez, -ont"],c:0,e:"Die Endungen sind -ai, -as, -a, -ons, -ez, -ont."},
-{q:'Welche Endung hat «je»?',ctx:'futur simple',a:["-ai","-as","-a","-ont"],c:0,e:"je → -ai."},
-{q:'Welche Endung hat «tu»?',ctx:'futur simple',a:["-as","-ai","-a","-ez"],c:0,e:"tu → -as."},
-{q:'Welche Endung hat «il / elle / on»?',ctx:'futur simple',a:["-a","-ai","-as","-ont"],c:0,e:"il/elle/on → -a."},
-{q:'Welche Endung hat «nous»?',ctx:'futur simple',a:["-ons","-ions","-ez","-ont"],c:0,e:"nous → -ons."},
-{q:'Welche Endung hat «vous»?',ctx:'futur simple',a:["-ez","-iez","-ons","-ont"],c:0,e:"vous → -ez."},
-{q:'Welche Endung hat «ils / elles»?',ctx:'futur simple',a:["-ont","-aient","-ons","-ez"],c:0,e:"ils/elles → -ont."},
-{q:'Wie bildet man das futur simple bei einem regelmässigen -er-Verb?',ctx:'parler',a:["Infinitiv + Futur-Endung","nous-Stamm + Imparfait-Endung","avoir + participe passé","Infinitiv ohne -er + Präsensendung"],c:0,e:"Bei -er-Verben bleibt der Infinitiv als Stamm erhalten: parler-."},
-{q:'Schreibe die Form.',ctx:'parler · je',type:'write',answer:"Je parlerai.",e:"parler + -ai = je parlerai."},
-{q:'Schreibe die Form.',ctx:'parler · nous',type:'write',answer:"Nous parlerons.",e:"parler + -ons = nous parlerons."},
-{q:'Welche Form ist korrekt?',ctx:'regarder · elle',a:["elle regardera","elle regardait","elle regarderait","elle regarde"],c:0,e:"regarder + -a = regardera."},
-{q:'Schreibe: «Sie werden spielen.»',ctx:'jouer · ils',type:'write',answer:"Ils joueront.",e:"jouer + -ont = joueront."},
-{q:'Wie bildet man das futur simple bei regelmässigen -ir-Verben?',ctx:'finir',a:["Infinitiv + Futur-Endung","Stamm ohne -ir + -ais","avoir + participe passé","nous-Form ohne -ons"],c:0,e:"Auch bei regelmässigen -ir-Verben bleibt der Infinitiv: finir-."},
-{q:'Schreibe die Form.',ctx:'finir · tu',type:'write',answer:"Tu finiras.",e:"finir + -as = tu finiras."},
-{q:'Welche Form ist korrekt?',ctx:'choisir · vous',a:["vous choisirez","vous choisissiez","vous choisiriez","vous choisissez"],c:0,e:"choisir + -ez = choisirez."},
-{q:'Schreibe: «Wir werden die Übung beenden.»',ctx:'finir · l’exercice',type:'write',answer:"Nous finirons l'exercice.",e:"finir + -ons = finirons."},
-{q:'Was geschieht bei vielen -re-Verben?',ctx:'vendre',a:["Das letzte -e fällt weg: vendr-","Der ganze Infinitiv bleibt immer unverändert","Man verwendet den nous-Stamm","Man fügt ein zweites e hinzu"],c:0,e:"Bei -re-Verben fällt das letzte e weg: vendre → vendr-."},
-{q:'Schreibe die Form.',ctx:'vendre · je',type:'write',answer:"Je vendrai.",e:"vendre → vendr- + -ai."},
-{q:'Welche Form ist korrekt?',ctx:'attendre · nous',a:["nous attendrons","nous attendions","nous attendrerons","nous attendrions"],c:0,e:"attendre → attendr- + -ons."},
-{q:'Schreibe: «Sie wird antworten.»',ctx:'répondre · elle',type:'write',answer:"Elle répondra.",e:"répondre → répondr- + -a."},
-{q:'Welchen Futur-Stamm hat «être»?',ctx:'être → ?',a:["ser-","ét-","être-","s-"],c:0,e:"être → ser-."},
-{q:'Schreibe: «Ich werde müde sein.»',ctx:'être · fatigué · Sprecher männlich',type:'write',answer:"Je serai fatigué.",e:"être → ser-; je serai."},
-{q:'Welche Form ist korrekt?',ctx:'être · nous',a:["nous serons","nous étions","nous serions","nous sommes"],c:0,e:"nous serons."},
-{q:'Welchen Futur-Stamm hat «avoir»?',ctx:'avoir → ?',a:["aur-","av-","avoir-","eu-"],c:0,e:"avoir → aur-."},
-{q:'Schreibe: «Du wirst Zeit haben.»',ctx:'avoir · le temps',type:'write',answer:"Tu auras le temps.",e:"avoir → aur-; tu auras."},
-{q:'Welche Form ist korrekt?',ctx:'avoir · ils',a:["ils auront","ils avaient","ils auraient","ils ont"],c:0,e:"ils auront."},
-{q:'Welchen Futur-Stamm hat «aller»?',ctx:'aller → ?',a:["ir-","all-","aller-","v-"],c:0,e:"aller → ir-."},
-{q:'Schreibe: «Wir werden nach Paris fahren.»',ctx:'aller · à Paris',type:'write',answer:"Nous irons à Paris.",e:"aller → ir-; nous irons."},
-{q:'Welche Form ist korrekt?',ctx:'aller · elle',a:["elle ira","elle alla","elle irait","elle allait"],c:0,e:"elle ira."},
-{q:'Welchen Futur-Stamm hat «faire»?',ctx:'faire → ?',a:["fer-","fais-","fair-","fait-"],c:0,e:"faire → fer-."},
-{q:'Schreibe: «Ich werde meine Hausaufgaben machen.»',ctx:'faire · mes devoirs',type:'write',answer:"Je ferai mes devoirs.",e:"faire → fer-; je ferai."},
-{q:'Welche Form ist korrekt?',ctx:'faire · vous',a:["vous ferez","vous faisiez","vous feriez","vous faites"],c:0,e:"vous ferez."},
-{q:'Welchen Futur-Stamm hat «venir»?',ctx:'venir → ?',a:["viendr-","ven-","venir-","vien-"],c:0,e:"venir → viendr-."},
-{q:'Schreibe: «Sie werden morgen kommen.»',ctx:'venir · ils · demain',type:'write',answer:"Ils viendront demain.",e:"venir → viendr-; ils viendront."},
-{q:'Welchen Futur-Stamm hat «pouvoir»?',ctx:'pouvoir → ?',a:["pourr-","pouv-","pouvoir-","pu-"],c:0,e:"pouvoir → pourr-."},
-{q:'Schreibe: «Ich werde kommen können.»',ctx:'pouvoir · venir',type:'write',answer:"Je pourrai venir.",e:"pouvoir → pourr-; je pourrai."},
-{q:'Welchen Futur-Stamm hat «vouloir»?',ctx:'vouloir → ?',a:["voudr-","voul-","vouloir-","veul-"],c:0,e:"vouloir → voudr-."},
-{q:'Schreibe: «Wir werden bleiben wollen.»',ctx:'vouloir · rester',type:'write',answer:"Nous voudrons rester.",e:"vouloir → voudr-; nous voudrons."},
-{q:'Welche Zeitangabe passt gut zum futur simple?',ctx:'Wähle die typische Zukunftsangabe.',a:["demain","hier","autrefois","quand j'étais petit"],c:0,e:"demain = morgen und verweist auf die Zukunft."},
-{q:'Schreibe: «Morgen werde ich arbeiten.»',ctx:'demain · travailler',type:'write',answer:"Demain, je travaillerai.",e:"travailler + -ai."},
-{q:'Schreibe: «Nächste Woche werden wir unsere Grosseltern besuchen.»',ctx:'la semaine prochaine · rendre visite à nos grands-parents',type:'write',answer:"La semaine prochaine, nous rendrons visite à nos grands-parents.",e:"rendre → rendr-; nous rendrons."},
-{q:'Welche Form ist korrekt?',ctx:'ne pas · travailler · je',a:["je ne travaillerai pas","je ne pas travaillerai","je travaillerai ne pas","je n'ai pas travaillerai"],c:0,e:"Die Verneinung umschliesst das konjugierte Verb: je ne travaillerai pas."},
-{q:'Schreibe: «Sie wird nicht kommen.»',ctx:'elle · ne pas venir',type:'write',answer:"Elle ne viendra pas.",e:"venir → viendr-; elle ne viendra pas."},
-{q:'Schreibe: «Wir werden nie vergessen.»',ctx:'ne jamais oublier',type:'write',answer:"Nous n'oublierons jamais.",e:"ne ... jamais umschliesst die Futurform."},
-{q:'Welche Frage ist korrekt?',ctx:'«Wirst du morgen kommen?»',a:["Est-ce que tu viendras demain ?","Est-ce que tu venais demain ?","Tu es venu demain ?","Est-ce que tu viendrais hier ?"],c:0,e:"Futur simple von venir: tu viendras."},
-{q:'Schreibe: «Werdet ihr am Samstag spielen?»',ctx:'vous · jouer · samedi',type:'write',answer:"Est-ce que vous jouerez samedi ?",e:"jouer → vous jouerez."},
-{q:'Transfer: Übersetze.',ctx:'«Morgen wird das Wetter schön sein.»',type:'write',answer:"Demain, il fera beau.",e:"faire → fer-; il fera beau."},
-{q:'Transfer: Übersetze.',ctx:'«Später werde ich Französisch sprechen.»',type:'write',answer:"Plus tard, je parlerai français.",e:"parler + -ai."},
-{q:'Transfer: Übersetze.',ctx:'«Eines Tages werden wir in Frankreich leben.»',type:'write',answer:"Un jour, nous vivrons en France.",e:"vivre → vivr-; nous vivrons."},
-{q:'Fehlerkorrektur.',ctx:"Je parlerais français demain.",type:'write',answer:"Je parlerai français demain.",e:"Für eine einfache Zukunftsaussage wird hier futur simple verwendet: parlerai."},
-{q:'Fehlerkorrektur.',ctx:"Nous allerons à Genève.",type:'write',answer:"Nous irons à Genève.",e:"aller hat den unregelmässigen Futur-Stamm ir-."},
-{q:'Fehlerkorrektur.',ctx:"Elle êtrea contente.",type:'write',answer:"Elle sera contente.",e:"être → ser-; elle sera."},
-{q:'Welche Zusammenfassung ist richtig?',ctx:'Futur simple · 1. Oberstufe',a:["Stamm + -ai, -as, -a, -ons, -ez, -ont; wichtige Stämme wie ser-, aur-, ir-, fer- lernen","nous-Stamm + Imparfait-Endungen","avoir + participe passé","Immer aller + Infinitiv"],c:0,e:"Das futur simple verwendet Futur-Stamm + -ai, -as, -a, -ons, -ez, -ont."}
+  {
+    "q": "Welche Regel ist richtig?",
+    "ctx": "Wie bildet man das passé composé?",
+    "a": [
+      "Hilfsverb im Präsens + participe passé",
+      "Infinitiv + Infinitiv",
+      "Nur mit être im Infinitiv",
+      "Verb im Futur"
+    ],
+    "c": 0,
+    "e": "Das passé composé besteht aus avoir oder être im Präsens und dem participe passé."
+  },
+  {
+    "q": "Welche Form passt?",
+    "ctx": "Hier, j’___ un film. (regarder)",
+    "a": [
+      "ai regarder",
+      "suis regardé",
+      "ai regardé",
+      "regarde"
+    ],
+    "c": 2,
+    "e": "regarder bildet das passé composé mit avoir: j’ai regardé."
+  },
+  {
+    "q": "Ergänze die Lücke. Schreibe nur die fehlende Form.",
+    "ctx": "Tu ___ au football hier. (jouer)",
+    "type": "write",
+    "answer": "as joué",
+    "e": "tu as + joué; bei regelmässigen -er-Verben wird -er zu -é."
+  },
+  {
+    "q": "Ergänze die Lücke. Schreibe nur die fehlende Form.",
+    "ctx": "Elle ___ de la musique hier. (écouter)",
+    "type": "write",
+    "answer": "a écouté",
+    "e": "elle a + écouté."
+  },
+  {
+    "q": "Welche Form passt?",
+    "ctx": "Nous ___ à la maison hier. (manger)",
+    "a": [
+      "avons mangé",
+      "sommes mangés",
+      "avons manger",
+      "avez mangé"
+    ],
+    "c": 0,
+    "e": "nous avons + mangé. Manger verwendet avoir."
+  },
+  {
+    "q": "Ergänze die Lücke. Schreibe nur die fehlende Form.",
+    "ctx": "Vous ___ le musée hier. (visiter)",
+    "type": "write",
+    "answer": "avez visité",
+    "e": "vous avez + visité."
+  },
+  {
+    "q": "Welche Form passt?",
+    "ctx": "Ils ___ leurs devoirs hier. (finir)",
+    "a": [
+      "ont finir",
+      "ont fini",
+      "sont fini",
+      "ont finisé"
+    ],
+    "c": 1,
+    "e": "finir → fini. Ils ont fini."
+  },
+  {
+    "q": "Ergänze die Lücke. Schreibe nur die fehlende Form.",
+    "ctx": "J’___ un livre hier. (choisir)",
+    "type": "write",
+    "answer": "ai choisi",
+    "e": "choisir → choisi; j’ai choisi."
+  },
+  {
+    "q": "Welche Form passt?",
+    "ctx": "Elle ___ ses clés hier. (perdre)",
+    "a": [
+      "a perdé",
+      "est perdu",
+      "a perdu",
+      "a perdre"
+    ],
+    "c": 2,
+    "e": "perdre → perdu; elle a perdu."
+  },
+  {
+    "q": "Ergänze die Lücke. Schreibe nur die fehlende Form.",
+    "ctx": "Nous ___ le bus hier. (attendre)",
+    "type": "write",
+    "answer": "avons attendu",
+    "e": "attendre → attendu; nous avons attendu."
+  },
+  {
+    "q": "Quel est le participe passé ?",
+    "ctx": "Quel est le participe passé de faire?",
+    "a": [
+      "fais",
+      "fait",
+      "faisé",
+      "faire"
+    ],
+    "c": 1,
+    "e": "faire → fait."
+  },
+  {
+    "q": "Ergänze die Lücke. Schreibe nur die fehlende Form.",
+    "ctx": "Tu ___ tes devoirs hier. (faire)",
+    "type": "write",
+    "answer": "as fait",
+    "e": "faire → fait; tu as fait."
+  },
+  {
+    "q": "Welche Form passt?",
+    "ctx": "J’___ une bonne idée hier. (avoir)",
+    "a": [
+      "suis eu",
+      "ai avoir",
+      "ai eu",
+      "ai été"
+    ],
+    "c": 2,
+    "e": "avoir → eu. Le passé composé de avoir utilise avoir: j’ai eu."
+  },
+  {
+    "q": "Ergänze die Lücke. Schreibe nur die fehlende Form.",
+    "ctx": "Elle ___ malade hier. (être)",
+    "type": "write",
+    "answer": "a été",
+    "e": "être → été. Le verbe être forme le passé composé avec avoir: elle a été."
+  },
+  {
+    "q": "Welche Form passt?",
+    "ctx": "Paul ___ à Paris hier. (aller)",
+    "a": [
+      "a allé",
+      "est allé",
+      "est aller",
+      "a aller"
+    ],
+    "c": 1,
+    "e": "aller utilise être: Paul est allé."
+  },
+  {
+    "q": "Ergänze die Lücke. Schreibe nur die fehlende Form.",
+    "ctx": "Marie ___ à Paris hier. (aller)",
+    "type": "write",
+    "answer": "est allée",
+    "e": "aller utilise être. Marie est féminin singulier: allée."
+  },
+  {
+    "q": "Welche Form passt?",
+    "ctx": "Paul et Marc ___ hier. (arriver)",
+    "a": [
+      "ont arrivés",
+      "sont arrivé",
+      "sont arrivées",
+      "sont arrivés"
+    ],
+    "c": 3,
+    "e": "arriver utilise être. Deux garçons: arrivés avec -s."
+  },
+  {
+    "q": "Ergänze die Lücke. Schreibe nur die fehlende Form.",
+    "ctx": "Léa et Julie ___ hier. (arriver)",
+    "type": "write",
+    "answer": "sont arrivées",
+    "e": "être + arrivé, accord féminin pluriel: arrivées."
+  },
+  {
+    "q": "Welcher Satz ist richtig?",
+    "ctx": "Quelle phrase est négative?",
+    "a": [
+      "Je n’ai pas joué.",
+      "Je ai ne joué pas.",
+      "Je n’ai joué pas.",
+      "Je pas ai joué."
+    ],
+    "c": 0,
+    "e": "ne et pas entourent l’auxiliaire: Je n’ai pas joué."
+  },
+  {
+    "q": "Ergänze die Lücke. Schreibe nur die fehlende Form.",
+    "ctx": "Je ___ le film hier. (ne pas regarder)",
+    "type": "write",
+    "answer": "n'ai pas regardé",
+    "e": "ne … pas umschliesst das Hilfsverb: je n’ai pas regardé."
+  },
+  {
+    "q": "Welche Form passt?",
+    "ctx": "Tu ___ un café hier. (boire)",
+    "a": [
+      "as boiré",
+      "as bu",
+      "es bu",
+      "as boire"
+    ],
+    "c": 1,
+    "e": "boire → bu; tu as bu."
+  },
+  {
+    "q": "Ergänze die Lücke. Schreibe nur die fehlende Form.",
+    "ctx": "Nous ___ ce film hier. (voir)",
+    "type": "write",
+    "answer": "avons vu",
+    "e": "voir → vu; nous avons vu."
+  },
+  {
+    "q": "Welche Zeitangabe passt?",
+    "ctx": "Quel mot indique souvent une action passée terminée?",
+    "a": [
+      "demain",
+      "bientôt",
+      "hier",
+      "la semaine prochaine"
+    ],
+    "c": 2,
+    "e": "hier signifie gestern. Eine abgeschlossene Handlung gestern kann im passé composé stehen."
+  },
+  {
+    "q": "Ergänze die Lücke. Schreibe nur die fehlende Form.",
+    "ctx": "Vous ___ ce matin. (travailler)",
+    "type": "write",
+    "answer": "avez travaillé",
+    "e": "avoir im Präsens + travaillé."
+  }
 ];
 let queue=[],current=0,score=0,answered=false,wrongCounts={},attempts=0,correctFirst=0,roundMode='learn',mistakeOnly=false;
-const STORAGE_KEY="fr_franzoesisch_futur_simple_1_oberstufe";
+const STORAGE_KEY="fr_franzoesisch_passe_compose_1_oberstufe";
 const step=document.getElementById('step'),fill=document.getElementById('fill'),scoreEl=document.getElementById('score'),
 question=document.getElementById('question'),context=document.getElementById('context'),options=document.getElementById('options'),
 feedback=document.getElementById('feedback'),next=document.getElementById('next'),quizCard=document.getElementById('quizCard'),
@@ -457,7 +624,7 @@ if ('serviceWorker' in navigator) {
 
 <script>
 (()=>{
-const hint="Bei regelmässigen -er- und -ir-Verben verwendest du den Infinitiv als Futur-Stamm. Bei -re-Verben fällt das letzte e weg. Lerne wichtige Ausnahmen wie être → ser-, avoir → aur-, aller → ir- und faire → fer-.",strategy="Verb bestimmen → Futur-Stamm bilden → Subjekt erkennen → Endung -ai/-as/-a/-ons/-ez/-ont ergänzen → bei unregelmässigen Verben den besonderen Stamm prüfen.";
+const hint="Zwei Teile: avoir oder être im Präsens + participe passé. Regelmässig: parler → parlé, finir → fini, attendre → attendu. Mit être das Partizip an das Subjekt angleichen.",strategy="Hilfsverb wählen → Person bestimmen → Partizip bilden → Angleichung prüfen → Verneinung um das Hilfsverb setzen.";
 const H=document.getElementById('v7Hint'),S=document.getElementById('v7Strategy');
 if(H)H.textContent='Hinweis: '+hint;if(S)S.textContent='Strategie: '+strategy;
 document.getElementById('v7HintBtn')?.addEventListener('click',()=>H?.classList.toggle('open'));
@@ -481,7 +648,6 @@ try{const x=FRLearning.summary(),qs=[];Object.values(x.modules||{}).forEach(m=>O
   const box=document.getElementById('foxCoach');
   const bubble=document.getElementById('foxBubble');
   if(!box||!bubble)return;
-
   const tips=[
     '<b>Allez ! 💪</b><br>Schon 10 Minuten konzentriertes Üben bringen dich weiter.',
     '<b>Petit conseil ✨</b><br>Sprich französische Antworten ruhig laut aus – das hilft beim Erinnern.',
@@ -489,12 +655,9 @@ try{const x=FRLearning.summary(),qs=[];Object.values(x.modules||{}).forEach(m=>O
     '<b>Très bien ! 🇫🇷</b><br>Regelmässige kurze Wiederholungen sind besser als einmal sehr lange zu lernen.'
   ];
   let tipIndex=0;
-
   box.addEventListener('click',()=>{
     bubble.innerHTML=tips[tipIndex++ % tips.length];
-    box.classList.remove('pop');
-    void box.offsetWidth;
-    box.classList.add('pop');
+    box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
   });
 })();
 </script>
