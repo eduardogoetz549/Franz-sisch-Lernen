@@ -484,6 +484,28 @@
 }
 </style>
 
+<style>
+.account-link{white-space:nowrap;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:400;margin-left:1rem;text-decoration:none;display:inline-block}
+#Konto{scroll-margin-top:110px;padding:3rem 1.25rem;background:#121E47}
+.account-card{max-width:650px;margin:auto;border:1px solid rgba(201,168,76,.35);padding:clamp(1.2rem,4vw,2.5rem)}
+.account-card h2{font-family:var(--font-display);font-size:2rem;margin-bottom:1rem}
+.account-card p{line-height:1.6;margin-bottom:1rem}
+.account-card label{display:block;margin:1rem 0 .4rem}
+.account-card input{width:100%;box-sizing:border-box;padding:.85rem;background:#fff;color:#0D1433;border:1px solid #b5bdd2;font:inherit}
+.account-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.2rem}
+.account-actions button{cursor:pointer;border:1px solid var(--gold);font:inherit;padding:.75rem 1.1rem;background:var(--gold);color:#0D1433}
+.account-actions button.secondary{background:transparent;color:var(--gold)}
+.account-actions button{transition:background-color .2s ease,color .2s ease,transform .2s ease,box-shadow .2s ease}
+.account-actions button:not(:disabled):hover{background:#e0c16e;color:#0D1433;transform:translateY(-3px);box-shadow:0 6px 18px rgba(201,168,76,.25)}
+.account-actions button.secondary:not(:disabled):hover{background:var(--gold);color:#0D1433}
+.account-actions button:focus-visible{outline:2px solid #f4db99;outline-offset:4px}
+.account-actions button:not(:disabled):active{transform:translateY(0);box-shadow:none}
+.account-actions button:disabled{opacity:.55;cursor:wait}
+@media(prefers-reduced-motion:reduce){.account-actions button{transition:none}.account-actions button:not(:disabled):hover{transform:none}}
+.account-card [hidden]{display:none!important}
+#accountMessage{margin-top:1rem;color:#f4db99}
+@media(max-width:600px){.account-link{font-size:.7rem}.nav-logo .wordmark{font-size:.8rem}}
+</style>
 </head>
 <body>
 <div class="fox-guide" id="foxGuide" aria-live="polite">
@@ -503,8 +525,8 @@
     <li><a href="#theorie">Theorie</a></li>
     <li><a href="#Spi">Übungen</a></li>
     <li><a href="#Fortschritt">Mein Fortschritt</a></li><li><a href="#Pruefung">Prüfung</a></li><li><a href="#lernwerkstatt">Lernwerkstatt</a></li>
-    <li><a href="#Spi" class="nav-cta">Jetzt üben</a></li>
   </ul>
+  <a href="#Konto" class="account-link nav-cta" id="accountNav">Anmelden</a>
 </nav>
 
 <!-- HERO -->
@@ -685,6 +707,31 @@
 <div class="v7-comp-card"><div class="v7-comp-icon">🤝</div><h3>Gemeinsam lernen</h3><p>Eigene Lernkartensets exportieren, teilen und von Mitschüler:innen importieren.</p></div>
 </div></div></section>
 
+
+<section id="Konto">
+ <div class="account-card">
+  <p class="section-label">Dein Benutzerkonto</p>
+  <h2>Anmelden &amp; weiterlernen</h2>
+  <p>Nutze dein Konto oder registriere dich mit deiner E-Mail-Adresse.</p>
+  <form id="accountForm">
+   <label for="accountEmail">E-Mail-Adresse</label>
+   <input id="accountEmail" type="email" autocomplete="email" required maxlength="254">
+   <label for="accountPassword">Passwort</label>
+   <input id="accountPassword" type="password" autocomplete="current-password" required>
+   <div class="account-actions">
+    <button type="submit" value="login">Anmelden</button>
+    <button type="submit" value="register" class="secondary">Registrieren</button>
+   </div>
+  </form>
+  <div id="accountSignedIn" hidden>
+   <p>Angemeldet als <strong id="accountUser"></strong></p>
+   <div class="account-actions"><button type="button" id="accountLogout">Abmelden</button></div>
+  </div>
+  <p id="accountMessage" role="status" aria-live="polite">Anmeldung wird geladen …</p>
+  <p id="learningSyncStatus" role="status" style="font-size:.85rem;color:var(--ice)">Angemeldet wird dein Fortschritt mit deinem Konto synchronisiert. Ohne Anmeldung lernst du lokal als Gast.</p>
+ </div>
+</section>
+
 <footer>
   <div class="footer-logo">
     <div class="monogram">FR</div>
@@ -712,7 +759,7 @@
 <script>
 const modules=[{"file": "franzoesisch-verben-konjugation-1-oberstufe-mit-gemischten-schreibuebungen.html", "key": "fr_franzoesisch_verben_konjugation_1_oberstufe_mit_gemischten_schreibuebungen", "title": "Verben & Konjugation · Niveau 1"}, {"file": "franzoesisch-verben-konjugation-2-oberstufe-mit-gemischten-schreibuebungen.html", "key": "fr_franzoesisch_verben_konjugation_2_oberstufe_mit_gemischten_schreibuebungen", "title": "Verben & Konjugation · Niveau 2"}, {"file": "franzoesisch-verben-konjugation-3-oberstufe-mit-gemischten-schreibuebungen.html", "key": "fr_franzoesisch_verben_konjugation_3_oberstufe_mit_gemischten_schreibuebungen", "title": "Verben & Konjugation · Niveau 3"}, {"file": "franzoesisch-artikel-nomen-1-oberstufe.html", "key": "fr_franzoesisch_artikel_nomen_1_oberstufe", "title": "Artikel & Nomen · Niveau 1"}, {"file": "franzoesisch-artikel-nomen-2-oberstufe.html", "key": "fr_franzoesisch_artikel_nomen_2_oberstufe", "title": "Artikel & Nomen · Niveau 2"}, {"file": "franzoesisch-artikel-nomen-3-oberstufe.html", "key": "fr_franzoesisch_artikel_nomen_3_oberstufe", "title": "Artikel & Nomen · Niveau 3"}, {"file": "franzoesisch-adjektive-1-oberstufe.html", "key": "fr_franzoesisch_adjektive_1_oberstufe", "title": "Adjektive · Niveau 1"}, {"file": "franzoesisch-adjektive-2-oberstufe.html", "key": "fr_franzoesisch_adjektive_2_oberstufe", "title": "Adjektive · Niveau 2"}, {"file": "franzoesisch-adjektive-3-oberstufe.html", "key": "fr_franzoesisch_adjektive_3_oberstufe", "title": "Adjektive · Niveau 3"}, {"file": "franzoesisch-pronomen-1-oberstufe.html", "key": "fr_franzoesisch_pronomen_1_oberstufe", "title": "Pronomen · Niveau 1"}, {"file": "franzoesisch-pronomen-2-oberstufe.html", "key": "fr_franzoesisch_pronomen_2_oberstufe", "title": "Pronomen · Niveau 2"}, {"file": "franzoesisch-pronomen-3-oberstufe.html", "key": "fr_franzoesisch_pronomen_3_oberstufe", "title": "Pronomen · Niveau 3"}];
 const grid=document.getElementById('progressGrid');
-modules.forEach(m=>{let d={};try{d=JSON.parse(localStorage.getItem(m.key))||{}}catch(e){}const score=d.lastScore??'–',best=d.best??'–',done=d.completed||0;const card=document.createElement('div');card.className='service-card';card.style.cursor='default';card.innerHTML=`<div class="service-num">${score}${score==='–'?'':'%'}</div><div class="service-title">${m.title}</div><div class="service-desc">Letztes Ergebnis: ${score}${score==='–'?'':'%'} · Bestwert: ${best}${best==='–'?'':'%'} · Abgeschlossene Runden: ${done}</div>`;grid.appendChild(card)});
+modules.forEach(m=>{let d={};try{d=JSON.parse(localStorage.getItem(m.key))||{}}catch(e){}const score=d.lastScore??'–',best=d.best??'–',done=d.completed||0;const card=document.createElement('div');card.className='service-card';card.style.cursor='default';card.innerHTML=`<div class="service-num">${score}${score==='–'?'':'%'}</div><div class="service-title">${m.title}</div><div class="service-desc">Letztes Ergebnis: ${score}${score==='–'?'':'%'} · Bestwert: ${best}${best==='–'?'':'%'} · Abgeschlossene Runden: ${done}</div>`;grid?.appendChild(card)});
 document.getElementById('resetProgress')?.addEventListener('click',()=>{
   if(confirm('Möchtest du den gesamten Französisch-Lernfortschritt auf diesem Gerät wirklich löschen?')){
     modules.forEach(m=>localStorage.removeItem(m.key));
@@ -727,7 +774,7 @@ if ('serviceWorker' in navigator) {
 </script>
 
 <script>
-window.addEventListener('load',()=>{
+const renderLearningDashboard = ()=>{
  if(!window.FRLearning)return;
 
  const byId=id=>document.getElementById(id);
@@ -827,7 +874,10 @@ window.addEventListener('load',()=>{
        : 'Diese Übung hast du insgesamt noch nicht abgeschlossen. Der Vorschlag wechselt jeden Tag.';
    byId('todayBtn').textContent=suggestion.isExam?'Prüfung starten':'Übung starten';
  }
-});
+};
+window.addEventListener('load',renderLearningDashboard);
+window.addEventListener('frlearningchange',renderLearningDashboard);
+window.addEventListener('frlearningchange',()=>{const el=document.getElementById('learningSyncStatus');if(el)el.textContent=FRLearning.status;});
 </script>
 
 
@@ -880,8 +930,87 @@ window.addEventListener('load',()=>{
   fox.addEventListener('mouseenter', function(){
     fox.src = hover;
     fox.style.transition = 'transform 0.2s ease';
+  });
+  fox.addEventListener('mouseleave', function(){ fox.src = idle; });
 
   fox.addEventListener('blur', function(){ fox.src = idle; });
+})();
+</script>
+
+
+<script id="account-auth">
+(async () => {
+ await window.FRLearning.ready;
+ const byId = id => document.getElementById(id);
+ const form = byId('accountForm');
+ const message = byId('accountMessage');
+ const buttons = [...document.querySelectorAll('#Konto button')];
+ const showMessage = text => { message.textContent = text; };
+ const busy = value => { buttons.forEach(button => button.disabled = value); };
+ if (!window.supabase) {
+   showMessage('Die Anmeldung konnte nicht geladen werden. Prüfe deine Internetverbindung und lade die Seite neu.');
+   busy(true); return;
+ }
+ let client;
+ try {
+   client = window.FRLearning.client;
+   if (!client) throw new Error("Offline");
+ } catch (_) { showMessage('Die Anmeldung konnte nicht initialisiert werden.'); busy(true); return; }
+ window.FRAccount = client;
+ function render(session) {
+   const user = session?.user;
+   form.hidden = !!user;
+   byId('accountSignedIn').hidden = !user;
+   byId('accountUser').textContent = user?.email || '';
+   byId('accountNav').textContent = user ? 'Mein Konto' : 'Anmelden';
+   byId('accountPassword').value = '';
+ }
+ function errorText(error) {
+   const code = error?.code;
+   if (code === 'invalid_credentials') return 'E-Mail-Adresse oder Passwort ist falsch.';
+   if (code === 'email_not_confirmed') return 'Bitte bestätige zuerst deine E-Mail-Adresse über den Link in deinem Postfach.';
+   if (code === 'user_already_exists') return 'Für diese E-Mail-Adresse besteht bereits ein Konto. Bitte melde dich an.';
+   if (code === 'weak_password') return 'Bitte wähle ein stärkeres Passwort.';
+   if (code === 'signup_disabled') return 'Neue Registrierungen sind derzeit deaktiviert.';
+   if (code === 'over_email_send_rate_limit' || code === 'over_request_rate_limit') return 'Zu viele Versuche. Bitte warte und versuche es später erneut.';
+   return 'Der Vorgang ist fehlgeschlagen. Prüfe deine Verbindung und versuche es erneut.';
+ }
+ client.auth.onAuthStateChange((event, session) => {
+   render(session);
+   if (event === 'INITIAL_SESSION') showMessage(session ? 'Du bist angemeldet.' : 'Melde dich an oder erstelle ein Konto.');
+   if (event === 'SIGNED_IN') showMessage('Du bist angemeldet.');
+   if (event === 'SIGNED_OUT') showMessage('Du bist abgemeldet.');
+ });
+ form.addEventListener('submit', async event => {
+   event.preventDefault();
+   const mode = event.submitter?.value || 'login';
+   const email = byId('accountEmail').value.trim();
+   const password = byId('accountPassword').value;
+   if (mode === 'register' && password.length < 8) {
+     showMessage('Verwende für dein neues Konto mindestens 8 Zeichen im Passwort.'); return;
+   }
+   busy(true); showMessage(mode === 'register' ? 'Konto wird erstellt …' : 'Anmeldung läuft …');
+   try {
+     const result = mode === 'register'
+       ? await client.auth.signUp({ email, password, options: { emailRedirectTo: new URL('./main.html', location.href).href } })
+       : await client.auth.signInWithPassword({ email, password });
+     if (result.error) throw result.error;
+     render(result.data.session);
+     showMessage(mode === 'register' && !result.data.session
+       ? 'Prüfe dein E-Mail-Postfach. Wenn die Registrierung möglich ist, erhältst du einen Bestätigungslink.'
+       : 'Du bist angemeldet.');
+   } catch (error) { showMessage(errorText(error)); }
+   finally { byId('accountPassword').value = ''; busy(false); }
+ });
+ byId('accountLogout').addEventListener('click', async () => {
+   busy(true);
+   try {
+     const {error} = await client.auth.signOut({scope:'local'});
+     if (error) throw error;
+     render(null); showMessage('Du bist auf diesem Gerät abgemeldet.');
+   } catch (error) { showMessage(errorText(error)); }
+   finally { busy(false); }
+ });
 })();
 </script>
 
