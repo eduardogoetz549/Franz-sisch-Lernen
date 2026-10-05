@@ -345,8 +345,8 @@ restart=document.getElementById('restart'),mode=document.getElementById('mode'),
 
 function norm(v){return v.trim().toLowerCase().replace(/[’‘`]/g,"'").replace(/\s+/g," ")}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-function getData(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{}}catch(e){return {}}}
-function saveData(data){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data))}catch(e){}}
+function getData(){return window.FRLearning ? FRLearning.moduleData(STORAGE_KEY) : {}}
+function saveData(data){if(window.FRLearning)FRLearning.saveModuleData(STORAGE_KEY,data);}
 function questionId(x){return x.id ?? baseQuestions.indexOf(x)}
 function buildRound(onlyMistakes=false){
   const saved=getData(), mastery=saved.mastery||{};
@@ -401,7 +401,10 @@ function finish(){
   mistakesBtn.style.display=wrongIds.length?'inline-block':'none';
 }
 next.onclick=()=>{current++;load()};restart.onclick=()=>{history.replaceState(null,'',location.pathname);reset(false)};mistakesBtn.onclick=()=>{history.replaceState(null,'',location.pathname);reset(true)};examBtn.onclick=()=>{history.replaceState(null,'',location.pathname+'?mode=exam');reset(false)};
-reset(false);
+quizCard.style.pointerEvents='none';
+if(window.FRLearning){FRLearning.ready.then(()=>{quizCard.style.pointerEvents='';reset(false);});}
+else {quizCard.style.pointerEvents='';reset(false);}
+window.addEventListener('frlearningchange',()=>{if(window.FRLearning&&window._frActor!==FRLearning.account){window._frActor=FRLearning.account;}});
 </script>
 <script>
 window.addEventListener('scroll',()=> {
