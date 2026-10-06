@@ -455,7 +455,7 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#0D1433">
-<script src="learning-core.js?v=premium2"></script>
+<script src="learning-core.js?v=analysis1"></script>
 
 <style id="fox-hover-swap-style">
 .fox-guide img{transition:transform .25s cubic-bezier(.4,0,.2,1),filter .2s ease,opacity .15s ease!important}
@@ -510,6 +510,10 @@
 .nav-account-actions{display:flex;align-items:center;gap:.6rem;flex-shrink:0}
 .nav-account-actions .account-link{margin-left:0}
 @media(max-width:600px){#navbar{padding-left:1rem;padding-right:1rem}.nav-account-actions{gap:.4rem}.nav-account-actions .nav-cta{padding:.6rem .65rem!important}}
+</style>
+
+<style id="error-analysis-style">
+.fa-wrap{max-width:1200px;margin:2.5rem auto 0;border:1px solid rgba(183,148,64,.35);background:var(--midnight);padding:2rem}.fa-wrap h3{font-family:var(--font-display);font-size:2.3rem;font-weight:400}.fa-wrap h4{font-family:var(--font-display);font-size:1.65rem;margin:1rem 0 .7rem}.fa-wrap h5{font-size:1rem;color:var(--gold-lt);margin:1rem 0 .5rem}.fa-wrap p{line-height:1.7;margin:.5rem 0;color:var(--ice)}.fa-muted{font-size:.9rem;color:var(--gray)!important}.fa-topic{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,.1)}.fa-topic span{color:var(--gold-lt);white-space:nowrap}.fa-card{margin:1rem 0;padding:1.5rem;background:var(--navy);border-left:3px solid var(--gold)}.fa-wrap details{margin:1rem 0;padding:1rem;border:1px solid rgba(255,255,255,.12)}.fa-wrap summary{cursor:pointer;color:var(--offwhite);line-height:1.6}.fa-example{padding-top:.6rem}.fa-plan{padding-left:1.5rem;color:var(--ice);line-height:1.8}.fa-plan li{margin:.7rem 0}.fa-notice{padding:1rem;border:1px solid rgba(183,148,64,.4)}.fa-wrap button{border:0;cursor:pointer;font-family:var(--font-body);margin:1rem .7rem 0 0}.fa-wrap button:disabled{opacity:.6;cursor:wait}.fa-practice{margin:.7rem .5rem 0 0}.fa-wrap a:focus-visible,.fa-wrap button:focus-visible,.fa-wrap summary:focus-visible{outline:2px solid var(--gold-lt);outline-offset:4px}@media(max-width:600px){.fa-wrap{padding:1.2rem}.fa-topic{align-items:flex-start;flex-direction:column}.fa-card{padding:1rem}}
 </style>
 </head>
 <body>
@@ -634,6 +638,15 @@
     </div>
   </div>
 
+<div class="fa-wrap" id="Fehleranalyse">
+<p class="section-label">Aus Fehlern lernen</p><h3>Deine <em>Fehleranalyse</em></h3>
+<p>Themenübersicht kostenlos · Antwortbeispiele, Entwicklung und gezielte Wiederholung mit Premium.</p>
+<p class="fa-muted" id="analysisAccount"></p><div id="analysisBasic"></div>
+<h4>Vertiefte Analyse <span style="font:500 .75rem var(--font-body);color:var(--gold-lt)">PREMIUM</span></h4>
+<p>Entdecke wiederholte Fehler und übe gezielt die Aufgaben, die dir noch Schwierigkeiten machen.</p>
+<button class="btn-smart" type="button" id="analysisRefresh">Meine Fehler analysieren</button><a class="btn-smart" href="#Premium">Premium ansehen</a>
+<p role="status" aria-live="polite" id="analysisStatus"></p><div id="analysisDetail"></div>
+</div>
 </section>
 <section id="Pruefung" style="background:#121E47">
   <div class="Spi-header reveal">
@@ -1020,5 +1033,6 @@ window.addEventListener('load',()=>{
 })();
 </script>
 
+<script src="error-analysis.js?v=analysis1"></script>
 </body>
 </html>

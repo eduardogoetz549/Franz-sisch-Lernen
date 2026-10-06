@@ -84,8 +84,8 @@
   const ready=new Promise(resolve=>readyResolve=resolve);
   const api={ready,summary,level:xp=>Math.floor(Math.max(0,xp)/100)+1,
     get client(){return client;},get status(){return status;},get account(){return actor;},sync,
-    record(module,id,ok,review=false,text='') {
-      add({kind:'answer',module,question:String(id),ok:!!ok,review:!!review,text:String(text).slice(0,500)});
+    record(module,id,ok,review=false,text='',details=null) {
+      add({kind:'answer',module,question:String(id),ok:!!ok,review:!!review,text:String(text).slice(0,500),...(details ? {details:Object.fromEntries(['own','right','prompt','explanation','topic','file','type'].map(k=>[k,String(details[k]??'').replace(/<[^>]*>/g,'').slice(0,800)]).concat([['unanswered',!!details.unanswered]]))} : {})});
     },
     finish(module,pct){add({kind:'finish',module,pct:Math.min(100,Math.max(0,Number(pct)||0))});},
     dueScore(module,id){const q=summary().modules[module]?.questions?.[String(id)];return !q?100:q.strength===0?200:Date.parse(q.due)<=Date.now()?120-q.strength:10-q.strength;},

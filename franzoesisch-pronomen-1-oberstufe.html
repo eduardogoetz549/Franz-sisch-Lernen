@@ -226,7 +226,7 @@ box-shadow:0 8px 24px rgba(13,20,51,.06)}
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#0D1433">
-<script src="learning-core.js"></script>
+<script src="learning-core.js?v=analysis1"></script>
   <style id="fox-mascot-style">
 .fox-coach{position:fixed;right:5px;bottom:14px;z-index:90;width:min(180px,27vw);
   filter:drop-shadow(0 12px 24px rgba(0,0,0,.28));transition:transform .25s ease,opacity .25s ease;
@@ -330,7 +330,7 @@ const baseQuestions=[
 {q:'Schreibe die richtige Form.',ctx:'Paul et moi, ___ sommes amis.',type:'write',answer:'nous',e:'Paul et moi → nous.'}
 ];
 let queue=[],current=0,score=0,answered=false,wrongCounts={},attempts=0,correctFirst=0,roundMode='learn',mistakeOnly=false;
-const STORAGE_KEY="fr_franzoesisch_adjektive_1_oberstufe";
+const STORAGE_KEY="fr_franzoesisch_pronomen_1_oberstufe";
 const step=document.getElementById('step'),fill=document.getElementById('fill'),scoreEl=document.getElementById('score'),
 question=document.getElementById('question'),context=document.getElementById('context'),options=document.getElementById('options'),
 feedback=document.getElementById('feedback'),next=document.getElementById('next'),quizCard=document.getElementById('quizCard'),
@@ -345,6 +345,8 @@ function questionId(x){return x.id ?? baseQuestions.indexOf(x)}
 function buildRound(onlyMistakes=false){
   const saved=getData(), mastery=saved.mastery||{};
   let pool=baseQuestions.map((x,i)=>({...x,id:i,review:false}));
+  const requested=new Set((new URLSearchParams(location.search).get('review_ids')||'').split(',').filter(v=>/^\d+$/.test(v)));
+  if(requested.size){const selected=pool.filter(x=>requested.has(String(x.id)));if(selected.length)return shuffle(selected).slice(0,10);}
   if(onlyMistakes) pool=pool.filter(x=>(mastery[x.id]||0)<2 || (saved.wrongIds||[]).includes(x.id));
   if(!pool.length) pool=baseQuestions.map((x,i)=>({...x,id:i,review:false}));
   if(new URLSearchParams(location.search).get('smart')==='1' && window.FRLearning){
@@ -369,12 +371,12 @@ function load(){
     const inp=document.getElementById('writeInput'),btn=document.getElementById('checkWrite');btn.onclick=()=>checkWrite(inp,btn,x);inp.onkeydown=e=>{if(e.key==='Enter'&&!answered)checkWrite(inp,btn,x)};setTimeout(()=>inp.focus(),50);
   } else {x.a.forEach((t,i)=>{const b=document.createElement('button');b.className='option';b.textContent=t;b.onclick=()=>choose(i,b,x);options.appendChild(b)})}
 }
-function record(ok,x){
+function record(ok,x,own){
   attempts++; if(ok)score++; if(ok&&!x.review)correctFirst++;
   const data=getData(), mastery=data.mastery||{}, id=questionId(x); data.totalAttempts=(data.totalAttempts||0)+1; data.totalCorrect=(data.totalCorrect||0)+(ok?1:0); data.lastPlayed=new Date().toISOString();
   if(ok) mastery[id]=Math.min(3,(mastery[id]||0)+1); else mastery[id]=0;
   data.mastery=mastery; let wrong=new Set(data.wrongIds||[]); if(ok && mastery[id]>=2)wrong.delete(id); if(!ok)wrong.add(id); data.wrongIds=[...wrong]; saveData(data);
-  if(window.FRLearning) FRLearning.record(STORAGE_KEY,id,ok,!!x.review,(x.ctx||x.q||('Aufgabe '+(id+1))).replace(/<[^>]+>/g,''));
+  if(window.FRLearning) FRLearning.record(STORAGE_KEY,id,ok,!!x.review,(x.ctx||x.q||('Aufgabe '+(id+1))).replace(/<[^>]+>/g,''),{own,right:x.type==='write'?x.answer:x.a[x.c],prompt:(x.q||'')+' '+(x.ctx||''),explanation:x.e||'',topic:"pronomen",file:"franzoesisch-pronomen-1-oberstufe.html",type:x.type==='write'?'write':'choice'});
   if(!ok && roundMode!=='exam'){wrongCounts[id]=(wrongCounts[id]||0)+1; const gap=wrongCounts[id]>=2?2:3; queue.splice(Math.min(current+gap+1,queue.length),0,{...x,review:true})}
   scoreEl.textContent=`${score} richtig`;
 }
@@ -383,8 +385,8 @@ function showFeedback(ok,x,answerText=''){
   else {feedback.className='feedback show '+(ok?'good':'bad');feedback.innerHTML=ok?`<strong>✓ Richtig!</strong><br>${x.e}`:`<strong>✗ Noch nicht.</strong>${answerText}<br>${x.e}`;}
   next.classList.add('active');
 }
-function choose(i,b,x){if(answered)return;answered=true;const ok=i===x.c;const bs=[...options.querySelectorAll('.option')];bs.forEach(el=>el.disabled=true);if(roundMode!=='exam'){bs.forEach((el,j)=>{if(j===x.c)el.classList.add('correct')});if(!ok)b.classList.add('wrong')}record(ok,x);showFeedback(ok,x)}
-function checkWrite(inp,btn,x){if(answered||!norm(inp.value))return;answered=true;inp.disabled=true;btn.disabled=true;const ok=norm(inp.value)===norm(x.answer);if(roundMode!=='exam')inp.classList.add(ok?'correct':'wrong');record(ok,x);showFeedback(ok,x,`<br>Richtige Lösung: <strong>${x.answer}</strong>`)}
+function choose(i,b,x){if(answered)return;answered=true;const ok=i===x.c;const bs=[...options.querySelectorAll('.option')];bs.forEach(el=>el.disabled=true);if(roundMode!=='exam'){bs.forEach((el,j)=>{if(j===x.c)el.classList.add('correct')});if(!ok)b.classList.add('wrong')}record(ok,x,x.a[i]);showFeedback(ok,x)}
+function checkWrite(inp,btn,x){if(answered||!norm(inp.value))return;answered=true;inp.disabled=true;btn.disabled=true;const ok=norm(inp.value)===norm(x.answer);if(roundMode!=='exam')inp.classList.add(ok?'correct':'wrong');record(ok,x,inp.value);showFeedback(ok,x,`<br>Richtige Lösung: <strong>${x.answer}</strong>`)}
 function finish(){
   quizCard.classList.add('hidden');result.classList.remove('hidden');fill.style.width='100%';
   const data=getData(), mastery=data.mastery||{}, mastered=Object.values(mastery).filter(v=>v>=2).length, pct=Math.round((score/Math.max(1,attempts))*100), wrongIds=data.wrongIds||[];
@@ -395,7 +397,7 @@ function finish(){
   mistakesBtn.style.display=wrongIds.length?'inline-block':'none';
 }
 next.onclick=()=>{current++;load()};restart.onclick=()=>{history.replaceState(null,'',location.pathname);reset(false)};mistakesBtn.onclick=()=>{history.replaceState(null,'',location.pathname);reset(true)};examBtn.onclick=()=>{location.href='franzoesisch-pruefung-1-oberstufe.html'};
-reset(false);
+(async()=>{await FRLearning.ready;reset(false);})();
 </script>
 <script>
 window.addEventListener('scroll',()=> {
