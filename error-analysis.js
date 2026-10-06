@@ -50,33 +50,62 @@
   $('analysisBasic').innerHTML=entries.length?entries.slice(0,6).map(e=>`<div class="fa-topic"><div><strong>${esc(e.label)}</strong><p>${e.wrong} von ${e.n} Antworten falsch${e.n<5?' · noch wenige Daten':''}</p></div><span>${Math.round((e.n-e.wrong)/e.n*100)} % richtig</span></div>`).join(''):'<p class="fa-muted">Noch keine Antworten gespeichert. Bearbeite zuerst eine Übung.</p>';
   $('analysisAccount').textContent=current==='guest'?'Gastmodus: Die Themenübersicht verwendet den Fortschritt auf diesem Gerät. Für die Detailanalyse bitte anmelden.':'Die Analyse gehört zu deinem angemeldeten Konto.';
  }
+ function exerciseForTopic(t){
+  for(const p of t.practice||[]){const e=findExercise(p.file);if(e&&!e.file.includes('15-minuten'))return {...e,ids:p.ids||[]};}
+  const byKey=findExercise(String(t.topic).replace(/^fr_/,'').replace(/_/g,'-')+'.html');
+  if(byKey)return {...byKey,ids:[]};
+  const matching=[...catalogue.values()].filter(e=>e.label.split(' · ')[0]===title(t.topic));
+  const stats=FRLearning.summary().modules||{};
+  return matching.sort((a,b)=>{
+   const n=e=>stats['fr_'+e.file.replace('.html','').replace(/-/g,'_')]?.answered||0;
+   return n(b)-n(a)||a.label.localeCompare(b.label);
+  })[0]||null;
+ }
+ function directButton(e,text,ids=[]){
+  if(!e)return '';
+  const valid=[...new Set(ids.map(String).filter(x=>/^\d+$/.test(x)))].slice(0,10);
+  const url=new URL(e.file,location.href);
+  if(valid.length)url.searchParams.set('review_ids',valid.join(','));
+  return `<a class="btn-smart fa-practice" href="${esc(e.file+url.search)}">${esc(text)}: ${esc(e.label)}</a>`;
+ }
+ function makePlan(d){
+  const candidates=d.topics.filter(t=>t.wrong>0).map(t=>({t,e:exerciseForTopic(t)})).filter(x=>x.e&&!x.e.file.includes('15-minuten'));
+  const first=candidates[0];
+  if(!first){
+   const studied=Object.entries(FRLearning.summary().modules||{}).sort((a,b)=>(b[1].answered||0)-(a[1].answered||0)).map(([key])=>findExercise(key.replace(/^fr_/,'').replace(/_/g,'-')+'.html')).find(Boolean);
+   const e=studied||[...catalogue.values()].find(x=>x.label.endsWith('Niveau 1'));
+   return e?[{e,title:'Deinen Lernstand prüfen',body:'Löse fünf Aufgaben ohne Hilfe. Daraus entsteht dein persönlicher Schwerpunkt.',ids:[]},{e,title:'Unsichere Antworten wiederholen',body:'Erkläre nach jeder falschen Antwort die richtige Lösung in eigenen Worten und übe weiter.',ids:[]},{e,title:'Nochmals selbst lösen',body:'Starte eine neue Runde. Ziel: mindestens vier von fünf Antworten richtig. Aktualisiere danach die Analyse.',ids:[]}]:[];
+  }
+  const second=candidates.find(x=>x.e.file!==first.e.file)||first;
+  return [{e:first.e,title:'Deinen grössten Schwerpunkt üben',body:`${first.e.label}: ${first.t.wrong} von ${first.t.recent} zuletzt beantworteten Aufgaben falsch. Löse die vorgeschlagenen Aufgaben und lies die Erklärung nach jedem Fehler.`,ids:first.e.ids||[]},
+   {e:second.e,title:second===first?'Dasselbe Thema festigen':'Den nächsten Schwerpunkt festigen',body:second===first?'Löse eine neue Runde ohne Hilfe. Sprich oder schreibe die richtige Regel nach jedem Fehler in eigenen Worten auf.':`${second.e.label}: Übe dieses Thema als Nächstes. Nimm dir fünf bis zehn Aufgaben vor.`,ids:[]},
+   {e:first.e,title:'Deinen Fortschritt überprüfen',body:'Löse erneut fünf Aufgaben ohne Hilfe. Ziel: mindestens vier richtig. Aktualisiere danach die Fehleranalyse; dein Plan wird aus deinen neuen Antworten erstellt.',ids:[]}];
+ }
  function render(d){
-  if(!d.total){$('analysisDetail').innerHTML='<p class="fa-muted">Noch keine Antworten mit deinem Konto synchronisiert. Bearbeite eine Übung und öffne die Analyse danach erneut.</p>';return;}
-  let html=`<p class="fa-muted">${d.total} Antworten ausgewertet · ${d.detailed} mit Antwortdetails. Trends vergleichen die letzten zehn mit den vorherigen zehn Erstversuchen je Thema. Wiederholungen zählen dort nicht mit.</p>`;
-  if(d.legacy)html+=`<p class="fa-notice">Bei ${d.legacy} älteren Antworten fehlen die Antwortdetails. Daraus lässt sich keine konkrete Verwechslung ableiten. Alte Pronomen-Ergebnisse können mit Adjektiven vermischt sein; neue Antworten werden getrennt erfasst.</p>`;
-  const priorities=d.topics.filter(t=>t.enough&&t.wrong>0).slice(0,3);
-  html+='<h4>Dein nächster Lernschritt</h4>';
-  html+=priorities.length?'<ol class="fa-plan">'+priorities.map(t=>`<li><strong>${esc(title(t.topic))}</strong>: ${t.wrong} von ${t.recent} letzten Erstversuchen falsch. Wiederhole eine Regel, löse die unten vorgeschlagenen Aufgaben und erkläre danach die richtige Lösung in eigenen Worten.</li>`).join('')+'</ol>':'<p class="fa-muted">Für eine Empfehlung brauchen wir mindestens fünf Erstversuche pro Thema mit mindestens einem Fehler.</p>';
-  html+=d.topics.map(t=>{
-   const trend=t.trend===null?'Für einen Trend fehlen noch Erstversuche.':t.trend>0?`${t.trend} Prozentpunkte besser als in den vorherigen zehn Erstversuchen.`:t.trend<0?`${Math.abs(t.trend)} Prozentpunkte weniger richtige Antworten als zuvor.`:'Die Trefferquote blieb gleich.';
-   let row=`<article class="fa-card"><h4>${esc(title(t.topic))}</h4><p>${t.recent?t.accuracy+' % richtig bei den letzten '+t.recent+' Erstversuchen.':'Bisher nur Wiederholungen erfasst.'} ${!t.enough?'Noch keine belastbare Einschätzung.':''}</p><p class="fa-muted">${trend}</p>`;
-   if(t.unanswered)row+=`<p>${t.unanswered} Prüfungsaufgaben ohne Antwort abgegeben. Das belegt noch keinen Grammatikfehler.</p>`;
-   if(t.patterns.length)row+='<h5>Wiederholt beobachtete Antworten</h5>'+t.patterns.map(p=>`<p><strong>${esc(p.own)}</strong> statt <strong>${esc(p.right)}</strong> · ${p.count} Mal. Prüfe die Regel am Aufgabenbeispiel; die Ursache kann daraus allein nicht bestimmt werden.</p>`).join('');
-   row+=t.examples.map(e=>`<details><summary>${e.wrong} Mal falsch · ${esc(e.question)}${e.latestCorrect?' · zuletzt richtig':''}</summary><div class="fa-example"><p>Deine damalige Antwort: <strong>${esc(e.own)}</strong></p><p>Richtige Lösung: <strong>${esc(e.right)}</strong></p><p>${esc(e.explanation||'Für diese Aufgabe ist keine Erklärung gespeichert.')}</p></div></details>`).join('');
-   if(!t.examples.length)row+='<p class="fa-muted">Keine offenen Aufgaben mit gespeicherten Antwortdetails. Eine Aufgabe wird nach zwei richtigen Antworten in Folge aus der Fehlerliste entfernt.</p>';
-   row+=t.practice.map(practiceLink).join('');
-   return row+'</article>';
-  }).join('');
+  const plan=makePlan(d),weak=d.topics.filter(t=>t.wrong>0);
+  let html='<div class="fa-summary"><h4>'+(weak.length?'Das solltest du als Nächstes üben':'Dein nächster Lernschritt')+'</h4>';
+  if(weak.length){const t=weak[0],e=exerciseForTopic(t);html+=`<p><strong>${esc(e?.label||title(t.topic))}</strong></p><p>${t.wrong} von ${t.recent} zuletzt beantworteten Aufgaben waren falsch. Beginne mit diesem Thema.</p>`+directButton(e,'Übung öffnen',e?.ids||[]);}
+  else html+='<p>'+(!d.total?'Bearbeite zuerst eine Übung. Danach passen wir deinen Plan an deine Antworten an.':'In den zuletzt ausgewerteten Antworten ist kein Fehlerschwerpunkt erkennbar. Festige dein zuletzt geübtes Thema.')+'</p>';
+  if(d.legacy&&!d.detailed)html+='<p class="fa-muted">Für deine bisherigen Antworten kennen wir nur richtig oder falsch. Konkrete Fehlerbeispiele erscheinen, sobald neue Antworten mit Lösungen gespeichert werden.</p>';
+  html+='</div><h4>Dein Lernplan: die nächsten drei Schritte</h4><p class="fa-muted">Gehe der Reihe nach vor. Plane je Schritt ungefähr fünf Minuten ein.</p><div class="fa-plan-grid">';
+  html+=plan.map((p,i)=>`<article class="fa-step"><span class="fa-step-number">${i+1}</span><h5>${esc(p.title)}</h5><p>${esc(p.body)}</p>${directButton(p.e,'Schritt '+(i+1)+' starten',p.ids)}</article>`).join('');
+  html+='</div><h4>Deine Fehler verstehen</h4>';
+  const examples=d.topics.filter(t=>t.examples?.length);
+  if(!examples.length)html+='<p class="fa-muted">Noch keine Fehlerbeispiele verfügbar. Das bedeutet nicht automatisch, dass alle Antworten richtig waren.</p>';
+  html+=examples.slice(0,3).map(t=>`<article class="fa-card"><h5>${esc(title(t.topic))}</h5>`+t.examples.slice(0,2).map(e=>`<div class="fa-example"><p><strong>${esc(e.question)}</strong></p><p>Deine Antwort: <span class="fa-wrong">${esc(e.own)}</span></p><p>Richtig wäre: <span class="fa-right">${esc(e.right)}</span></p><p>${esc(e.explanation||'Übe diese Aufgabe nochmals und vergleiche die Lösungen.')}</p>${e.latestCorrect?'<p class="fa-muted">Beim letzten Versuch hast du diese Aufgabe richtig gelöst.</p>':''}</div>`).join('')+'</article>').join('');
+  html+='<details class="fa-more"><summary>Weitere Ergebnisse anzeigen</summary>';
+  html+=d.topics.map(t=>`<div class="fa-topic"><div><strong>${esc(title(t.topic))}</strong><p>${t.recent?t.wrong+' von '+t.recent+' zuletzt beantworteten Aufgaben falsch.':'Bisher nur Wiederholungen erfasst.'}${!t.enough?' Noch wenige Antworten – vorläufige Einschätzung.':''}</p>${t.trend===null?'':`<p class="fa-muted">In deinen letzten zehn Antworten waren ${t.trend>0?'mehr':t.trend<0?'weniger':'gleich viele'} Lösungen richtig als in den zehn davor. Die Aufgaben können unterschiedlich schwierig sein.</p>`}</div>${directButton(exerciseForTopic(t),'Übung öffnen')}</div>`).join('');
+  html+='</details>';
   $('analysisDetail').innerHTML=html;
  }
  async function detail(){
-  const token=++generation,owner=FRLearning.account;const button=$('analysisRefresh');button.disabled=true;$('analysisStatus').textContent='Dein Fortschritt wird synchronisiert und ausgewertet …';$('analysisDetail').replaceChildren();
+  const token=++generation,owner=FRLearning.account;const button=$('analysisRefresh');button.disabled=true;$('analysisStatus').textContent='Dein persönlicher Lernplan wird erstellt …';$('analysisDetail').replaceChildren();
   try{
    if(owner==='guest')throw new Error('Bitte melde dich zuerst an. Die Detailanalyse gehört zu Premium.');
    await FRLearning.sync();
    const d=await FRPremium.call('premium-access',{action:'analysis'});
    if(token!==generation||owner!==FRLearning.account)return;
-   render(d);$('analysisStatus').textContent='Analyse aktualisiert. '+FRLearning.status;
+   render(d);$('analysisStatus').textContent='Dein Lernplan ist aktualisiert.';
   }catch(e){if(token===generation){$('analysisStatus').textContent=e.message;}}
   finally{if(token===generation)button.disabled=false;}
  }

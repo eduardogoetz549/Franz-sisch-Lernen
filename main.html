@@ -515,7 +515,9 @@
 <style id="error-analysis-style">
 .fa-wrap{max-width:1200px;margin:2.5rem auto 0;border:1px solid rgba(183,148,64,.35);background:var(--midnight);padding:2rem}.fa-wrap h3{font-family:var(--font-display);font-size:2.3rem;font-weight:400}.fa-wrap h4{font-family:var(--font-display);font-size:1.65rem;margin:1rem 0 .7rem}.fa-wrap h5{font-size:1rem;color:var(--gold-lt);margin:1rem 0 .5rem}.fa-wrap p{line-height:1.7;margin:.5rem 0;color:var(--ice)}.fa-muted{font-size:.9rem;color:var(--gray)!important}.fa-topic{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,.1)}.fa-topic span{color:var(--gold-lt);white-space:nowrap}.fa-card{margin:1rem 0;padding:1.5rem;background:var(--navy);border-left:3px solid var(--gold)}.fa-wrap details{margin:1rem 0;padding:1rem;border:1px solid rgba(255,255,255,.12)}.fa-wrap summary{cursor:pointer;color:var(--offwhite);line-height:1.6}.fa-example{padding-top:.6rem}.fa-plan{padding-left:1.5rem;color:var(--ice);line-height:1.8}.fa-plan li{margin:.7rem 0}.fa-notice{padding:1rem;border:1px solid rgba(183,148,64,.4)}.fa-wrap button{border:0;cursor:pointer;font-family:var(--font-body);margin:1rem .7rem 0 0}.fa-wrap button:disabled{opacity:.6;cursor:wait}.fa-practice{margin:.7rem .5rem 0 0}.fa-wrap a:focus-visible,.fa-wrap button:focus-visible,.fa-wrap summary:focus-visible{outline:2px solid var(--gold-lt);outline-offset:4px}@media(max-width:600px){.fa-wrap{padding:1.2rem}.fa-topic{align-items:flex-start;flex-direction:column}.fa-card{padding:1rem}}
 </style>
-</head>
+<style>
+.fa-summary{margin:1.5rem 0;padding:1.5rem;border:1px solid var(--gold);background:var(--navy)}.fa-plan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.fa-step{display:flex;flex-direction:column;align-items:flex-start;background:var(--navy);padding:1.4rem;border:1px solid rgba(183,148,64,.3)}.fa-step-number{display:grid;place-items:center;width:2.2rem;height:2.2rem;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:600}.fa-step h5{font-size:1.1rem!important}.fa-step .fa-practice{margin-top:auto;font-size:.72rem;letter-spacing:.04em;text-transform:none;line-height:1.5}.fa-step p{margin-bottom:1rem}.fa-example+.fa-example{border-top:1px solid rgba(255,255,255,.15);margin-top:1rem;padding-top:1rem}.fa-wrong{color:#ffb6b6}.fa-right{color:#a7e9be}.fa-more{margin-top:1.5rem}@media(max-width:950px){.fa-plan-grid{grid-template-columns:1fr}.fa-topic .fa-practice{white-space:normal}}
+</style></head>
 <body>
 <div class="fox-guide" id="foxGuide" aria-live="polite">
   <div class="fox-bubble" id="foxBubble"><b>Salut ! 👋</b><br>Schön, dass du da bist. Bereit für eine kleine Französisch-Runde?</div>
@@ -640,11 +642,11 @@
 
 <div class="fa-wrap" id="Fehleranalyse">
 <p class="section-label">Aus Fehlern lernen</p><h3>Deine <em>Fehleranalyse</em></h3>
-<p>Themenübersicht kostenlos · Antwortbeispiele, Entwicklung und gezielte Wiederholung mit Premium.</p>
+<p>Themenübersicht kostenlos · Fehlerbeispiele und dein persönlicher Lernplan mit Premium.</p>
 <p class="fa-muted" id="analysisAccount"></p><div id="analysisBasic"></div>
 <h4>Vertiefte Analyse <span style="font:500 .75rem var(--font-body);color:var(--gold-lt)">PREMIUM</span></h4>
-<p>Entdecke wiederholte Fehler und übe gezielt die Aufgaben, die dir noch Schwierigkeiten machen.</p>
-<button class="btn-smart" type="button" id="analysisRefresh">Meine Fehler analysieren</button><a class="btn-smart" href="#Premium">Premium ansehen</a>
+<p>Sieh, was du üben solltest, und starte deinen persönlichen Lernplan mit drei Schritten.</p>
+<button class="btn-smart" type="button" id="analysisRefresh">Meinen Lernplan erstellen</button><a class="btn-smart" href="#Premium">Premium ansehen</a>
 <p role="status" aria-live="polite" id="analysisStatus"></p><div id="analysisDetail"></div>
 </div>
 </section>
@@ -1033,6 +1035,6 @@ window.addEventListener('load',()=>{
 })();
 </script>
 
-<script src="error-analysis.js?v=analysis2"></script>
+<script src="error-analysis.js?v=analysis3"></script>
 </body>
 </html>
