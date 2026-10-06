@@ -1,7 +1,7 @@
 'use strict';
 // Increase this version when changing the offline behavior.
 const CACHE_PREFIX = 'fr-learning:' + self.registration.scope + ':';
-const CACHE_NAME = CACHE_PREFIX + 'v5-analysis-plan';
+const CACHE_NAME = CACHE_PREFIX + 'v6-install-reset';
 const START_URL = new URL('./main.html', self.registration.scope).href;
 
 self.addEventListener('install', event => {
@@ -30,6 +30,7 @@ self.addEventListener('fetch', event => {
   const url = new URL(request.url);
   if (request.method !== 'GET' || url.origin !== self.location.origin ||
       !url.href.startsWith(self.registration.scope)) return;
+  if (url.searchParams.has('reset') || url.searchParams.has('code') || url.searchParams.has('token_hash')) { event.respondWith(fetch(request, {cache:'no-store'})); return; }
   if (/franzoesisch-(?:.*-[23]-oberstufe(?:-mit-gemischten-schreibuebungen)?|pruefung-[123]-oberstufe|15-minuten-lerneinheit(?:-aktiv)?)\.html$/.test(url.pathname)) {
     event.respondWith(fetch(request, {cache:'no-store'}).catch(()=>new Response('Für diese Übung brauchst du eine Internetverbindung.',{status:503})));return;
   }

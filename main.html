@@ -454,6 +454,18 @@
 
 </style>
 <link rel="manifest" href="manifest.webmanifest">
+<script>
+window.FRInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', event => {
+ event.preventDefault(); window.FRInstallPrompt = event;
+ const button = document.getElementById('installAppButton'); if (button) button.hidden = false;
+});
+window.addEventListener('appinstalled', () => {
+ window.FRInstallPrompt = null;
+ const button = document.getElementById('installAppButton'); if (button) button.hidden = true;
+ const hint = document.getElementById('installAppHint'); if (hint) hint.textContent = 'Die App wurde installiert.';
+});
+</script>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#0D1433">
@@ -772,6 +784,8 @@ FRLearning.ready.then(refresh);window.addEventListener('frlearningchange',()=>{i
    <div class="account-actions"><button type="button" id="accountLogout">Abmelden</button></div>
   </div>
   <p id="accountMessage" role="status" aria-live="polite">Anmeldung wird geladen …</p>
+  <div class="account-actions"><button type="button" id="installAppButton" hidden>App installieren</button></div>
+  <details id="installAppHelp"><summary style="cursor:pointer;color:var(--gold)">Auf deinem Gerät installieren</summary><p id="installAppHint">Am Computer: Öffne die Seite in Chrome oder Edge und wähle im Browsermenü „App installieren“. Auf Android: Chrome-Menü → „Zum Startbildschirm hinzufügen“ → „Installieren“. Auf iPhone/iPad: Safari → Teilen → „Zum Home-Bildschirm“.</p></details>
   <p id="learningSyncStatus" role="status" style="font-size:.85rem;color:var(--ice)">Angemeldet wird dein Fortschritt mit deinem Konto synchronisiert. Ohne Anmeldung lernst du lokal als Gast.</p>
  </div>
 </section>
@@ -1088,6 +1102,21 @@ window.addEventListener('load',()=>{
 })();
 </script>
 
+<script>
+(() => {
+ const button = document.getElementById('installAppButton');
+ const installed = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+ if (installed) { document.getElementById('installAppHelp').hidden = true; return; }
+ button.hidden = !window.FRInstallPrompt;
+ button.addEventListener('click', async () => {
+   const prompt = window.FRInstallPrompt; if (!prompt) return;
+   button.disabled = true;
+   try { await prompt.prompt(); await prompt.userChoice; }
+   catch (_) { document.getElementById('installAppHint').textContent = 'Bitte nutze die Installation über das Browsermenü.'; }
+   finally { window.FRInstallPrompt = null; button.hidden = true; button.disabled = false; }
+ });
+})();
+</script>
 <script src="error-analysis.js?v=analysis3"></script>
 </body>
 </html>
