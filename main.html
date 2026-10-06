@@ -506,8 +506,10 @@
 #accountMessage{margin-top:1rem;color:#f4db99}
 @media(max-width:600px){.account-link{font-size:.7rem}.nav-logo .wordmark{font-size:.8rem}}
 </style>
-<style id="pwa-style">
-.pwa-install-box{max-width:1100px;margin:2rem auto;padding:1.5rem 2rem;border:1px solid rgba(183,148,64,.4);background:#121E47;color:#C0D4F2;font-family:Jost,sans-serif;line-height:1.7}.pwa-install-box h2{color:#D4AF60;font-family:'Cormorant Garamond',serif;font-size:2rem}.pwa-install-btn{margin-top:1rem;background:#B79440;color:#0D1433;border:1px solid #B79440;padding:.8rem 1.3rem;font:inherit;cursor:pointer;transition:transform .2s,background .2s,box-shadow .2s}.pwa-install-btn:hover{background:#D4AF60;transform:translateY(-3px);box-shadow:0 7px 20px #0004}.pwa-install-btn:focus-visible{outline:3px solid #fff;outline-offset:3px}.pwa-install-box [hidden]{display:none!important}@media(max-width:700px){.pwa-install-box{margin:1.5rem 1rem;padding:1.3rem}}@media(prefers-reduced-motion:reduce){.pwa-install-btn{transition:none}}
+<style>
+.nav-account-actions{display:flex;align-items:center;gap:.6rem;flex-shrink:0}
+.nav-account-actions .account-link{margin-left:0}
+@media(max-width:600px){#navbar{padding-left:1rem;padding-right:1rem}.nav-account-actions{gap:.4rem}.nav-account-actions .nav-cta{padding:.6rem .65rem!important}}
 </style>
 </head>
 <body>
@@ -524,12 +526,14 @@
     <span class="wordmark">Französisch lernen</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#Ler">Lernen</a></li>
     <li><a href="#theorie">Theorie</a></li>
     <li><a href="#Spi">Übungen</a></li>
     <li><a href="#Fortschritt">Mein Fortschritt</a></li><li><a href="#Pruefung">Prüfung</a></li><li><a href="#lernwerkstatt">Lernwerkstatt</a></li>
   </ul>
-  <a href="#Konto" class="account-link nav-cta" id="accountNav">Anmelden</a>
+  <div class="nav-account-actions">
+    <a href="#Premium" class="account-link nav-cta" id="premiumNav">Premium</a>
+    <a href="#Konto" class="account-link nav-cta" id="accountNav">Anmelden</a>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -711,6 +715,21 @@
 </div></div></section>
 
 
+<section id="Premium" style="scroll-margin-top:110px;background:#121E47;padding:3rem 1.25rem"><div class="account-card">
+<p class="section-label">Mehr Möglichkeiten zum Lernen</p><h2>Premium · CHF 6.90 / Monat</h2>
+<p>Alle Übungen für Niveau 2 und 3, alle Gesamtprüfungen und unbegrenzte 15-Minuten-Einheiten.</p>
+<p>Ohne Abo: Niveau 1 bleibt kostenlos. Mit einem kostenlosen Konto kannst du zwei 15-Minuten-Einheiten pro Woche starten.</p>
+<p>Monatliche automatische Verlängerung. Über „Abo verwalten“ zum Ende des bezahlten Zeitraums kündbar.</p>
+<div class="account-actions"><button type="button" id="premiumSubscribe">Premium abonnieren</button><button type="button" class="secondary" id="premiumManage">Abo verwalten</button></div>
+<p id="premiumStatus" role="status" aria-live="polite">Melde dich an, um deinen Premiumstatus zu prüfen.</p>
+</div></section>
+<script id="premium-ui">
+(()=>{const status=document.getElementById('premiumStatus'),subscribe=document.getElementById('premiumSubscribe'),manage=document.getElementById('premiumManage');let refreshing=false,lastActor=null;
+async function refresh(){if(refreshing)return;refreshing=true;try{await FRLearning.ready;lastActor=FRLearning.account;if(lastActor==='guest'){status.textContent='Melde dich im Benutzerkonto an. Niveau 1 bleibt kostenlos.';return}const d=await FRPremium.status();status.textContent=d.premium?'Premium aktiv bis '+new Date(d.paid_until).toLocaleDateString('de-CH')+'.':`Kostenloses Konto: noch ${d.remaining} von 2 Einheiten diese Woche (Montag–Sonntag).`;subscribe.hidden=!!d.premium;}catch(e){status.textContent=e.message;}finally{refreshing=false;}}
+for(const [b,fn] of [[subscribe,'checkout'],[manage,'portal']])b.addEventListener('click',async()=>{b.disabled=true;try{await FRPremium[fn]()}catch(e){status.textContent=e.message;if(FRLearning.account==='guest')location.hash='Konto';}finally{b.disabled=false;}});
+FRLearning.ready.then(refresh);window.addEventListener('frlearningchange',()=>{if(lastActor!==FRLearning.account){subscribe.hidden=false;void refresh();}});window.addEventListener('focus',refresh);
+})();
+</script>
 <section id="Konto">
  <div class="account-card">
   <p class="section-label">Dein Benutzerkonto</p>
@@ -1001,20 +1020,5 @@ window.addEventListener('load',()=>{
 })();
 </script>
 
-<section class="pwa-install-box" id="appInstallation" aria-labelledby="appInstallTitle">
-<h2 id="appInstallTitle">Deine Lernplattform als App</h2><p>Öffne deine Übungen direkt vom Startbildschirm oder Desktop.</p>
-<button type="button" class="pwa-install-btn" id="installAppBtn">App installieren</button>
-<p id="installAppStatus" role="status" aria-live="polite"></p>
-<div id="installAppHelp" hidden><p><strong>Android / Computer:</strong> Öffne das Browsermenü und wähle „App installieren“, „Seite als App installieren“ oder „Zum Startbildschirm hinzufügen“.</p><p><strong>iPhone / iPad:</strong> Öffne die Seite in Safari, tippe auf Teilen und dann auf „Zum Home-Bildschirm“.</p></div>
-</section>
-<script id="pwa-install-script">
-(()=>{let installPrompt=null;const btn=document.getElementById('installAppBtn'),status=document.getElementById('installAppStatus'),help=document.getElementById('installAppHelp');const standalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
-function installed(){btn.hidden=true;help.hidden=true;status.textContent='Du verwendest die Lernplattform als App.';}
-if(standalone())installed();
-window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;if(!standalone())btn.hidden=false;});
-window.addEventListener('appinstalled',()=>{installPrompt=null;btn.hidden=true;help.hidden=true;status.textContent='Die App wurde installiert.';});
-btn.addEventListener('click',async()=>{if(!installPrompt){help.hidden=!help.hidden;return}const prompt=installPrompt;installPrompt=null;try{await prompt.prompt();const choice=await prompt.userChoice;if(choice.outcome!=='accepted'){status.textContent='Du kannst die Installation später erneut über das Browsermenü starten.';help.hidden=false;}}catch(e){status.textContent='Bitte starte die Installation über das Browsermenü.';help.hidden=false;}});
-})();
-</script>
 </body>
 </html>
