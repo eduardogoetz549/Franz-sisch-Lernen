@@ -1002,9 +1002,12 @@ window.addEventListener('load',()=>{
    if (code === 'invalid_credentials') return 'E-Mail-Adresse oder Passwort ist falsch.';
    if (code === 'email_not_confirmed') return 'Bitte bestätige zuerst deine E-Mail-Adresse über den Link in deinem Postfach.';
    if (code === 'user_already_exists') return 'Für diese E-Mail-Adresse besteht bereits ein Konto. Bitte melde dich an.';
-   if (code === 'weak_password') return 'Bitte wähle ein stärkeres Passwort.';
+   if (code === 'same_password') return 'Das neue Passwort muss sich von deinem bisherigen Passwort unterscheiden.';
+   if (code === 'session_not_found' || code === 'refresh_token_not_found' || code === 'refresh_token_already_used' || code === 'otp_expired' || error?.name === 'AuthSessionMissingError') return 'Dein Reset-Link ist abgelaufen oder die Sitzung ist ungültig. Fordere einen neuen Link an und öffne ihn im gleichen Browser.';
+   if (code === 'weak_password') return 'Das Passwort ist zu schwach. Verwende mindestens 8 Zeichen und ergänze Gross- und Kleinbuchstaben, Zahlen und Sonderzeichen.';
    if (code === 'signup_disabled') return 'Neue Registrierungen sind derzeit deaktiviert.';
    if (code === 'over_email_send_rate_limit' || code === 'over_request_rate_limit') return 'Zu viele Versuche. Bitte warte und versuche es später erneut.';
+   if (error?.message) return 'Der Vorgang ist fehlgeschlagen: ' + error.message;
    return 'Der Vorgang ist fehlgeschlagen. Prüfe deine Verbindung und versuche es erneut.';
  }
  client.auth.onAuthStateChange((event, session) => {
@@ -1037,13 +1040,14 @@ window.addEventListener('load',()=>{
    try {
      const {error} = await client.auth.updateUser({password});
      if (error) throw error;
+     resetForm.reset();
      recovering = false;
      const clean = new URL(location.href); clean.searchParams.delete('reset'); clean.hash = 'Konto';
      history.replaceState(null, '', clean.href);
      const {data} = await client.auth.getSession(); render(data.session);
      showMessage('Dein Passwort wurde geändert. Du bist angemeldet und kannst weiterlernen.');
    } catch (error) { showMessage(errorText(error)); }
-   finally { resetForm.reset(); busy(false); }
+   finally { busy(false); }
  });
  const {data: initial} = await client.auth.getSession();
  render(initial.session);
