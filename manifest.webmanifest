@@ -1,7 +1,7 @@
 {
   "id": "./",
-  "name": "Französisch lernen",
-  "short_name": "Französisch",
+  "name": "Foxora",
+  "short_name": "Foxora",
   "description": "Französisch verstehen und anwenden – Übungen für Niveau 1, 2 und 3.",
   "lang": "de-CH",
   "start_url": "./main.html",
@@ -11,7 +11,17 @@
   "theme_color": "#0D1433",
   "prefer_related_applications": false,
   "icons": [
-    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+    {
+      "src": "./foxora-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./foxora-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
   ]
 }
