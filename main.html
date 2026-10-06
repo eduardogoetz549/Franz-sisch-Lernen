@@ -457,6 +457,10 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#0D1433">
+<script>
+window.FRRecoveryArrival = new URLSearchParams(location.search).get('reset') === '1' || new URLSearchParams(location.hash.slice(1)).get('type') === 'recovery';
+window.FRRecoveryError = new URLSearchParams(location.hash.slice(1)).get('error_description');
+</script>
 <script src="learning-core.js?v=analysis1"></script>
 
 <style id="fox-hover-swap-style">
@@ -752,6 +756,16 @@ FRLearning.ready.then(refresh);window.addEventListener('frlearningchange',()=>{i
     <button type="submit" value="login">Anmelden</button>
     <button type="submit" value="register" class="secondary">Registrieren</button>
    </div>
+   <div class="account-actions"><button type="button" id="accountForgot" class="secondary">Passwort vergessen?</button></div>
+  </form>
+  <form id="accountResetForm" hidden>
+   <h3>Neues Passwort festlegen</h3>
+   <p>Wähle ein neues Passwort mit mindestens 8 Zeichen.</p>
+   <label for="accountNewPassword">Neues Passwort</label>
+   <input id="accountNewPassword" type="password" autocomplete="new-password" minlength="8" required>
+   <label for="accountConfirmPassword">Neues Passwort wiederholen</label>
+   <input id="accountConfirmPassword" type="password" autocomplete="new-password" minlength="8" required>
+   <div class="account-actions"><button type="submit">Passwort speichern</button></div>
   </form>
   <div id="accountSignedIn" hidden>
    <p>Angemeldet als <strong id="accountUser"></strong></p>
@@ -971,10 +985,14 @@ window.addEventListener('load',()=>{
    if (!client) throw new Error("Offline");
  } catch (_) { showMessage('Die Anmeldung konnte nicht initialisiert werden.'); busy(true); return; }
  window.FRAccount = client;
+ let recovering = !!window.FRRecoveryArrival;
+ const resetForm = byId('accountResetForm');
  function render(session) {
    const user = session?.user;
-   form.hidden = !!user;
-   byId('accountSignedIn').hidden = !user;
+   form.hidden = !!user && !recovering;
+   if (recovering) form.hidden = !!user;
+   resetForm.hidden = !recovering || !user;
+   byId('accountSignedIn').hidden = !user || recovering;
    byId('accountUser').textContent = user?.email || '';
    byId('accountNav').textContent = user ? 'Mein Konto' : 'Anmelden';
    byId('accountPassword').value = '';
@@ -990,11 +1008,49 @@ window.addEventListener('load',()=>{
    return 'Der Vorgang ist fehlgeschlagen. Prüfe deine Verbindung und versuche es erneut.';
  }
  client.auth.onAuthStateChange((event, session) => {
+   if (event === 'PASSWORD_RECOVERY') { recovering = true; location.hash = 'Konto'; }
    render(session);
+   if (recovering) { showMessage(session ? 'Lege jetzt dein neues Passwort fest.' : 'Der Link ist abgelaufen oder ungültig. Fordere über „Passwort vergessen?“ einen neuen Link an.'); return; }
    if (event === 'INITIAL_SESSION') showMessage(session ? 'Du bist angemeldet.' : 'Melde dich an oder erstelle ein Konto.');
    if (event === 'SIGNED_IN') showMessage('Du bist angemeldet.');
    if (event === 'SIGNED_OUT') showMessage('Du bist abgemeldet.');
  });
+ byId('accountForgot').addEventListener('click', async () => {
+   const emailInput = byId('accountEmail');
+   if (!emailInput.reportValidity()) return;
+   busy(true); showMessage('Link wird angefordert …');
+   try {
+     const redirect = new URL('./main.html', location.href);
+     redirect.search = '?reset=1'; redirect.hash = 'Konto';
+     const {error} = await client.auth.resetPasswordForEmail(emailInput.value.trim(), {redirectTo: redirect.href});
+     if (error) throw error;
+     showMessage('Falls für diese E-Mail-Adresse ein Konto besteht, erhältst du einen Link zum Zurücksetzen. Prüfe auch deinen Spamordner.');
+   } catch (error) { showMessage(errorText(error)); }
+   finally { busy(false); }
+ });
+ resetForm.addEventListener('submit', async event => {
+   event.preventDefault();
+   const password = byId('accountNewPassword').value;
+   if (password.length < 8) { showMessage('Bitte verwende mindestens 8 Zeichen.'); return; }
+   if (password !== byId('accountConfirmPassword').value) { showMessage('Die beiden Passwörter stimmen nicht überein.'); return; }
+   busy(true); showMessage('Passwort wird gespeichert …');
+   try {
+     const {error} = await client.auth.updateUser({password});
+     if (error) throw error;
+     recovering = false;
+     const clean = new URL(location.href); clean.searchParams.delete('reset'); clean.hash = 'Konto';
+     history.replaceState(null, '', clean.href);
+     const {data} = await client.auth.getSession(); render(data.session);
+     showMessage('Dein Passwort wurde geändert. Du bist angemeldet und kannst weiterlernen.');
+   } catch (error) { showMessage(errorText(error)); }
+   finally { resetForm.reset(); busy(false); }
+ });
+ const {data: initial} = await client.auth.getSession();
+ render(initial.session);
+ if (recovering) {
+   location.hash = 'Konto';
+   showMessage(initial.session && !window.FRRecoveryError ? 'Lege jetzt dein neues Passwort fest.' : 'Der Link ist abgelaufen oder ungültig. Fordere über „Passwort vergessen?“ einen neuen Link an.');
+ }
  form.addEventListener('submit', async event => {
    event.preventDefault();
    const mode = event.submitter?.value || 'login';
