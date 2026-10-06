@@ -1,0 +1,6 @@
+1. lernkartei-einrichtung.sql in Supabase > SQL Editor einfügen und Run klicken.
+2. franzoesisch-vokabeltrainer.html im GitHub-Hauptordner ersetzen.
+3. Seite neu laden und anmelden. Kostenlos: 3 Karteien mit je 30 Karten.
+4. Bestehende lokale Sets: abmelden, alte Sets einzeln als JSON exportieren, anmelden und importieren. Der Import unterliegt den kostenlosen Grenzen. Die Originale bleiben im Browser erhalten.
+5. Nach Abo-Ende bleiben alle gespeicherten Sets lesbar und exportierbar. Grössere bestehende Sets dürfen verkleinert oder ohne Zuwachs gespeichert werden. Wiederholen hat kein Limit. Lernbewertungen werden während der Runde lokal im Arbeitsspeicher geführt; dauerhaft gespeichert werden sie mit Set speichern.
+Keine Änderung der bestehenden Edge Functions nötig.
