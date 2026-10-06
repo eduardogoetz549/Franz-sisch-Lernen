@@ -175,3 +175,42 @@
     protectedFile: file => /^franzoesisch-(?:[a-z]+(?:-[a-z]+)*-[23]-oberstufe(?:-mit-gemischten-schreibuebungen)?|pruefung-[123]-oberstufe)\.html$/.test(file) || file === 'franzoesisch-15-minuten-lerneinheit.html',
   };
 })();
+
+
+// Personal greeting in existing fox bubbles on every page using learning-core.
+(() => {
+ let name = '';
+ let observer;
+ function paint() {
+  observer?.disconnect();
+  document.querySelectorAll('#foxBubble, .fox-bubble').forEach(bubble => {
+   const previous = bubble.querySelector('[data-fox-name]');
+   if (previous && previous.textContent === name + ', ' && name) return;
+   if (previous) previous.remove();
+   if (name && bubble.textContent.trim()) {
+    const greeting = document.createElement('span');
+    greeting.dataset.foxName = '1';
+    greeting.textContent = name + ', ';
+    bubble.prepend(greeting);
+   }
+  });
+  if (document.body) observer.observe(document.body, {childList:true,subtree:true,characterData:true});
+ }
+ function sessionName(session) {
+  const value = session?.user?.user_metadata?.name;
+  name = typeof value === 'string' ? value.trim().replace(/\s+/g, ' ').slice(0,60) : '';
+  paint();
+ }
+ async function start() {
+  observer = new MutationObserver(paint);
+  paint();
+  await window.FRLearning.ready;
+  const client = window.FRLearning.client;
+  if (!client) return;
+  client.auth.onAuthStateChange((_event,session) => sessionName(session));
+  const {data} = await client.auth.getSession();
+  sessionName(data.session);
+ }
+ if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => start().catch(()=>{}), {once:true});
+ else start().catch(()=>{});
+})();

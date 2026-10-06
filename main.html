@@ -473,7 +473,7 @@ window.addEventListener('appinstalled', () => {
 window.FRRecoveryArrival = new URLSearchParams(location.search).get('reset') === '1' || new URLSearchParams(location.hash.slice(1)).get('type') === 'recovery';
 window.FRRecoveryError = new URLSearchParams(location.hash.slice(1)).get('error_description');
 </script>
-<script src="learning-core.js?v=analysis1"></script>
+<script src="learning-core.js?v=names1"></script>
 
 <style id="fox-hover-swap-style">
 .fox-guide img{transition:transform .25s cubic-bezier(.4,0,.2,1),filter .2s ease,opacity .15s ease!important}
@@ -760,6 +760,8 @@ FRLearning.ready.then(refresh);window.addEventListener('frlearningchange',()=>{i
   <h2>Anmelden &amp; weiterlernen</h2>
   <p>Nutze dein Konto oder registriere dich mit deiner E-Mail-Adresse.</p>
   <form id="accountForm">
+   <label for="accountRegisterName">Name (bei Registrierung)</label>
+   <input id="accountRegisterName" type="text" autocomplete="given-name" maxlength="60" placeholder="Dein Name">
    <label for="accountEmail">E-Mail-Adresse</label>
    <input id="accountEmail" type="email" autocomplete="email" required maxlength="254">
    <label for="accountPassword">Passwort</label>
@@ -781,6 +783,11 @@ FRLearning.ready.then(refresh);window.addEventListener('frlearningchange',()=>{i
   </form>
   <div id="accountSignedIn" hidden>
    <p>Angemeldet als <strong id="accountUser"></strong></p>
+   <form id="accountNameForm">
+    <label for="accountName">Name</label>
+    <input id="accountName" type="text" autocomplete="given-name" maxlength="60" required placeholder="Wie soll dich der Fuchs nennen?">
+    <div class="account-actions"><button type="submit">Name speichern</button></div>
+   </form>
    <div class="account-actions"><button type="button" id="accountLogout">Abmelden</button></div>
   </div>
   <p id="accountMessage" role="status" aria-live="polite">Anmeldung wird geladen …</p>
@@ -1008,6 +1015,7 @@ window.addEventListener('load',()=>{
    resetForm.hidden = !recovering || !user;
    byId('accountSignedIn').hidden = !user || recovering;
    byId('accountUser').textContent = user?.email || '';
+   byId('accountName').value = user?.user_metadata?.name || '';
    byId('accountNav').textContent = user ? 'Mein Konto' : 'Anmelden';
    byId('accountPassword').value = '';
  }
@@ -1063,6 +1071,18 @@ window.addEventListener('load',()=>{
    } catch (error) { showMessage(errorText(error)); }
    finally { busy(false); }
  });
+ byId('accountNameForm').addEventListener('submit', async event => {
+   event.preventDefault();
+   const name = byId('accountName').value.trim().replace(/\s+/g, ' ');
+   if (!name || name.length > 60) { showMessage('Bitte gib einen Namen mit höchstens 60 Zeichen ein.'); return; }
+   busy(true); showMessage('Name wird gespeichert …');
+   try {
+     const {error} = await client.auth.updateUser({data:{name}});
+     if (error) throw error;
+     showMessage('Dein Name wurde gespeichert. Der Fuchs spricht dich jetzt persönlich an.');
+   } catch (error) { showMessage(errorText(error)); }
+   finally { busy(false); }
+ });
  const {data: initial} = await client.auth.getSession();
  render(initial.session);
  if (recovering) {
@@ -1074,13 +1094,15 @@ window.addEventListener('load',()=>{
    const mode = event.submitter?.value || 'login';
    const email = byId('accountEmail').value.trim();
    const password = byId('accountPassword').value;
+   const name = byId('accountRegisterName').value.trim().replace(/\s+/g, ' ');
+   if (mode === 'register' && !name) { showMessage('Bitte gib deinen Namen ein.'); byId('accountRegisterName').focus(); return; }
    if (mode === 'register' && password.length < 8) {
      showMessage('Verwende für dein neues Konto mindestens 8 Zeichen im Passwort.'); return;
    }
    busy(true); showMessage(mode === 'register' ? 'Konto wird erstellt …' : 'Anmeldung läuft …');
    try {
      const result = mode === 'register'
-       ? await client.auth.signUp({ email, password, options: { emailRedirectTo: new URL('./main.html', location.href).href } })
+       ? await client.auth.signUp({ email, password, options: { data: {name}, emailRedirectTo: new URL('./main.html', location.href).href } })
        : await client.auth.signInWithPassword({ email, password });
      if (result.error) throw result.error;
      render(result.data.session);
