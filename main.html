@@ -413,12 +413,14 @@
 .learning-dashboard{max-width:1200px;margin:0 auto;padding:0 4rem 4rem}.dash-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(183,148,64,.2);border:1px solid rgba(183,148,64,.2)}
 .dash-card{background:#121E47;padding:1.5rem}.dash-num{font-family:var(--font-display);font-size:2.2rem;color:var(--gold-lt)}.dash-label{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray)}
 .goal-track{height:7px;background:#26345d;border-radius:8px;overflow:hidden;margin-top:.8rem}.goal-fill{height:100%;background:var(--gold);width:0;transition:.4s}
-.today-box{max-width:1200px;margin:0 auto 3rem;padding:2rem;border:1px solid rgba(183,148,64,.35);background:#121E47;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
-.today-box h3{font-family:var(--font-display);font-size:2rem;font-weight:400}.today-box p{color:var(--ice);max-width:650px}.btn-smart{display:inline-block;background:var(--gold);color:var(--navy);padding:.85rem 1.5rem;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;transition:.25s}
+.daily-suggestion-wrap{max-width:1200px;margin:0 auto 3rem;padding:0 4rem}.today-box{padding:2rem;border:1px solid rgba(183,148,64,.35);background:#121E47;display:flex;align-items:center;justify-content:space-between;gap:2rem;text-align:left}.today-box>div{flex:1;min-width:0}.today-box>.btn-smart{flex-shrink:0;white-space:nowrap;padding:1.1rem 1.6rem}
+.today-box h3{font-family:var(--font-display);font-size:2rem;font-weight:400}.today-box p{color:var(--ice);margin:.4rem 0 0}.btn-smart{display:inline-block;background:var(--gold);color:var(--navy);padding:.85rem 1.5rem;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;transition:.25s}
 .btn-smart:hover{background:var(--gold-lt);transform:translateY(-2px);box-shadow:0 8px 24px rgba(183,148,64,.3)}
 .analytics{max-width:1200px;margin:0 auto;padding:0 4rem 4rem}.weak-list{display:grid;gap:10px;margin-top:1rem}.weak-row{display:grid;grid-template-columns:1fr auto;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08);color:var(--ice)}.weak-row b{color:var(--gold-lt)}
-@media(max-width:800px){.learning-dashboard,.analytics{padding-left:1.25rem;padding-right:1.25rem}.dash-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:800px){.learning-dashboard,.analytics,.daily-suggestion-wrap{padding-left:1.25rem;padding-right:1.25rem}.dash-grid{grid-template-columns:1fr 1fr}}
 
+
+@media(max-width:620px){.today-box{flex-direction:column;align-items:flex-start;padding:1.5rem;gap:1.25rem}.today-box h3{font-size:1.65rem}.today-box>.btn-smart{white-space:normal;text-align:center}}
 
 /* Lernwerkstatt */
 .learning-lab{background:#F7F1E6;color:#0D1433;padding:6rem 4rem}
@@ -473,15 +475,6 @@
 .level-picker{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin-top:auto}.level-btn{display:flex;align-items:center;justify-content:center;min-height:42px;padding:.65rem .35rem;border:1px solid rgba(192,212,242,.22);color:#C0D4F2;background:rgba(255,255,255,.025);font-size:.72rem;font-weight:500;letter-spacing:.05em;transition:.2s var(--ease)}
 .level-btn:hover{background:#B79440;color:#0D1433;border-color:#B79440;transform:translateY(-2px)}
 @media(max-width:950px){#Spi .Spi-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){#Spi .Spi-grid{grid-template-columns:1fr}.topic-card{min-height:auto;padding:1.35rem}}
-</style>
-
-<style id="vokabeltrainer-card-border">
-.today-box > .service-card{
-  border:1px solid rgba(183,148,64,0.10);
-}
-.today-box > .service-card:hover{
-  border:1px solid rgba(183,148,64,0.10);
-}
 </style>
 
 <style>
@@ -617,8 +610,8 @@
     <div class="dash-card"><div class="dash-num" id="dStreak">0</div><div class="dash-label">Tageserie</div></div>
     <div class="dash-card"><div class="dash-num" id="dGoal">0/20</div><div class="dash-label">Tagesziel</div><div class="goal-track"><div class="goal-fill" id="dGoalFill"></div></div></div>
   </div></div>
-  <div class="today-box"><div><h3 id="todayTitle">Deine nächste Einheit</h3><p id="todayText">Die App sucht das Thema, bei dem Wiederholung gerade am meisten bringt.</p></div><a id="todayBtn" class="btn-smart" href="#Lernen">Heute lernen</a><a href="franzoesisch-vokabeltrainer.html" class="service-card reveal"><div class="service-num">13</div><div class="service-title">Vokabeltrainer</div><div class="service-desc">Deutsch → Französisch · intelligente Wiederholungen und Karteikarten.</div></a>
-</div>
+  <div class="daily-suggestion-wrap"><div class="today-box"><div><h3 id="todayTitle">Deine nächste Einheit</h3><p id="todayText">Die App sucht das Thema, bei dem Wiederholung gerade am meisten bringt.</p></div><a id="todayBtn" class="btn-smart" href="#Lernen">Heute lernen</a>
+</div></div>
 </section>
 <section id="Fortschritt" style="background:#0D1433">
   <div class="Spi-header reveal">
