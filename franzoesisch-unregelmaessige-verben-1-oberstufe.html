@@ -245,18 +245,54 @@ box-shadow:0 8px 24px rgba(13,20,51,.06)}
  .fox-mini-bubble{display:none}
 }
 </style>
-</head>
+<style id="unified-header-inline">/* Header aus main.html, rechts ausschliesslich Startseite. */
+body{padding-top:84px!important}
+#navbar{--navy:#0D1433;--gold:#B79440;--white:#fff;--ice:#C0D4F2;--font-body:Jost,Arial,sans-serif;--font-display:'Cormorant Garamond',Georgia,serif;position:fixed!important;top:0!important;left:0!important;right:0!important;z-index:100!important;display:flex!important;align-items:center!important;justify-content:space-between!important;flex-wrap:nowrap!important;gap:1rem!important;min-height:0!important;height:auto!important;padding:1.2rem 4rem!important;background:rgba(13,20,51,.92)!important;backdrop-filter:blur(12px);border-bottom:1px solid rgba(183,148,64,.2)!important;font-family:var(--font-body)!important;transition:padding .3s cubic-bezier(.4,0,.2,1)}
+#navbar.scrolled{padding:.8rem 4rem!important}
+#navbar a{display:inline-block;margin:0!important;text-decoration:none!important;border-radius:0;line-height:1.4;font:inherit;box-shadow:none!important;transform:none!important}
+#navbar .nav-logo{display:flex!important;align-items:center;gap:.75rem!important;padding:0!important;border:0!important;background:transparent!important;flex-shrink:0}
+#navbar .monogram{width:34px;height:34px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--font-display)!important;font-weight:600;font-size:1rem;color:var(--navy)!important;flex-shrink:0}
+#navbar .wordmark{font-family:var(--font-body)!important;font-weight:600;letter-spacing:.18em;font-size:.9rem;color:var(--white)!important}
+#navbar .nav-links{display:flex!important;align-items:center;gap:2.5rem!important;list-style:none!important;margin:0!important;padding:0!important}
+#navbar .nav-links li{margin:0;padding:0}
+#navbar .nav-links a{font-size:.78rem!important;letter-spacing:.12em;text-transform:uppercase;color:var(--ice)!important;font-weight:400!important;position:relative;padding:0 0 3px!important;background:transparent!important;border:0!important;transition:color .2s}
+#navbar .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+#navbar .nav-links a:hover,#navbar .nav-links a:focus-visible{color:var(--white)!important}
+#navbar .nav-links a:hover::after{width:100%}
+#navbar .nav-account-actions{display:flex!important;align-items:center;flex-shrink:0;margin:0!important;gap:0!important}
+#navbar .nav-cta{background:transparent!important;border:1px solid var(--gold)!important;color:var(--gold)!important;padding:.5rem 1.4rem!important;border-radius:2px!important;font-size:.78rem!important;font-weight:400!important;letter-spacing:.12em;text-transform:uppercase;transition:background .25s,color .25s!important}
+#navbar .nav-cta:hover,#navbar .nav-cta:focus-visible{background:var(--gold)!important;color:var(--navy)!important}
+#navbar .nav-cta::after{display:none!important}
+#navbar a:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+.exercise-levels{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin:1.5rem auto 0}
+.exercise-levels a{display:inline-flex;align-items:center;justify-content:center;border:1px solid #B79440;border-radius:2px;background:transparent;color:#D4AF60!important;padding:.7rem 1.1rem;text-decoration:none;font:500 .85rem Jost,Arial,sans-serif;transition:background .2s,color .2s,transform .2s}
+.exercise-levels a[aria-current="page"]{background:#B79440;color:#0D1433!important}
+.exercise-levels a:hover,.exercise-levels a:focus-visible{background:#D4AF60;color:#0D1433!important;border-color:#D4AF60;transform:translateY(-2px)}
+.exercise-levels a:focus-visible{outline:2px solid #D4AF60;outline-offset:3px}
+@media(max-width:1200px){#navbar .nav-links{display:none!important}#navbar,#navbar.scrolled{padding:.9rem 1.2rem!important}body{padding-top:76px!important}}
+@media(max-width:480px){#navbar .wordmark{font-size:.7rem;letter-spacing:.09em}#navbar .nav-cta{font-size:.68rem!important;padding:.5rem .8rem!important}.exercise-levels a{font-size:.75rem;padding:.65rem .75rem}}
+@media(prefers-reduced-motion:reduce){#navbar,#navbar a,.exercise-levels a{transition:none!important}.exercise-levels a:hover{transform:none}}
+
+#navbar a,#navbar a:hover,#navbar a:focus-visible{text-decoration:none!important}#navbar .nav-links a::after{display:none!important}</style><style id="grammar-fox-alltag">
+#foxCoach.fox-coach{position:static!important;inset:auto!important;display:flex!important;align-items:center;gap:1rem;width:auto!important;max-width:760px;margin:1.3rem auto!important;padding:0 1rem;box-sizing:border-box;transform:none!important;animation:none!important;cursor:pointer;z-index:auto!important}
+#foxCoach.fox-coach:hover{transform:none!important}
+#foxCoach img{order:0;display:block;width:95px!important;height:110px!important;object-fit:contain;flex:0 0 95px;filter:none!important}
+#foxCoach #foxBubble{order:1;position:static!important;inset:auto!important;display:block!important;visibility:visible!important;opacity:1!important;transform:none!important;width:auto!important;flex:1;min-width:0;margin:0!important;background:#f7f1e6!important;color:#18213d!important;padding:1rem!important;border:0!important;border-radius:12px!important;box-shadow:none!important;font-size:1rem;line-height:1.5;text-align:left!important}
+#foxCoach #foxBubble:after,#foxCoach #foxBubble:before{display:none!important}
+@media(max-width:480px){#foxCoach.fox-coach{gap:.6rem;padding:0 .6rem}#foxCoach #foxBubble{padding:.75rem!important}}
+</style></head>
 <body>
 <nav id="navbar" class="site-header">
-  <a href="main.html" class="nav-logo">
+  <a href="main.html#hero" class="nav-logo">
     <div class="monogram">FR</div>
     <span class="wordmark">Französisch lernen</span>
   </a>
   <ul class="nav-links">
-    <li><a href="main.html#lernen">Lernen</a></li>
-    <li><a href="main.html#fortschritt">Mein Fortschritt</a></li>
-    <li><a href="main.html" class="nav-cta">Startseite</a></li>
+    <li><a href="main.html#theorie">Theorie</a></li>
+    <li><a href="main.html#Spi">Übungen</a></li>
+    <li><a href="main.html#Fortschritt">Mein Fortschritt</a></li><li><a href="main.html#Pruefung">Prüfung</a></li><li><a href="main.html#lernwerkstatt">Lernwerkstatt</a></li>
   </ul>
+  <div class="nav-account-actions"><a href="main.html" class="account-link nav-cta">Startseite</a></div>
 </nav>
 <header class="hero">
   <div class="eyebrow">🇫🇷 FRANÇAIS · LEVEL 1</div>
@@ -264,14 +300,7 @@ box-shadow:0 8px 24px rgba(13,20,51,.06)}
   <p>Trainiere die wichtigsten <strong>unregelmässigen französischen Verben</strong> der 1. Oberstufe im Präsens: <strong>être, avoir, aller, faire, venir, prendre, pouvoir, vouloir, devoir, savoir</strong> und weitere häufige Verben.</p>
 </header>
 
-<div class="legend">
-  <span class="chip">⭐ être & avoir</span>
-  <span class="chip">🚶 aller & venir</span>
-  <span class="chip">🛠️ faire & prendre</span>
-  <span class="chip">💬 pouvoir & vouloir</span>
-  <span class="chip">🧠 devoir & savoir</span>
-  <span class="chip">✍️ Schreibtraining</span>
-</div>
+<div class="exercise-levels" aria-label="Niveau wählen"><a href="franzoesisch-unregelmaessige-verben-1-oberstufe.html" aria-current="page">Niveau 1 · kostenlos</a><a href="franzoesisch-unregelmaessige-verben-2-oberstufe.html">Niveau 2 · Premium</a><a href="franzoesisch-unregelmaessige-verben-3-oberstufe.html">Niveau 3 · Premium</a></div>
 
 <main id="quiz">
   <div class="status">
@@ -301,7 +330,15 @@ box-shadow:0 8px 24px rgba(13,20,51,.06)}
       <a class="home-btn" href="main.html">← Zurück zur Startseite</a>
     </div>
   </section>
-</main>
+<div class="fox-coach" id="foxCoach" title="Klick mich für einen Lerntipp">
+    <div class="fox-mini-bubble" id="foxBubble">
+        Petit conseil ! Du schaffst das. 🇫🇷
+    </div>
+
+    <img id="foxCoachImg"
+         src="fuchs-tipp.png"
+         alt="Französischer Lernfuchs">
+</div></main>
 
 <footer>Französisch Trainer · Unregelmässige Verben · 1. Oberstufe</footer>
 
@@ -469,15 +506,7 @@ document.querySelectorAll('[data-v7]').forEach(b=>b.addEventListener('click',()=
 let prev='';const f=document.getElementById('feedback');if(f)new MutationObserver(()=>{const t=f.textContent.trim();if(t&&t!==prev&&/noch nicht|falsch|nicht richtig|richtig wäre/i.test(t)){prev=t;setTimeout(()=>document.getElementById('v7Reflect')?.classList.add('open'),450)}}).observe(f,{subtree:true,childList:true,characterData:true});
 try{const x=FRLearning.summary(),qs=[];Object.values(x.modules||{}).forEach(m=>Object.values(m.questions||{}).forEach(q=>qs.push(q.strength||0)));const a=qs.length?qs.reduce((x,y)=>x+y,0)/qs.length:0;const b=document.getElementById('v7Badge');if(b)b.textContent=a<1.5?'🎯 Adaptiv · mit Unterstützung':a<3?'🎯 Adaptiv · selbstständig':'🎯 Adaptiv · aktive Erinnerung';}catch(e){}
 })();</script>
-  <div class="fox-coach" id="foxCoach" title="Klick mich für einen Lerntipp">
-    <div class="fox-mini-bubble" id="foxBubble">
-        Petit conseil ! Du schaffst das. 🇫🇷
-    </div>
-
-    <img id="foxCoachImg"
-         src="fuchs-tipp.png"
-         alt="Französischer Lernfuchs">
-</div>
+  
 
 <script id="fox-click-tips">
 (function(){
