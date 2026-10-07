@@ -1,3 +1,7 @@
+(() => {
+ 'use strict';
+ if (window.__foxoraLearningCoreStarted) return;
+ window.__foxoraLearningCoreStarted = true;
 /* French learning progress: local event log and account-specific cloud sync. */
 (() => {
   'use strict';
@@ -211,6 +215,8 @@
   const {data} = await client.auth.getSession();
   sessionName(data.session);
  }
+ window.addEventListener('frpremiumlessonloaded', paint);
  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => start().catch(()=>{}), {once:true});
  else start().catch(()=>{});
+})();
 })();

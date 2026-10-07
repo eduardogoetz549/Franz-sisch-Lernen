@@ -9,8 +9,19 @@
   try {
    const result=await FRPremium.call('premium-access',{action:'lesson',file});
    if(typeof result.html!=='string')throw new Error('Die Übung konnte nicht geladen werden.');
-   // Same URL: relative assets, exercise IDs and existing links stay correct.
-   document.open();document.write(result.html);document.close();
+   const lesson = new DOMParser().parseFromString(result.html, 'text/html');
+   for (const script of lesson.querySelectorAll('script[src]')) {
+    const scriptFile = new URL(script.getAttribute('src'), location.href).pathname.split('/').pop();
+    if (scriptFile === 'premium-gate.js') {
+     throw new Error('In Supabase liegt eine Zugangsseite statt der vollständigen Übung. Bitte die vollständige HTML-Datei im privaten Bucket premium-content ersetzen.');
+    }
+    // Der bereits angemeldete Lernspeicher wird weiterverwendet.
+    if (scriptFile === 'learning-core.js') script.remove();
+   }
+   document.open();
+   document.write('<!doctype html>\n' + lesson.documentElement.outerHTML);
+   document.close();
+   window.dispatchEvent(new Event('frpremiumlessonloaded'));
   }catch(e){message.textContent=e.message;start.disabled=false;loading=false;}
  }
  (async()=>{
