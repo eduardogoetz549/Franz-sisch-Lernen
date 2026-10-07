@@ -1,0 +1,109 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Jetzt anwenden · Foxora</title><meta name="theme-color" content="#0D1433"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="favicon.png"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet"><script src="learning-core.js?v=names1"></script><style>
+*{box-sizing:border-box}body{margin:0;background:#0D1433;color:#fff;font:16px/1.6 Jost,Arial,sans-serif}a{color:#D4AF60}nav{display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:1.2rem max(5vw,1.2rem);border-bottom:1px solid #b7944044;flex-wrap:wrap}nav a{text-decoration:none}.brand{letter-spacing:.13em;font-weight:600;color:#fff}nav .links{display:flex;gap:1.2rem;flex-wrap:wrap}.hero{max-width:1000px;margin:3.5rem auto 2rem;text-align:center;padding:0 1.2rem}.ey{letter-spacing:.18em;text-transform:uppercase;color:#D4AF60;font-size:.75rem}h1,h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400}h1{font-size:clamp(2.8rem,6vw,4.8rem);line-height:1.1;margin:1rem 0}h1 em{color:#D4AF60}h2{font-size:2rem;line-height:1.2;margin:.3rem 0 1rem}p{color:#C0D4F2}.hero p{max-width:680px;margin:1rem auto}.levels,.actions{display:flex;gap:.65rem;flex-wrap:wrap;justify-content:center}.levels a,button,.button{padding:.8rem 1.1rem;border:1px solid #B79440;text-decoration:none;font:500 .85rem Jost,Arial;cursor:pointer;transition:.2s;background:#B79440;color:#0D1433}button:hover,.button:hover,.levels a:hover{transform:translateY(-2px);background:#D4AF60}button.secondary,.levels a{background:transparent;color:#D4AF60}.levels a.active{background:#B79440;color:#0D1433}button:disabled{opacity:.55;cursor:default;transform:none}button:focus-visible,a:focus-visible,textarea:focus-visible{outline:2px solid #D4AF60;outline-offset:3px}.wrap{max-width:1100px;margin:auto;padding:1rem 1.2rem 4rem}.grid{display:grid;grid-template-columns:260px 1fr;gap:1.3rem}.panel{background:#121E47;border:1px solid #b7944044;padding:1.5rem}.tasks{display:grid;gap:.65rem}.task{text-align:left;background:transparent;color:#C0D4F2;border-color:#ffffff22}.task.active{border-color:#D4AF60;background:#b7944022}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin:1.4rem 0}.step{background:#ffffff05;padding:.7rem;font-size:.85rem;color:#C0D4F2}.step b{color:#D4AF60;display:block}label{display:block;color:#fff;font-weight:500;margin:1rem 0 .5rem}textarea{width:100%;min-height:180px;padding:1rem;background:#f7f1e6;color:#0D1433;border:1px solid #B79440;font:inherit;resize:vertical}.actions{justify-content:flex-start;margin:1rem 0}details{margin:1rem 0;border-top:1px solid #ffffff22;padding-top:1rem}summary{cursor:pointer;color:#D4AF60}.example{background:#ffffff08;padding:1rem;color:#fff}#status{min-height:1.5rem;color:#D4AF60}.check label{font-size:.95rem;font-weight:400}input[type=checkbox]{accent-color:#B79440}audio{max-width:100%;margin:1rem 0}.note{font-size:.85rem;color:#9eabc3}.fox-guide{display:flex;align-items:center;gap:1rem;margin-top:2rem}.fox-guide img{width:90px}.fox-bubble{background:#f7f1e6;color:#0D1433;padding:1rem;max-width:450px;border-radius:12px}.progress{margin-top:1rem;color:#D4AF60}[hidden]{display:none!important}@media(max-width:750px){.grid{grid-template-columns:1fr}.tasks{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:1fr}.hero{margin-top:2rem}.panel{padding:1.1rem}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+:root{--gold:#B79440;--navy:#0D1433;--ice:#C0D4F2;--white:#fff;--font-display:"Cormorant Garamond",Georgia,serif;--font-body:Jost,Arial;--ease:cubic-bezier(.4,0,.2,1)}  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(13,20,51,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(183,148,64,0.2);
+    transition: padding 0.3s var(--ease);
+  }
+  nav.scrolled { padding: 0.8rem 4rem; }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .nav-logo .monogram {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 1rem; color: var(--navy);
+    flex-shrink: 0;
+  }
+  .nav-logo .wordmark {
+    font-family: var(--font-body); font-weight: 600;
+    letter-spacing: 0.18em; font-size: 0.9rem;
+    color: var(--white);
+  }
+  .nav-links {
+    display: flex; align-items: center; gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ice); font-weight: 400;
+    position: relative; padding-bottom: 3px;
+    transition: color 0.2s;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 1px; background: var(--gold);
+    transition: width 0.3s var(--ease);
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    background: transparent; border: 1px solid var(--gold);
+    color: var(--gold) !important; padding: 0.5rem 1.4rem;
+    border-radius: 2px; transition: all 0.25s !important;
+  }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--navy) !important; }
+  .nav-cta::after { display: none !important; }
+
+#navbar{position:sticky;flex-wrap:nowrap;gap:1rem}#navbar a{text-decoration:none}#navbar ul{margin:0;padding:0}.nav-account-actions{display:flex;gap:.6rem;align-items:center}.account-link{white-space:nowrap;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}.nav-links{gap:1.5rem}.nav-cta{display:inline-block}.sentence{padding:1rem 0;border-top:1px solid #ffffff22}.sentence p{color:#fff;margin:.2rem 0 .7rem}.sentence small{color:#9eabc3;display:block;overflow-wrap:anywhere}#sampleAudio{width:100%;margin-top:1rem}@media(max-width:1100px){#navbar{padding:1rem 1.2rem}.nav-links{display:none}}@media(max-width:600px){.nav-logo .wordmark{font-size:.7rem;letter-spacing:.08em}.nav-account-actions .nav-cta{padding:.5rem .6rem;font-size:.7rem}#navbar{gap:.5rem}}
+</style></head><body><nav id="navbar">
+  <a href="main.html#hero" class="nav-logo">
+    <div class="monogram">FR</div>
+    <span class="wordmark">Französisch lernen</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="main.html#theorie">Theorie</a></li>
+    <li><a href="main.html#Spi">Übungen</a></li>
+    <li><a href="main.html#Fortschritt">Mein Fortschritt</a></li><li><a href="main.html#Pruefung">Prüfung</a></li><li><a href="main.html#lernwerkstatt">Lernwerkstatt</a></li>
+  </ul>
+  <div class="nav-account-actions">
+    <a href="main.html#Premium" class="account-link nav-cta" id="premiumNav">Premium</a>
+    <a href="main.html#Konto" class="account-link nav-cta" id="accountNav">Anmelden</a>
+  </div>
+</nav><header class="hero"><div class="ey">Französisch im Alltag · Niveau 3</div><h1>Jetzt <em>anwenden</em></h1><p>Eigene Gedanken ausdrücken: schreiben, anhören und laut antworten. Die Musterantwort zeigt eine Möglichkeit – deine Antwort darf anders lauten.</p><div class="levels"><a href="franzoesisch-jetzt-anwenden.html" class="L1">Niveau 1 · kostenlos</a><a href="franzoesisch-jetzt-anwenden-2.html" class="L2">Niveau 2 · Premium</a><a href="franzoesisch-jetzt-anwenden-3.html" class="L3">Niveau 3 · Premium</a></div></header><main class="wrap"><div class="grid"><aside class="panel"><h2>Deine Situationen</h2><div id="tasks" class="tasks"></div><p class="progress" id="progress"></p><p class="note">Entwürfe und Selbstchecks bleiben auf diesem Gerät, getrennt nach Benutzerkonto. Sie zählen nicht als automatisch bewertete Aufgaben.</p></aside><section class="panel"><div class="ey" id="topic"></div><h2 id="title"></h2><p id="prompt"></p><div class="steps"><div class="step"><b>1 · Schreiben</b>Antworte mit ganzen Sätzen.</div><div class="step"><b>2 · Vergleichen</b>Prüfe deine Antwort mit der Checkliste.</div><div class="step"><b>3 · Sprechen</b>Höre einzelne Sätze an und sprich sie nach.</div></div><details><summary>Starthilfe anzeigen</summary><p id="hint"></p></details><label for="answer">Deine französische Antwort</label><textarea id="answer" maxlength="5000" placeholder="Schreibe hier deine eigenen Sätze …"></textarea><div class="actions"><button id="save" type="button">Entwurf speichern</button><button class="secondary" id="compare" type="button">Antwort vergleichen</button></div><div id="review" hidden><h3>Eine mögliche Antwort</h3><p class="example" lang="fr" id="model"></p><p class="note">Das ist ein Beispiel, keine automatische Korrektur. Andere Namen, Ideen und Formulierungen können genauso richtig sein.</p><div class="check" id="checks"></div><button id="complete" type="button">Selbstcheck abschliessen</button></div><hr style="border:0;border-top:1px solid #ffffff22;margin:2rem 0"><h3>Anhören und nachsprechen</h3><p>Höre jeden Satz so oft an, wie du möchtest. Sprich ihn anschliessend selbst nach. Nutze die Beispiele danach für eine eigene Antwort.</p><div id="sentences"></div><audio id="sampleAudio" controls hidden></audio><p class="note">Jeder Satz hat ein eigenes Hörbeispiel. Du kannst die Aufnahme mit dem Abspielbutton oder dem Audioplayer beliebig oft wiederholen.</p><p id="status" role="status" aria-live="polite"></p><div class="actions"><button id="next" class="secondary" type="button">Nächste Situation →</button></div></section></div><div class="fox-guide"><img src="fuchs-idle.png" alt="Fuchs"><div class="fox-bubble" id="foxBubble">Du schaffst das! Eine verständliche eigene Antwort ist ein guter Anfang.</div></div></main><script>
+const level=3, tasks=[["Eine Meinung begründen", "Schreibe fünf bis sechs Sätze: Sollte man Handys im Unterricht erlauben? Nenne zwei Gründe und ein Gegenargument.", "À mon avis / d’une part / cependant / parce que", "À mon avis, les téléphones peuvent être utiles en classe. D’une part, ils permettent de chercher des informations. D’autre part, certaines applications aident à apprendre. Cependant, ils peuvent aussi distraire les élèves. Il faudrait donc fixer des règles claires.", ["Ich vertrete eine klare Meinung.", "Ich nenne zwei Gründe und ein Gegenargument.", "Ich verbinde meine Sätze sinnvoll."]], ["Ein Erlebnis erzählen", "Erzähle ein Erlebnis in fünf Sätzen. Beschreibe den Hintergrund und danach, was geschehen ist.", "Il faisait … / pendant que … / soudain …", "Il faisait beau et nous nous promenions au bord du lac. Pendant que mon ami prenait des photos, j’ai entendu un bruit. Soudain, un chien est arrivé. Il a sauté dans l’eau. Nous avons beaucoup ri.", ["Hintergrund und Zustände stehen im Imparfait.", "Abgeschlossene Ereignisse stehen im Passé composé.", "Die Handlung ist nachvollziehbar."]], ["Was wäre, wenn …?", "Schreibe vier Sätze dazu, was du mit mehr Freizeit machen würdest. Verwende zweimal si + Imparfait mit Conditionnel.", "Si j’avais …, je … / si je pouvais …", "Si j’avais plus de temps, je lirais davantage. Si je pouvais voyager, je visiterais le Canada. J’aimerais aussi apprendre la guitare. Je passerais plus de temps avec mes amis.", ["Nach si steht das Imparfait.", "Die Folge steht im Conditionnel.", "Ich nenne konkrete Ideen."]], ["Ratschläge geben", "Eine Freundin hat Prüfungsstress. Schreibe vier hilfreiche Sätze und verwende zweimal den Subjonctif nach il faut que.", "Il faut que tu … / je te conseille de …", "Il faut que tu fasses des pauses. Il faut que tu dormes suffisamment. Je te conseille de préparer un petit planning. Tu peux aussi demander de l’aide à un ami.", ["Nach il faut que verwende ich den Subjonctif.", "Die Ratschläge sind konkret und freundlich.", "Ich verwende mindestens zwei unterschiedliche Satzanfänge."]], ["Eine Reklamation", "Schreibe fünf höfliche Sätze: Ein gekauftes Produkt funktioniert nicht. Beschreibe das Problem und bitte um eine Lösung.", "J’ai acheté … / malheureusement / serait-il possible de … ?", "Bonjour, j’ai acheté un casque dans votre magasin hier. Malheureusement, il ne fonctionne pas. J’ai essayé de le recharger, mais le problème persiste. Serait-il possible de l’échanger ? Je vous remercie pour votre aide.", ["Ich beschreibe Produkt und Problem.", "Ich bitte höflich um eine konkrete Lösung.", "Ich begrüsse die Person und bedanke mich."]], ["Ein Gespräch führen", "Erstelle einen Dialog mit sechs Gesprächsbeiträgen über ein gemeinsames Ferienziel. Schlage etwas vor, frage nach und reagiere auf einen Einwand.", "Que penses-tu de … ? / je préférerais … / on pourrait …", "A : Que penses-tu d’un voyage à Lyon ? B : C’est intéressant, mais je préférerais aller à la mer. A : Pourquoi ? B : J’aimerais me baigner. A : On pourrait choisir Nice et visiter aussi la ville. B : Bonne idée !", ["Es gibt mindestens sechs Gesprächsbeiträge.", "Ich frage nach und reagiere auf die andere Person.", "Wir finden einen gemeinsamen Vorschlag."]]];
+const $=id=>document.getElementById(id);
+let index=0,actor='guest',state={};
+const clips=[[{"text": "À mon avis, les téléphones peuvent être utiles en classe.", "file": "niveau-3-situation-01-phrase-01.mp3"}, {"text": "D’une part, ils permettent de chercher des informations.", "file": "niveau-3-situation-01-phrase-02.mp3"}, {"text": "D’autre part, certaines applications aident à apprendre.", "file": "niveau-3-situation-01-phrase-03.mp3"}, {"text": "Cependant, ils peuvent aussi distraire les élèves.", "file": "niveau-3-situation-01-phrase-04.mp3"}, {"text": "Il faudrait donc fixer des règles claires.", "file": "niveau-3-situation-01-phrase-05.mp3"}, {"text": "Les élèves devraient apprendre à les utiliser de façon responsable.", "file": "niveau-3-situation-01-phrase-06.mp3"}, {"text": "Un téléphone ne doit pas remplacer les échanges en classe.", "file": "niveau-3-situation-01-phrase-07.mp3"}], [{"text": "Il faisait beau et nous nous promenions au bord du lac.", "file": "niveau-3-situation-02-phrase-01.mp3"}, {"text": "Pendant que mon ami prenait des photos, j’ai entendu un bruit.", "file": "niveau-3-situation-02-phrase-02.mp3"}, {"text": "Soudain, un chien est arrivé.", "file": "niveau-3-situation-02-phrase-03.mp3"}, {"text": "Il a sauté dans l’eau.", "file": "niveau-3-situation-02-phrase-04.mp3"}, {"text": "Nous avons beaucoup ri.", "file": "niveau-3-situation-02-phrase-05.mp3"}, {"text": "Son propriétaire lui a demandé de revenir.", "file": "niveau-3-situation-02-phrase-06.mp3"}, {"text": "Cette promenade restera un bon souvenir.", "file": "niveau-3-situation-02-phrase-07.mp3"}], [{"text": "Si j’avais plus de temps, je lirais davantage.", "file": "niveau-3-situation-03-phrase-01.mp3"}, {"text": "Si je pouvais voyager, je visiterais le Canada.", "file": "niveau-3-situation-03-phrase-02.mp3"}, {"text": "J’aimerais aussi apprendre la guitare.", "file": "niveau-3-situation-03-phrase-03.mp3"}, {"text": "Je passerais plus de temps avec mes amis.", "file": "niveau-3-situation-03-phrase-04.mp3"}, {"text": "Si mes amis étaient libres, nous organiserions une excursion.", "file": "niveau-3-situation-03-phrase-05.mp3"}, {"text": "Nous pourrions découvrir une région que nous ne connaissons pas.", "file": "niveau-3-situation-03-phrase-06.mp3"}], [{"text": "Il faut que tu fasses des pauses.", "file": "niveau-3-situation-04-phrase-01.mp3"}, {"text": "Il faut que tu dormes suffisamment.", "file": "niveau-3-situation-04-phrase-02.mp3"}, {"text": "Je te conseille de préparer un petit planning.", "file": "niveau-3-situation-04-phrase-03.mp3"}, {"text": "Tu peux aussi demander de l’aide à un ami.", "file": "niveau-3-situation-04-phrase-04.mp3"}, {"text": "Il est important que tu gardes confiance en toi.", "file": "niveau-3-situation-04-phrase-05.mp3"}, {"text": "Essaie de réviser un peu chaque jour plutôt que tout à la dernière minute.", "file": "niveau-3-situation-04-phrase-06.mp3"}], [{"text": "Bonjour, j’ai acheté un casque dans votre magasin hier.", "file": "niveau-3-situation-05-phrase-01.mp3"}, {"text": "Malheureusement, il ne fonctionne pas.", "file": "niveau-3-situation-05-phrase-02.mp3"}, {"text": "J’ai essayé de le recharger, mais le problème persiste.", "file": "niveau-3-situation-05-phrase-03.mp3"}, {"text": "Serait-il possible de l’échanger ?", "file": "niveau-3-situation-05-phrase-04.mp3"}, {"text": "Je vous remercie pour votre aide.", "file": "niveau-3-situation-05-phrase-05.mp3"}, {"text": "Je peux vous présenter le ticket de caisse.", "file": "niveau-3-situation-05-phrase-06.mp3"}, {"text": "Je souhaiterais trouver une solution rapidement.", "file": "niveau-3-situation-05-phrase-07.mp3"}], [{"text": "A : Que penses-tu d’un voyage à Lyon ?", "file": "niveau-3-situation-06-phrase-01.mp3"}, {"text": "B : C’est intéressant, mais je préférerais aller à la mer.", "file": "niveau-3-situation-06-phrase-02.mp3"}, {"text": "A : Pourquoi ?", "file": "niveau-3-situation-06-phrase-03.mp3"}, {"text": "B : J’aimerais me baigner.", "file": "niveau-3-situation-06-phrase-04.mp3"}, {"text": "A : On pourrait choisir Nice et visiter aussi la ville.", "file": "niveau-3-situation-06-phrase-05.mp3"}, {"text": "B : Bonne idée !", "file": "niveau-3-situation-06-phrase-06.mp3"}, {"text": "A : On pourrait prendre le train pour éviter les embouteillages.", "file": "niveau-3-situation-06-phrase-07.mp3"}, {"text": "B : D’accord, regardons les horaires ensemble.", "file": "niveau-3-situation-06-phrase-08.mp3"}]];
+const key=()=> 'fr_apply_v1:'+actor+':'+level;
+function read(){try{const v=JSON.parse(localStorage.getItem(key())||'{}');state=v&&typeof v==='object'?v:{}}catch(_){state={}}}
+function persist(){try{localStorage.setItem(key(),JSON.stringify(state));return true}catch(_){$('status').textContent='Der Browser konnte deinen Entwurf nicht speichern.';return false}}
+function progress(){const n=tasks.filter((_,i)=>state[i]?.done).length;$('progress').textContent=n+' von '+tasks.length+' Situationen selbst geprüft';document.querySelectorAll('.task').forEach((b,i)=>{b.classList.toggle('active',i===index);b.textContent=(state[i]?.done?'✓ ':'')+tasks[i][0]})}
+function stop(){const audio=$('sampleAudio');audio.pause();audio.removeAttribute('src');audio.load();audio.hidden=true}
+function renderSentences(){
+ $('sentences').replaceChildren();
+ clips[index].forEach((clip,i)=>{
+  const row=document.createElement('div');row.className='sentence';
+  const text=document.createElement('p');text.lang='fr';text.textContent=(i+1)+'. '+clip.text;
+  const button=document.createElement('button');button.type='button';button.className='secondary';button.textContent='▶ Satz anhören';
+  button.onclick=()=>{const audio=$('sampleAudio');audio.pause();audio.src='audio/jetzt-anwenden/'+clip.file;audio.hidden=false;audio.play().then(()=>{$('status').textContent='Satz '+(i+1)+' · '+tasks[index][0]}).catch(()=>{$('status').textContent='Dieses Hörbeispiel ist noch nicht verfügbar. Lade die passende MP3-Datei hoch: '+clip.file})};
+  row.append(text,button);$('sentences').append(row);
+ });
+}
+function render(){stop();renderSentences();const t=tasks[index];$('topic').textContent='Situation '+(index+1)+' · Niveau '+level;$('title').textContent=t[0];$('prompt').textContent=t[1];$('hint').textContent=t[2];$('answer').value=state[index]?.answer||'';$('model').textContent=t[3];$('review').hidden=true;$('checks').replaceChildren();t[4].forEach((text,i)=>{const label=document.createElement('label'),c=document.createElement('input');c.type='checkbox';c.dataset.check=i;label.append(c,document.createTextNode(' '+text));$('checks').append(label)});$('status').textContent='';$('next').textContent=index===tasks.length-1?'Zur ersten Situation →':'Nächste Situation →';progress()}
+function save(){state[index]={...state[index],answer:$('answer').value};return persist()}
+$('save').onclick=()=>{if(save())$('status').textContent='Dein Entwurf ist auf diesem Gerät gespeichert.'};
+$('compare').onclick=()=>{if(!$('answer').value.trim()){$('status').textContent='Schreibe zuerst eine eigene Antwort.';return}save();$('review').hidden=false;$('review').scrollIntoView({behavior:'smooth',block:'nearest'})};
+$('complete').onclick=()=>{if(!$('answer').value.trim())return;if(![...document.querySelectorAll('[data-check]')].every(c=>c.checked)){$('status').textContent='Prüfe die drei Punkte und überarbeite deine Antwort, bis du sie abhaken kannst.';return}state[index]={answer:$('answer').value,done:true};if(persist()){$('status').textContent='Selbstcheck abgeschlossen. Antworte jetzt laut mit deinen eigenen Worten.';progress()}};
+$('answer').oninput=()=>{if(state[index]?.done){state[index].done=false;progress()}};
+$('next').onclick=()=>{save();index=(index+1)%tasks.length;render()};
+tasks.forEach((t,i)=>{const b=document.createElement('button');b.className='task';b.type='button';b.onclick=()=>{save();index=i;render()};$('tasks').append(b)});
+document.querySelector('.L'+level).classList.add('active');
+// Display the first task immediately, independently of account/network initialization.
+read();render();
+function accountChanged(){
+ const next=window.FRLearning?.account||'guest';
+ $('accountNav').textContent=next==='guest'?'Anmelden':'Mein Konto';
+ if(next!==actor){stop();actor=next;read();render()}
+}
+window.addEventListener('frlearningchange',accountChanged);
+if(window.FRLearning?.ready)window.FRLearning.ready.then(accountChanged).catch(()=>{});
+window.addEventListener('pagehide',stop);
+</script></body></html>
