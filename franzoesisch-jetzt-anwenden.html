@@ -53,6 +53,11 @@
   .nav-cta::after { display: none !important; }
 
 #navbar{position:sticky;flex-wrap:nowrap;gap:1rem}#navbar a{text-decoration:none}#navbar ul{margin:0;padding:0}.nav-account-actions{display:flex;gap:.6rem;align-items:center}.account-link{white-space:nowrap;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}.nav-links{gap:1.5rem}.nav-cta{display:inline-block}.sentence{padding:1rem 0;border-top:1px solid #ffffff22}.sentence p{color:#fff;margin:.2rem 0 .7rem}.sentence small{color:#9eabc3;display:block;overflow-wrap:anywhere}#sampleAudio{width:100%;margin-top:1rem}@media(max-width:1100px){#navbar{padding:1rem 1.2rem}.nav-links{display:none}}@media(max-width:600px){.nav-logo .wordmark{font-size:.7rem;letter-spacing:.08em}.nav-account-actions .nav-cta{padding:.5rem .6rem;font-size:.7rem}#navbar{gap:.5rem}}
+
+/* Lesbare Niveau-Auswahl bei Maus- und Tastaturbedienung */
+.levels a{transition:background-color .2s,color .2s,border-color .2s,transform .2s;}
+.levels a:hover,.levels a:focus-visible,.levels a.active:hover,.levels a.active:focus-visible{background:#D4AF60;color:#0D1433;border-color:#D4AF60;transform:translateY(-2px);}
+@media(prefers-reduced-motion:reduce){.levels a{transition:none;}.levels a:hover,.levels a:focus-visible{transform:none;}}
 </style></head><body><nav id="navbar">
   <a href="main.html#hero" class="nav-logo">
     <div class="monogram">FR</div>
