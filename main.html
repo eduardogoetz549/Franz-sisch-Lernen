@@ -667,21 +667,21 @@ window.FRRecoveryError = new URLSearchParams(location.hash.slice(1)).get('error_
   <div class="Spi-grid">
     <a href="franzoesisch-pruefung-1-oberstufe.html" class="service-card">
       <div class="service-num">01</div>
-      <div class="service-title">Gesamtprüfung · Niveau 1</div>
+      <div class="service-title">Gesamtprüfung Grammatik · Niveau 1</div>
       <div class="service-desc">39 gemischte Aufgaben · 13 Themen · 30 Minuten · Auswertung erst am Schluss.</div>
     </a>
     <a href="franzoesisch-pruefung-2-oberstufe.html" class="service-card">
       <div class="service-num">02</div>
-      <div class="service-title">Gesamtprüfung · Niveau 2</div>
+      <div class="service-title">Gesamtprüfung Grammatik · Niveau 2</div>
       <div class="service-desc">39 gemischte Aufgaben · 13 Themen · 30 Minuten · Auswertung erst am Schluss.</div>
     </a>
     <a href="franzoesisch-pruefung-3-oberstufe.html" class="service-card">
       <div class="service-num">03</div>
-      <div class="service-title">Gesamtprüfung · Niveau 3</div>
+      <div class="service-title">Gesamtprüfung Grammatik · Niveau 3</div>
       <div class="service-desc">39 gemischte Aufgaben · 13 Themen · 30 Minuten · Auswertung erst am Schluss.</div>
     </a>
   </div>
-</section>
+<div class="Spi-grid"><a href="franzoesisch-alltag-pruefung-1-oberstufe.html" class="service-card"><div class="service-num">04</div><div class="service-title">Gesamtprüfung Bezug zum Alltag · Niveau 1</div><div class="service-desc">30 zufällige Aufgaben · 6 Alltagsthemen · 30 Minuten · Premium · Auswertung erst am Schluss.</div></a><a href="franzoesisch-alltag-pruefung-2-oberstufe.html" class="service-card"><div class="service-num">05</div><div class="service-title">Gesamtprüfung Bezug zum Alltag · Niveau 2</div><div class="service-desc">30 zufällige Aufgaben · 6 Alltagsthemen · 30 Minuten · Premium · Auswertung erst am Schluss.</div></a><a href="franzoesisch-alltag-pruefung-3-oberstufe.html" class="service-card"><div class="service-num">06</div><div class="service-title">Gesamtprüfung Bezug zum Alltag · Niveau 3</div><div class="service-desc">30 zufällige Aufgaben · 6 Alltagsthemen · 30 Minuten · Premium · Auswertung erst am Schluss.</div></a></div></section>
 <!-- Pru -->
 <section id="Pru">
   <div class="Pru-container">
@@ -860,7 +860,7 @@ const renderLearningDashboard = ()=>{
    level,
    href:`franzoesisch-pruefung-${level}-oberstufe.html`,
    key:`fr_exam_${level}_oberstufe`,
-   title:`Gesamtprüfung · Niveau ${level}`
+   title:`Gesamtprüfung Grammatik · Niveau ${level}`
  }));
 
  const completedEver=new Set(history.map(h=>h.module));
