@@ -1,7 +1,7 @@
 'use strict';
 // Increase this version when changing the offline behavior.
 const CACHE_PREFIX = 'fr-learning:' + self.registration.scope + ':';
-const CACHE_NAME = CACHE_PREFIX + 'v12-exercise-quality';
+const CACHE_NAME = CACHE_PREFIX + 'v13-language-review';
 const START_URL = new URL('./main.html', self.registration.scope).href;
 
 self.addEventListener('install', event => {
