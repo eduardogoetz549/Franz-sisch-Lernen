@@ -1,73 +1,71 @@
 (() => {
  'use strict';
- const config=window.FRAlltag,$=id=>document.getElementById(id);
- if(!config||!Array.isArray(config.questions))return;
- const normalize=value=>String(value).normalize('NFC').trim().toLocaleLowerCase('fr').replace(/[’‘]/g,"'").replace(/\s+/g,' ').replace(/[.!?]+$/,'');
+ const config=window.FRAlltag,$=id=>document.getElementById(id),answers=window.FRAnswers;
+ if(!config||!Array.isArray(config.questions)||!answers)return;
  const requested=(new URL(location.href).searchParams.get('review_ids')||'').split(',').filter(x=>/^\d+$/.test(x)).map(Number);
- const selected=config.questions.filter(q=>requested.includes(q.id));
- const targeted=selected.length>0,base=targeted?selected:config.questions;
- let round=[],examAnswers=[],deadline=0,timer=null;
- let queue=[],position=0,correct=0,answered=0,locked=false,actor=null,finished=false,last=new Map();
+ const selected=[...config.questions,...(config.legacyQuestions||[])].filter(q=>requested.includes(q.id));
+ const targeted=!config.exam&&selected.length>0;
+ let round=[],queue=[],position=0,correct=0,answered=0,locked=false,actor=null,finished=false,last=new Map(),examAnswers=[],timer=null,deadline=0,orderHistory=[];
  function shuffled(values){const a=[...values];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+ function sample(pool,counts){return shuffled(Object.entries(counts).flatMap(([type,n])=>shuffled(pool.filter(q=>q.type===type)).slice(0,n)));}
  function start(){
-  round=targeted?selected:(config.exam?shuffled([...new Set(base.map(q=>q.topic))].flatMap(topic=>shuffled(base.filter(q=>q.topic===topic)).slice(0,5))):shuffled(base).slice(0,15));
-  queue=round.map(q=>({...q,repetition:0}));examAnswers=[];clearInterval(timer);
-  if(config.exam){deadline=Date.now()+30*60*1000;timer=setInterval(()=>{const left=Math.max(0,deadline-Date.now());$('examTime').textContent=Math.ceil(left/60000)+' Min. verbleiben';if(!left)finishExam();},1000);}
-  
-  position=0;correct=0;answered=0;last=new Map();finished=false;
-  $('result').hidden=true;$('quizCard').hidden=false;render();
+  clearInterval(timer);document.getElementById('examReview')?.remove();
+  round=targeted?selected:config.exam?shuffled([...new Set(config.questions.map(q=>q.topic))].flatMap(topic=>sample(config.questions.filter(q=>q.topic===topic),{choice:2,write:2,order:1}))):sample(config.questions,{choice:6,write:6,order:3});
+  queue=round.map(q=>({...q,repetition:0}));position=0;correct=0;answered=0;locked=false;finished=false;last=new Map();examAnswers=[];
+  $('result').hidden=true;$('quizCard').hidden=false;$('coachImage').src='fuchs-tipp.png';$('foxBubble').textContent=config.exam?'Prüfungsmodus: Die Auswertung erscheint erst nach der Abgabe.':'Lies die Situation. Nutze bei Fehlern die Erklärung und den Beispielsatz.';
+  if(config.exam){deadline=Date.now()+30*60*1000;$('examTime').textContent='30:00';timer=setInterval(()=>{const left=Math.max(0,Math.ceil((deadline-Date.now())/1000));$('examTime').textContent=String(Math.floor(left/60)).padStart(2,'0')+':'+String(left%60).padStart(2,'0');if(!left)finishExam();},1000);}
+  render();setupFreeWriting();
  }
  function render(){
-  locked=false;const q=queue[position];
-  $('step').textContent='Aufgabe '+(position+1)+' von '+queue.length;
-  $('score').textContent=config.exam?'Prüfungsmodus':correct+'/'+answered+' im ersten Durchgang';
-  $('fill').style.width=Math.round(position/queue.length*100)+'%';
-  $('mode').textContent=(q.repetition||targeted?'Wiederholung · ':'')+(q.type==='write'?'Schreiben':'Auswahl');
-  $('question').textContent=q.type==='write'?'Ergänze die Lücke auf Französisch.':'Welche Antwort passt zur Situation?';
-  $('context').textContent=q.prompt;$('options').replaceChildren();$('feedback').replaceChildren();
-  $('next').disabled=true;$('next').classList.remove('active');
-  $('writeForm').hidden=q.type!=='write';$('writeAnswer').value='';$('writeAnswer').disabled=false;$('writeAnswer').classList.remove('correct','wrong');$('checkWrite').disabled=false;
+  locked=false;orderHistory=[];const q=queue[position];
+  $('step').textContent='Aufgabe '+(position+1)+' von '+queue.length;$('score').textContent=config.exam?'Prüfungsmodus':correct+'/'+answered+' im ersten Durchgang';$('fill').style.width=Math.round(position/queue.length*100)+'%';
+  $('mode').textContent=(q.repetition||targeted?'Wiederholung · ':'')+(q.taskLabel||(q.type==='write'?'Schreiben':'Auswahl'));
+  $('question').textContent=q.type==='order'?'Bringe die Wörter in die richtige Reihenfolge.':q.type==='write'?'Schreibe die passende Antwort.':'Wähle die passende Antwort.';
+  $('context').textContent=q.prompt;$('options').replaceChildren();$('feedback').replaceChildren();$('next').disabled=true;$('next').classList.remove('active');$('next').textContent='Weiter →';
+  $('writeForm').hidden=q.type==='choice';$('writeAnswer').value='';$('writeAnswer').disabled=false;$('writeAnswer').readOnly=q.type==='order';$('writeAnswer').classList.remove('correct','wrong');$('checkWrite').disabled=false;
   if(q.type==='choice')shuffled(q.options).forEach(option=>{const b=document.createElement('button');b.type='button';b.className='option';b.textContent=option;b.onclick=()=>respond(option,b);$('options').append(b);});
+  if(q.type==='order'){
+   shuffled(q.tokens.map((word,index)=>({word,index}))).forEach(token=>{const b=document.createElement('button');b.type='button';b.className='word-token';b.textContent=token.word;b.onclick=()=>{if(locked)return;b.disabled=true;orderHistory.push({word:token.word,button:b});$('writeAnswer').value=orderHistory.map(t=>t.word).join(' ');};$('options').append(b);});
+   const undo=document.createElement('button');undo.type='button';undo.className='word-undo';undo.textContent='Letztes Wort zurück';undo.onclick=()=>{if(locked)return;const last=orderHistory.pop();if(last)last.button.disabled=false;$('writeAnswer').value=orderHistory.map(t=>t.word).join(' ');};$('options').append(undo);
+  }
  }
  function respond(own,selectedButton){
   if(locked||finished)return;
-  if(!String(own).trim()){$('feedback').textContent='Gib zuerst eine Antwort ein.';return;}
-  locked=true;const q=queue[position],ok=normalize(own)===normalize(q.answer);
-  if(config.exam){examAnswers.push({q,own,ok});$('options').querySelectorAll('button').forEach(b=>b.disabled=true);if(selectedButton)selectedButton.classList.add('exam-selected');$('writeAnswer').disabled=true;$('checkWrite').disabled=true;$('feedback').textContent='Antwort gespeichert.';$('next').disabled=false;$('next').classList.add('active');$('next').textContent=position===queue.length-1?'Prüfung abgeben':'Weiter →';return;}
-  if(!q.repetition){answered++;if(ok)correct++;}
-  last.set(q.id,ok);
-  if(!ok&&q.repetition<2)queue.push({...q,repetition:q.repetition+1});
-  $('options').querySelectorAll('button').forEach(b=>{b.disabled=true;if(normalize(b.textContent)===normalize(q.answer))b.classList.add('correct');});
-  if(selectedButton&&!ok)selectedButton.classList.add('wrong');
-  $('writeAnswer').classList.add(ok?'correct':'wrong');$('writeAnswer').disabled=true;$('checkWrite').disabled=true;
-  const text=document.createElement('p');text.textContent=ok?'Richtig!':'Noch nicht richtig. Die passende Ergänzung lautet: '+q.answer;
-  const solution=document.createElement('div');solution.className='solution';solution.textContent=q.explanation;$('feedback').replaceChildren(text,solution);
-  $('coachImage').src=ok?'fuchs-richtig.png':'fuchs-falsch.png';$('foxBubble').textContent=ok?'Très bien ! Weiter so.':'Lies die Erklärung. Du bekommst die Aufgabe später noch einmal.';
-  if(window.FRLearning)FRLearning.record(config.module,q.id,ok,!!q.repetition||targeted,q.prompt,{own,right:q.answer,prompt:q.prompt,explanation:q.explanation,topic:config.topic,file:config.file,type:q.type});
-  $('score').textContent=config.exam?'Prüfungsmodus':correct+'/'+answered+' im ersten Durchgang';$('step').textContent='Aufgabe '+(position+1)+' von '+queue.length;
-  $('next').disabled=false;$('next').classList.add('active');$('next').textContent=position===queue.length-1?'Auswertung →':'Weiter →';
+  if(!answers.normalize(own)){$('feedback').textContent='Gib zuerst eine Antwort ein.';return;}
+  locked=true;const q=queue[position],ok=answers.check(own,q.answer,q.accepted||[]);
+  $('options').querySelectorAll('button').forEach(b=>b.disabled=true);$('writeAnswer').disabled=true;$('checkWrite').disabled=true;
+  if(config.exam){examAnswers.push({q,own,ok});if(selectedButton)selectedButton.classList.add('exam-selected');$('feedback').textContent='Antwort gespeichert.';}
+  else{
+   if(!q.repetition){answered++;if(ok)correct++;}last.set(q.id,ok);if(!ok&&q.repetition<2)queue.push({...q,repetition:q.repetition+1});
+   if(q.type==='choice')$('options').querySelectorAll('button').forEach(b=>{if(answers.check(b.textContent,q.answer,q.accepted||[]))b.classList.add('correct');});
+   if(selectedButton&&!ok)selectedButton.classList.add('wrong');if(q.type!=='choice')$('writeAnswer').classList.add(ok?'correct':'wrong');
+   const text=document.createElement('p');text.textContent=ok?'Richtig!':'Noch nicht richtig. Eine passende Lösung lautet: '+q.answer;const explanation=document.createElement('div');explanation.className='solution';explanation.textContent=q.explanation;$('feedback').replaceChildren(text,explanation);
+   $('coachImage').src=ok?'fuchs-richtig.png':'fuchs-falsch.png';$('foxBubble').textContent=ok?'Très bien ! Weiter so.':'Lies die Regel und das Beispiel. Du übst die Aufgabe später noch einmal.';
+   if(window.FRLearning)FRLearning.record(config.module,q.id,ok,!!q.repetition||targeted,q.prompt,{own,right:q.answer,prompt:q.prompt,explanation:q.explanation,topic:config.topic,file:config.file,type:q.type});
+   $('score').textContent=correct+'/'+answered+' im ersten Durchgang';
+  }
+  $('step').textContent='Aufgabe '+(position+1)+' von '+queue.length;$('next').disabled=false;$('next').classList.add('active');$('next').textContent=position===queue.length-1?(config.exam?'Prüfung abgeben':'Auswertung →'):'Weiter →';
  }
  $('writeForm').onsubmit=e=>{e.preventDefault();respond($('writeAnswer').value);};
  $('next').onclick=()=>{
-  if(!locked||finished)return;
-  position++;
-  if(config.exam&&position>=queue.length){finishExam();return;}
-  if(position<queue.length){$('next').textContent='Weiter →';render();return;}
-  finished=true;const pct=Math.round(correct/round.length*100),open=[...last.values()].filter(ok=>!ok).length;
-  $('quizCard').hidden=true;$('result').hidden=false;$('fill').style.width='100%';
-  $('resultScore').textContent=correct+' / '+round.length;
-  $('resultText').textContent='Im ersten Durchgang '+pct+' % richtig. '+(queue.length-round.length)+' Wiederholungen bearbeitet. '+(open?open+' Aufgaben sind noch unsicher. Übe sie nochmals.':'Alle Aufgaben zuletzt richtig beantwortet.');
-  if(window.FRLearning)FRLearning.finish(config.module,pct);
+  if(!locked||finished)return;position++;
+  if(position<queue.length){render();return;}
+  if(config.exam){finishExam();return;}
+  finished=true;const pct=Math.round(correct/round.length*100),open=[...last.values()].filter(ok=>!ok).length;$('quizCard').hidden=true;$('result').hidden=false;$('fill').style.width='100%';$('resultScore').textContent=correct+' / '+round.length;
+  $('resultText').textContent='Im ersten Durchgang '+pct+' % richtig. '+(queue.length-round.length)+' Wiederholungen bearbeitet. '+(open?open+' Aufgaben sind noch unsicher.':'Alle Aufgaben zuletzt richtig beantwortet.');if(window.FRLearning)FRLearning.finish(config.module,pct);
  };
  function finishExam(){
-  if(finished)return;finished=true;clearInterval(timer);$('quizCard').hidden=true;$('result').hidden=false;$('fill').style.width='100%';
-  const good=examAnswers.filter(a=>a.ok).length,pct=Math.round(good/round.length*100);$('resultScore').textContent=good+' / '+round.length;$('resultText').textContent=pct+' % richtig. Nicht beantwortete Aufgaben zählen als falsch.';
+  if(finished)return;finished=true;clearInterval(timer);$('quizCard').hidden=true;$('result').hidden=false;$('fill').style.width='100%';const good=examAnswers.filter(a=>a.ok).length,pct=Math.round(good/round.length*100);$('resultScore').textContent=good+' / '+round.length;$('resultText').textContent=pct+' % richtig. Nicht beantwortete Aufgaben zählen als falsch.';
   const detail=document.createElement('div');detail.id='examReview';
-  round.forEach((q,i)=>{const a=examAnswers.find(a=>a.q.id===q.id);const card=document.createElement('div');card.className='solution';const h=document.createElement('p');h.textContent=(i+1)+'. '+q.prompt;const own=document.createElement('p');own.textContent='Deine Antwort: '+(a?.own||'Nicht beantwortet');const right=document.createElement('p');right.textContent=(a?.ok?'Richtig. ':'Lösung: '+q.answer+'. ')+q.explanation;card.append(h,own,right);detail.append(card);
+  round.forEach((q,i)=>{const a=examAnswers.find(a=>a.q.id===q.id),card=document.createElement('div');card.className='solution';const h=document.createElement('p');h.textContent=(i+1)+'. '+q.prompt;const own=document.createElement('p');own.textContent='Deine Antwort: '+(a?.own||'Nicht beantwortet');const right=document.createElement('p');right.textContent=(a?.ok?'Richtig. ':'Eine passende Lösung: '+q.answer+'\n')+q.explanation;card.append(h,own,right);detail.append(card);
    if(window.FRLearning)FRLearning.record(q.practiceModule,q.practiceId,!!a?.ok,false,q.prompt,{own:a?.own||'',right:q.answer,prompt:q.prompt,explanation:q.explanation,topic:q.topic,file:q.practiceFile,type:q.type,unanswered:!a});
-  });document.getElementById('examReview')?.remove();$('result').append(detail);if(window.FRLearning)FRLearning.finish(config.module,pct);
+  });$('result').append(detail);if(window.FRLearning)FRLearning.finish(config.module,pct);
  }
- $('restart').onclick=()=>{document.getElementById('examReview')?.remove();start();};
+ function setupFreeWriting(){
+  if(config.exam||!config.freeWriting)return;document.getElementById('freeWriting')?.remove();const section=document.createElement('section');section.id='freeWriting';section.className='card free-writing';const title=document.createElement('h2');title.textContent='Jetzt selbst schreiben';const task=document.createElement('p');task.textContent=config.freeWriting.prompt;const input=document.createElement('textarea');input.rows=5;input.maxLength=1000;input.lang='fr';input.id='ownMessage';const label=document.createElement('label');label.htmlFor=input.id;label.textContent='Deine eigene Nachricht';const button=document.createElement('button');button.type='button';button.className='home-btn';button.textContent='Mit Beispiel vergleichen';const model=document.createElement('div');model.className='solution';model.hidden=true;model.textContent='Beispiel:\n'+config.freeWriting.model+'\n\nSelbst prüfen: Passt meine Nachricht zur Situation? Stimmen die Verbformen? Sind meine Sätze vollständig?\nMehrere Formulierungen sind möglich. Dein freier Text wird hier nicht automatisch benotet.';button.onclick=()=>model.hidden=!model.hidden;
+  const key='foxora:message:'+actor+':'+config.module;try{input.value=localStorage.getItem(key)||'';}catch{}input.oninput=()=>{try{localStorage.setItem(key,input.value);}catch{}};section.append(title,task,label,input,button,model);$('quizCard').parentNode.insertBefore(section,$('quizCard').nextSibling);
+ }
+ $('restart').onclick=start;
  function accountChanged(){const next=window.FRLearning?.account||'guest';if(next===actor)return;actor=next;start();}
  window.addEventListener('frlearningchange',accountChanged);
  if(window.FRLearning?.ready)window.FRLearning.ready.then(accountChanged).catch(()=>{actor='guest';start();});else accountChanged();
