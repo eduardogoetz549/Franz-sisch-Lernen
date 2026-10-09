@@ -1,1 +1,64 @@
-'use strict';const CACHE='foxora-en:'+self.registration.scope+':v8-header-spacing';const ROOT=new URL('./',self.registration.scope);self.addEventListener('install',e=>{e.waitUntil((async()=>{const c=await caches.open(CACHE);await Promise.allSettled(['main.html','english-app.css','english-learning-core.js','english-engine.js','english-catalog.js','english-home.js','manifest.webmanifest','foxora-icon-192.png','foxora-icon-512.png','fuchs-idle.png'].map(p=>c.add(new URL(p,ROOT))));await self.skipWaiting();})());});self.addEventListener('activate',e=>{e.waitUntil((async()=>{for(const key of await caches.keys())if(key.startsWith('foxora-en:'+self.registration.scope+':')&&key!==CACHE)await caches.delete(key);await self.clients.claim();})());});self.addEventListener('fetch',e=>{const u=new URL(e.request.url);if(e.request.method!=='GET'||u.origin!==ROOT.origin||!u.pathname.startsWith(ROOT.pathname))return;if(['reset','code','token_hash','access_token'].some(k=>u.searchParams.has(k))){e.respondWith(fetch(e.request,{cache:'no-store'}));return;}const ext=u.pathname.split('.').pop();if(!['html','js','css','png','webmanifest'].includes(ext))return;e.respondWith((async()=>{const c=await caches.open(CACHE);try{const response=await fetch(e.request);if(response.ok)await c.put(e.request,response.clone());return response;}catch(_){return await c.match(e.request)||new Response('Diese Seite ist offline noch nicht verfügbar. Premium benötigt eine Internetverbindung.',{status:503,headers:{'Content-Type':'text/plain;charset=utf-8'}});}})());});
+'use strict';
+// Increase this version when changing the offline behavior.
+const CACHE_PREFIX = 'fr-learning:' + self.registration.scope + ':';
+const CACHE_NAME = CACHE_PREFIX + 'v39-mobile-language-scroll';
+const START_URL = new URL('./main.html', self.registration.scope).href;
+
+self.addEventListener('install', event => {
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE_NAME);
+    // Optional resources must not prevent installation if an icon is missing.
+    await Promise.allSettled(
+      ['./index.html', './sprache-auswaehlen.html', './foxora-start/language-menu.css', './foxora-start/language-menu.js', './foxora-start/password-recovery.js', './foxora-start/fuchs.png', './main.html', './manifest.webmanifest', './foxora-icon-192.png', './foxora-icon-512.png', './learning-core.js']
+        .map(path => cache.add(new URL(path, self.registration.scope).href))
+    );
+    await self.skipWaiting();
+  })());
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil((async () => {
+    const names = await caches.keys();
+    await Promise.all(names.filter(name => name.startsWith(CACHE_PREFIX) && name !== CACHE_NAME)
+      .map(name => caches.delete(name)));
+    await self.clients.claim();
+  })());
+});
+
+self.addEventListener('fetch', event => {
+  const request = event.request;
+  const url = new URL(request.url);
+  if (request.method !== 'GET' || url.origin !== self.location.origin ||
+      !url.href.startsWith(self.registration.scope)) return;
+  if (url.searchParams.has('reset') || url.searchParams.has('code') || url.searchParams.has('token_hash')) { event.respondWith(fetch(request, {cache:'no-store'})); return; }
+  if (/franzoesisch-jetzt-anwenden-[23]\.html$/.test(url.pathname)) {event.respondWith(fetch(request,{cache:'no-store'}));return;}
+  if (/franzoesisch-(?:.*-[23]-oberstufe(?:-mit-gemischten-schreibuebungen)?|(?:alltag-)?pruefung-[123]-oberstufe|15-minuten-lerneinheit(?:-aktiv)?)\.html$/.test(url.pathname)) {
+    event.respondWith(fetch(request, {cache:'no-store'}).catch(()=>new Response('Für diese Übung brauchst du eine Internetverbindung.',{status:503})));return;
+  }
+  // Cache public pages/assets only; never cache API responses or account data.
+  const cacheable = request.mode === 'navigate' ||
+    ['script', 'style', 'image', 'font', 'manifest'].includes(request.destination);
+  if (!cacheable) return;
+  event.respondWith((async () => {
+    const cache = await caches.open(CACHE_NAME);
+    try {
+      // Prefer the current online version so published changes remain visible.
+      const response = await fetch(request);
+      if (response.ok && response.type === 'basic' && !response.redirected) {
+        try { await cache.put(request, response.clone()); } catch (_) {}
+      }
+      return response;
+    } catch (_) {
+      const saved = await cache.match(request);
+      if (saved) return saved;
+      if (request.mode === 'navigate') {
+        const home = await cache.match(START_URL);
+        if (home) return home;
+        return new Response('Du bist offline. Öffne die Lernplattform einmal mit Internetverbindung.', {
+          status: 503, headers: {'Content-Type': 'text/plain; charset=utf-8'}
+        });
+      }
+      return Response.error();
+    }
+  })());
+});
