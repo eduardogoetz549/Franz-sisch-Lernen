@@ -14,7 +14,7 @@
   let status = 'Lernspeicher wird geladen …';
   const dayKey = (d = new Date()) => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
   const read = key => { try { return JSON.parse(localStorage.getItem(key)); } catch (_) { return null; } };
-  const events = () => { const value=read(PREFIX+actor); return Array.isArray(value)?value:[]; };
+  const events = () => { const value=read(PREFIX+actor); return Array.isArray(value)?value.filter(e=>!['en_','it_','es_','de_en_','pt_','el_','nl_','sv_','tr_','ko_','ja_'].some(prefix=>String(e?.module||'').startsWith(prefix))):[]; };
   function write(value) {
     try { localStorage.setItem(PREFIX+actor,JSON.stringify(value)); }
     catch (_) { status='Der Browser konnte den Fortschritt nicht speichern.'; }
@@ -69,7 +69,7 @@
       const remote=[];
       for(let offset=0;;offset+=1000) {
         const {data,error}=await client.from(TABLE).select('payload').eq('user_id',owner).order('event_id').range(offset,offset+999);
-        if(error)throw error;remote.push(...data.map(row=>row.payload));if(data.length<1000)break;
+        if(error)throw error;remote.push(...data.map(row=>row.payload).filter(e=>!['en_','it_','es_','de_en_','pt_','el_','nl_','sv_','tr_','ko_','ja_'].some(prefix=>String(e?.module||'').startsWith(prefix))));if(data.length<1000)break;
       }
       if(actor!==owner)return;
       const merged=new Map([...remote,...events()].map(e=>[e.id,e]));write([...merged.values()]);status='Fortschritt mit deinem Konto synchronisiert.';
@@ -105,11 +105,13 @@
   window.FRLearning=api;
   (async()=>{
     try {
-      const sdk=await loadSDK();client=sdk.createClient(URL,KEY);
+      const sdk=await loadSDK();client=sdk.createClient(URL,KEY,{auth:{detectSessionInUrl:!window.FRRecovery?.arrival}});
+      client.auth.onAuthStateChange((event,session)=>{window.FRRecovery?.mark(event,session);});
+      if(window.FRRecovery?.arrival)await window.FRRecovery.initialize(client);
       const {data,error}=await client.auth.getSession();if(error)throw error;
       actor=data.session?.user?.id||'guest';initialized=true;
       status=actor==='guest'?'Fortschritt wird auf diesem Gerät gespeichert.':'Fortschritt wird synchronisiert …';
-      await sync();
+      if(window.FRRecovery?.arrival)void sync();else await sync();
       client.auth.onAuthStateChange((_event,session)=>{
         const next=session?.user?.id||'guest';if(next===actor)return;
         actor=next;status=actor==='guest'?'Gastmodus: lokal gespeichert.':'Fortschritt wird synchronisiert …';

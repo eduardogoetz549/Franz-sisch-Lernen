@@ -2,7 +2,7 @@
   "id": "./",
   "name": "Foxora",
   "short_name": "Foxora",
-  "description": "Französisch verstehen und anwenden – Übungen für Niveau 1, 2 und 3.",
+  "description": "Wähle deine Sprache und lerne mit Foxora – Grammatik, Alltag und Hördialoge.",
   "lang": "de-CH",
   "start_url": "./main.html",
   "scope": "./",

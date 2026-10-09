@@ -1,7 +1,7 @@
 'use strict';
 // Increase this version when changing the offline behavior.
 const CACHE_PREFIX = 'fr-learning:' + self.registration.scope + ':';
-const CACHE_NAME = CACHE_PREFIX + 'v17-apply-button-hover';
+const CACHE_NAME = CACHE_PREFIX + 'v35-header-spacing';
 const START_URL = new URL('./main.html', self.registration.scope).href;
 
 self.addEventListener('install', event => {
@@ -9,7 +9,7 @@ self.addEventListener('install', event => {
     const cache = await caches.open(CACHE_NAME);
     // Optional resources must not prevent installation if an icon is missing.
     await Promise.allSettled(
-      ['./main.html', './manifest.webmanifest', './foxora-icon-192.png', './foxora-icon-512.png', './learning-core.js']
+      ['./index.html', './sprache-auswaehlen.html', './foxora-start/language-menu.css', './foxora-start/language-menu.js', './foxora-start/password-recovery.js', './foxora-start/fuchs.png', './main.html', './manifest.webmanifest', './foxora-icon-192.png', './foxora-icon-512.png', './learning-core.js']
         .map(path => cache.add(new URL(path, self.registration.scope).href))
     );
     await self.skipWaiting();
