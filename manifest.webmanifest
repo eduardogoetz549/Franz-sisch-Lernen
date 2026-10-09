@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "Foxora",
-  "short_name": "Foxora",
-  "description": "Wähle deine Sprache und lerne mit Foxora – Grammatik, Alltag und Hördialoge.",
+  "name": "Foxora · Englisch",
+  "short_name": "Foxora EN",
+  "description": "Englisch verstehen und anwenden – drei Niveaus mit deutschen Erklärungen.",
   "lang": "de-CH",
   "start_url": "./main.html",
   "scope": "./",
