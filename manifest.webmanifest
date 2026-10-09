@@ -1,9 +1,9 @@
 {
   "id": "./",
-  "name": "Foxora · Englisch",
-  "short_name": "Foxora EN",
-  "description": "Englisch verstehen und anwenden – drei Niveaus mit deutschen Erklärungen.",
-  "lang": "de-CH",
+  "name": "Foxora · German for English speakers",
+  "short_name": "Foxora DE",
+  "description": "Learn German with English explanations and three learning levels.",
+  "lang": "en",
   "start_url": "./main.html",
   "scope": "./",
   "display": "standalone",
