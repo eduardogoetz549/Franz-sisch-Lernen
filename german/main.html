@@ -1,1 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="foxora-start/password-recovery.js?v=1"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Foxora · Learn German</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&amp;family=Jost:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+  /* ── RESET & BASE ─────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy:     #0D1433;
+    --midnight: #121E47;
+    --steel:    #2E406B;
+    --gold:     #B79440;
+    --gold-lt:  #D4AF60;
+    --ice:      #C0D4F2;
+    --offwhite: #F5F7FC;
+    --white:    #FFFFFF;
+    --gray:     #8A95A8;
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body:    'Jost', sans-serif;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body { background: var(--navy); color: var(--offwhite); font-family: var(--font-body); font-weight: 300; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
 
+  /* ── SCROLLBAR ────────────────────────────── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+  /* ── NAV ──────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(13,20,51,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(183,148,64,0.2);
+    transition: padding 0.3s var(--ease);
+  }
+  nav.scrolled { padding: 0.8rem 4rem; }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .nav-logo .monogram {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 1rem; color: var(--navy);
+    flex-shrink: 0;
+  }
+  .nav-logo .wordmark {
+    font-family: var(--font-body); font-weight: 600;
+    letter-spacing: 0.18em; font-size: 0.9rem;
+    color: var(--white);
+  }
+  .nav-links {
+    display: flex; align-items: center; gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ice); font-weight: 400;
+    position: relative; padding-bottom: 3px;
+    transition: color 0.2s;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 1px; background: var(--gold);
+    transition: width 0.3s var(--ease);
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    background: transparent; border: 1px solid var(--gold);
+    color: var(--gold) !important; padding: 0.5rem 1.4rem;
+    border-radius: 2px; transition: all 0.25s !important;
+  }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--navy) !important; }
+  .nav-cta::after { display: none !important; }
+
+  /* ── HERO ─────────────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    position: relative; overflow: hidden;
+    padding: 8rem 4rem 6rem;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 30%, #1a2654 0%, var(--navy) 60%);
+  }
+  .hero-orb {
+    position: absolute; border-radius: 50%;
+    animation: float 8s ease-in-out infinite;
+  }
+  .orb-1 {
+    width: 600px; height: 600px;
+    top: -200px; right: -150px;
+    background: radial-gradient(circle, rgba(46,64,107,0.8) 0%, transparent 70%);
+    animation-delay: 0s;
+  }
+  .orb-2 {
+    width: 300px; height: 300px;
+    bottom: -100px; left: 10%;
+    background: radial-gradient(circle, rgba(183,148,64,0.12) 0%, transparent 70%);
+    animation-delay: -3s;
+  }
+  .orb-3 {
+    width: 180px; height: 180px;
+    top: 30%; right: 18%;
+    border: 1px solid rgba(183,148,64,0.3);
+    background: transparent;
+    animation-delay: -5s;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.02); }
+  }
+
+  .hero-content {
+    position: relative; z-index: 1;
+    max-width: 900px; text-align: center;
+  }
+  .hero-eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s var(--ease) both;
+  }
+  .hero-title {
+    font-family: var(--font-display); font-weight: 300;
+    font-size: clamp(3rem, 7vw, 6rem); line-height: 1.05;
+    color: var(--white); margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s 0.15s var(--ease) both;
+  }
+  .hero-title em { color: var(--gold); font-style: italic; }
+  .hero-sub {
+    font-size: 1.05rem; color: var(--ice); font-weight: 300;
+    line-height: 1.7; max-width: 580px; margin: 0 auto 2.8rem;
+    animation: fadeUp 0.8s 0.3s var(--ease) both;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.45s var(--ease) both;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--navy);
+    padding: 0.85rem 2.2rem; border-radius: 2px;
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    transition: all 0.25s var(--ease);
+  }
+  .btn-primary:hover { background: var(--gold-lt); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(183,148,64,0.3); }
+  .btn-ghost {
+    background: transparent; color: var(--white);
+    padding: 0.85rem 2.2rem; border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.25);
+    font-size: 0.8rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase;
+    transition: all 0.25s var(--ease);
+  }
+  .btn-ghost:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    font-size: 0.65rem; letter-spacing: 0.15em; color: var(--gray); text-transform: uppercase;
+    animation: fadeIn 1s 1s var(--ease) both;
+  }
+  .scroll-line {
+    width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse { 0%,100%{opacity:0.4; transform:scaleY(1)} 50%{opacity:1; transform:scaleY(1.2)} }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+  /* ── SECTION BASE ─────────────────────────── */
+  section { padding: 7rem 4rem; }
+  .section-label {
+    font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: var(--font-display); font-weight: 300;
+    font-size: clamp(2rem, 4vw, 3.2rem); color: var(--white);
+    line-height: 1.15; margin-bottom: 1.2rem;
+  }
+  .section-title em { color: var(--gold); font-style: italic; }
+  .section-body {
+    font-size: 1rem; color: var(--ice); line-height: 1.8; max-width: 600px;
+  }
+  .gold-bar { width: 48px; height: 2px; background: var(--gold); margin: 1.2rem 0 2rem; }
+
+  /* ── Ler ────────────────────────────────── */
+  #Ler { background: var(--offwhite); color: var(--navy); }
+  #Ler .section-title { color: var(--navy); }
+  #Ler .section-body { color: var(--steel); }
+  .Ler-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+    align-items: center; max-width: 1200px; margin: 0 auto;
+  }
+  .Ler-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem;
+  }
+  .stat { border-left: 2px solid var(--gold); padding-left: 1.2rem; }
+  .stat-number {
+    font-family: var(--font-display); font-size: 2.8rem;
+    font-weight: 300; color: var(--navy); line-height: 1;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--steel); margin-top: 0.3rem; }
+  .Ler-visual {
+    background: var(--navy); border-radius: 4px;
+    padding: 3rem; position: relative; overflow: hidden;
+    min-height: 380px; display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .Ler-visual::before {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 280px; height: 280px; border-radius: 50%;
+    border: 1px solid rgba(183,148,64,0.25);
+  }
+  .Ler-visual::after {
+    content: ''; position: absolute; top: -20px; right: -20px;
+    width: 180px; height: 180px; border-radius: 50%;
+    background: rgba(46,64,107,0.6);
+  }
+  .Ler-quote {
+    font-family: var(--font-display); font-size: 3.4rem;
+    color: var(--white); line-height: 1.5; font-style: italic;
+    position: relative; z-index: 1;
+  }
+  .Ler-quote span { color: var(--gold); 
+  }
+  .external {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+ }
+.external img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 4px;
+  background: var(--white);
+  padding: 0.4rem;
+  transition: transform 0.2s var(--ease);
+ }
+.external img:hover {
+  transform: translateY(-3px);
+ }
+
+  /* ── Spi ─────────────────────────────── */
+  #Spi { background: var(--midnight); }
+  .Spi-header { max-width: 1200px; margin: 0 auto 4rem; }
+  .Spi-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px; max-width: 1200px; margin: 0 auto;
+    background: rgba(183,148,64,0.1);
+    border: 1px solid rgba(183,148,64,0.1);
+  }
+  .service-card {
+    background: var(--navy); padding: 2.8rem 2.2rem;
+    position: relative; overflow: hidden;
+    transition: background 0.3s var(--ease);
+    display: block;
+    cursor: pointer;
+  }
+  .service-card:hover { background: var(--midnight); }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 0; background: var(--gold);
+    transition: height 0.4s var(--ease);
+  }
+  .service-card:hover::before { height: 100%; }
+  .service-num {
+    display: none;
+  }
+  .service-title {
+    font-family: var(--font-display);
+    font-size: 1.65rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 0.9rem;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+  }
+  .service-desc { font-size: 0.9rem; color: var(--gray); line-height: 1.7; }
+
+  /* ── Pru ──────────────────────────────── */
+  #Pru { background: var(--offwhite); }
+  #Pru .section-title { color: var(--navy); }
+  .Pru-container { max-width: 1200px; margin: 0 auto; }
+  .Pru-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; margin-top: 4rem; position: relative;
+  }
+  .Pru-steps::before {
+    content: ''; position: absolute; top: 28px; left: 10%;
+    width: 80%; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .Pru-step { padding: 0 1.5rem; text-align: center; }
+  .step-circle {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--navy); border: 2px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-family: var(--font-body); font-weight: 600;
+    font-size: 0.85rem; color: var(--gold); letter-spacing: 0.05em;
+  }
+  .step-title { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 0.6rem; }
+  .step-desc { font-size: 0.83rem; color: var(--steel); line-height: 1.6; }
+
+  /* ── TESTIMONIAL ──────────────────────────── */
+  #testimonial {
+    background: var(--navy);
+    text-align: center; padding: 7rem 4rem;
+  }
+  .testimonial-content { max-width: 780px; margin: 0 auto; }
+  .quote-mark {
+    font-family: var(--font-display); font-size: 8rem; line-height: 0.5;
+    color: rgba(183,148,64,0.2); margin-bottom: 2rem; display: block;
+  }
+  .testimonial-text {
+    font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 300; font-style: italic; color: var(--white);
+    line-height: 1.5; margin-bottom: 2rem;
+  }
+  .testimonial-author { font-size: 0.8rem; color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase; }
+
+  /* ── Hil ──────────────────────────────── */
+  #Hil { background: var(--midnight); }
+  .Hil-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 6rem; max-width: 1200px; margin: 0 auto;
+    align-items: start;
+  }
+  .Hil-info { }
+  .Hil-item { margin-bottom: 1.8rem; }
+  .Hil-item-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+  .Hil-item-value { font-size: 1rem; color: var(--ice); }
+  .Hil-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); }
+  .form-input, .form-textarea {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 2px; padding: 0.9rem 1rem;
+    color: var(--white); font-family: var(--font-body); font-size: 0.9rem;
+    transition: border-color 0.2s;
+    outline: none; resize: none;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--gold); }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.2); }
+  .form-textarea { min-height: 130px; }
+  .btn-submit {
+    background: var(--gold); color: var(--navy); border: none;
+    padding: 0.9rem 2.2rem; font-family: var(--font-body);
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer; border-radius: 2px;
+    transition: all 0.25s var(--ease); align-self: flex-start;
+  }
+  .btn-submit:hover { background: var(--gold-lt); transform: translateY(-2px); }
+
+  /* ── FOOTER ───────────────────────────────── */
+  footer {
+    background: var(--navy);
+    border-top: 1px solid rgba(183,148,64,0.2);
+    padding: 2.5rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-logo { display: flex; align-items: center; gap: 0.6rem; }
+  .footer-logo .monogram {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--gold); display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 600; font-size: 0.75rem; color: var(--navy);
+  }
+  .footer-logo .wordmark { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em; color: var(--white); }
+  .footer-copy { font-size: 0.72rem; color: var(--gray); }
+  .footer-links { display: flex; gap: 1.8rem; }
+  .footer-links a { font-size: 0.72rem; color: var(--gray); transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ── SCROLL REVEAL ────────────────────────── */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── RESPONSIVE ───────────────────────────── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 2rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 2rem; }
+    #hero { padding: 7rem 2rem 5rem; }
+    .Ler-grid, .Hil-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .Spi-grid { grid-template-columns: 1fr; }
+    .Pru-steps { grid-template-columns: 1fr 1fr; }
+    .Pru-steps::before { display: none; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+  }
+.nav-logo .brand-image{width:48px;height:48px;object-fit:contain;display:block;background:#F7F0E4;border-radius:2px;flex-shrink:0}@media(max-width:900px){.nav-logo .brand-image{width:42px;height:42px}}
+
+.learning-dashboard{max-width:1200px;margin:0 auto;padding:0 4rem 4rem}.dash-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(183,148,64,.2);border:1px solid rgba(183,148,64,.2)}
+.dash-card{background:#121E47;padding:1.5rem}.dash-num{font-family:var(--font-display);font-size:2.2rem;color:var(--gold-lt)}.dash-label{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gray)}
+.goal-track{height:7px;background:#26345d;border-radius:8px;overflow:hidden;margin-top:.8rem}.goal-fill{height:100%;background:var(--gold);width:0;transition:.4s}
+.daily-suggestion-wrap{max-width:1200px;margin:0 auto 3rem;padding:0 4rem}.today-box{padding:2rem;border:1px solid rgba(183,148,64,.35);background:#121E47;display:flex;align-items:center;justify-content:space-between;gap:2rem;text-align:left}.today-box>div{flex:1;min-width:0}.today-box>.btn-smart{flex-shrink:0;white-space:nowrap;padding:1.1rem 1.6rem}
+.today-box h3{font-family:var(--font-display);font-size:2rem;font-weight:400}.today-box p{color:var(--ice);margin:.4rem 0 0}.btn-smart{display:inline-block;background:var(--gold);color:var(--navy);padding:.85rem 1.5rem;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;transition:.25s}
+.btn-smart:hover{background:var(--gold-lt);transform:translateY(-2px);box-shadow:0 8px 24px rgba(183,148,64,.3)}
+.analytics{max-width:1200px;margin:0 auto;padding:0 4rem 4rem}.weak-list{display:grid;gap:10px;margin-top:1rem}.weak-row{display:grid;grid-template-columns:1fr auto;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08);color:var(--ice)}.weak-row b{color:var(--gold-lt)}
+@media(max-width:800px){.learning-dashboard,.analytics,.daily-suggestion-wrap{padding-left:1.25rem;padding-right:1.25rem}.dash-grid{grid-template-columns:1fr 1fr}}
+
+
+@media(max-width:620px){.today-box{flex-direction:column;align-items:flex-start;padding:1.5rem;gap:1.25rem}.today-box h3{font-size:1.65rem}.today-box>.btn-smart{white-space:normal;text-align:center}}
+
+/* Lernwerkstatt */
+.learning-lab{background:#F7F1E6;color:#0D1433;padding:6rem 4rem}
+.lab-wrap{max-width:1200px;margin:auto}.lab-head{max-width:760px;margin-bottom:2.5rem}
+.lab-kicker{color:#9A731F;text-transform:uppercase;letter-spacing:.16em;font-size:.75rem;font-weight:600}
+.lab-head h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(2.6rem,6vw,4.8rem);font-weight:400;margin:.5rem 0}
+.lab-head p{line-height:1.8;color:#4E5871}.lab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.lab-card{background:#fff;border:1px solid #E8DCC0;padding:1.6rem;min-height:210px;transition:.25s cubic-bezier(.4,0,.2,1)}
+.lab-card:hover{transform:translateY(-4px);border-color:#B79440;box-shadow:0 12px 30px rgba(13,20,51,.10)}
+.lab-icon{font-size:1.7rem}.lab-card h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.7rem;margin:.65rem 0}
+.lab-card p,.lab-card li{color:#566078;line-height:1.65;font-size:.93rem}.lab-card ul{padding-left:1.1rem;margin:.6rem 0}
+.lab-btn{border:0;background:#B79440;color:#0D1433;padding:.75rem 1rem;font:600 .75rem Jost,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.25s}
+.lab-btn:hover{background:#D4AF60;transform:translateY(-2px);box-shadow:0 8px 24px rgba(183,148,64,.3)}
+.lab-panel{display:none;margin-top:1rem;padding:1rem;background:#F9F5EC;border-left:3px solid #B79440;line-height:1.65}
+.lab-panel.open{display:block}.lab-input{width:100%;margin:.5rem 0;padding:.75rem;border:1px solid #D7CCB4;background:white;font:inherit}
+.study-plan{margin-top:2rem;background:#0D1433;color:#fff;padding:2rem}.study-plan h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;font-weight:400}
+.plan-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#4A4560;margin-top:1.2rem}.plan-step{background:#121E47;padding:1.2rem}.plan-step b{color:#D4AF60}.saved-note{font-size:.82rem;color:#7D6A3A;margin-top:.5rem}
+@media(max-width:850px){.learning-lab{padding:4rem 1.25rem}.lab-grid{grid-template-columns:1fr}.plan-steps{grid-template-columns:1fr}}
+
+
+.v7-competence{background:#fff;color:#0D1433;padding:6rem 4rem}.v7-comp-wrap{max-width:1200px;margin:auto}.v7-comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}.v7-comp-card{border:1px solid #E8DCC0;padding:1.5rem;transition:.25s}.v7-comp-card:hover{transform:translateY(-4px);border-color:#B79440;box-shadow:0 12px 30px rgba(13,20,51,.08)}.v7-comp-card h3{font-family:var(--font-display);font-size:1.55rem;margin:.5rem 0}.v7-comp-card p{color:#606a82;line-height:1.65}.v7-comp-icon{font-size:1.6rem}@media(max-width:850px){.v7-competence{padding:4rem 1.25rem}.v7-comp-grid{grid-template-columns:1fr}}
+
+
+/* ── LERN-MASKOTTCHEN ───────────────────── */
+.fox-guide{position:fixed;right:22px;bottom:22px;z-index:120;display:flex;align-items:flex-end;gap:10px;filter:drop-shadow(0 12px 28px rgba(0,0,0,.28))}
+.fox-guide img{width:150px;height:auto;object-fit:contain;object-position:center;border:0;border-radius:0;background:transparent;cursor:pointer;transition:.25s var(--ease)}
+.fox-guide img:hover{transform:translateY(-4px) scale(1.05);filter:brightness(1.06) drop-shadow(0 6px 12px rgba(183,148,64,.28))}
+.fox-bubble{max-width:220px;background:#fff;color:var(--navy);padding:.85rem 1rem;border-radius:16px 16px 4px 16px;font-size:.82rem;line-height:1.45;box-shadow:0 10px 30px rgba(0,0,0,.18);transition:.25s var(--ease)}
+.fox-bubble b{color:#8b6518}.fox-bubble.is-hidden{opacity:0;transform:translateY(8px);pointer-events:none}
+@media(max-width:700px){.fox-guide{right:8px;bottom:8px}.fox-guide img{width:100px;height:auto}.fox-bubble{max-width:180px;font-size:.74rem;padding:.7rem .8rem}}
+
+</style>
+<link rel="manifest" href="manifest.webmanifest">
+<script>
+window.FRInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', event => {
+ event.preventDefault(); window.FRInstallPrompt = event;
+ const button = document.getElementById('installAppButton'); if (button) button.hidden = false;
+});
+window.addEventListener('appinstalled', () => {
+ window.FRInstallPrompt = null;
+ const button = document.getElementById('installAppButton'); if (button) button.hidden = true;
+ const hint = document.getElementById('installAppHint'); if (hint) hint.textContent = 'The app has been installed.';
+});
+</script>
+<link rel="icon" type="image/png" href="favicon.png?v=foxora1">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=foxora1">
+<meta name="theme-color" content="#0D1433">
+
+<html><head><script src="german-catalog.js"></script></head></html><script src="german-learning-core.js?v=exact-main2"></script>
+
+<style id="fox-hover-swap-style">
+.fox-guide img{transition:transform .25s cubic-bezier(.4,0,.2,1),filter .2s ease,opacity .15s ease!important}
+@media(prefers-reduced-motion:reduce){.fox-guide img{transition:none!important}.fox-guide img:hover{transform:none}}
+</style>
+
+<style id="topic-card-layout">
+#Spi .Spi-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;max-width:1200px;margin:0 auto;background:transparent;border:0}
+.topic-card{background:#0D1433;border:none;padding:1.65rem;min-height:220px;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:.25s var(--ease)}
+.topic-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:#B79440;transition:height .4s var(--ease)}
+.topic-card:hover::before{height:100%}
+.topic-card:hover{transform:translateY(-4px);background:#111b40;box-shadow:0 14px 34px rgba(0,0,0,.18)}
+.topic-top{display:flex;align-items:flex-start;gap:.85rem;margin-bottom:.7rem}.topic-number{color:#D4AF60;font-size:.72rem;letter-spacing:.14em;font-weight:600;border:1px solid rgba(183,148,64,.35);padding:.28rem .45rem;flex-shrink:0}
+.topic-card h3{font-family:var(--font-display);font-size:1.55rem;font-weight:500;color:#fff;line-height:1.15}.topic-card p{color:#9eabc3;font-size:.86rem;line-height:1.55;margin-bottom:1.25rem}
+.level-picker{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin-top:auto}.level-btn{display:flex;align-items:center;justify-content:center;min-height:42px;padding:.65rem .35rem;border:1px solid rgba(192,212,242,.22);color:#C0D4F2;background:rgba(255,255,255,.025);font-size:.72rem;font-weight:500;letter-spacing:.05em;transition:.2s var(--ease)}
+.level-btn:hover{background:#B79440;color:#0D1433;border-color:#B79440;transform:translateY(-2px)}
+@media(max-width:950px){#Spi .Spi-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){#Spi .Spi-grid{grid-template-columns:1fr}.topic-card{min-height:auto;padding:1.35rem}}
+</style>
+
+<style>
+.account-link{white-space:nowrap;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:400;margin-left:1rem;text-decoration:none;display:inline-block}
+#Konto{scroll-margin-top:110px;padding:3rem 1.25rem;background:#121E47}
+.account-card{max-width:650px;margin:auto;border:1px solid rgba(201,168,76,.35);padding:clamp(1.2rem,4vw,2.5rem)}
+.account-card h2{font-family:var(--font-display);font-size:2rem;margin-bottom:1rem}
+.account-card p{line-height:1.6;margin-bottom:1rem}
+.account-card label{display:block;margin:1rem 0 .4rem}
+.account-card input{width:100%;box-sizing:border-box;padding:.85rem;background:#fff;color:#0D1433;border:1px solid #b5bdd2;font:inherit}
+.account-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.2rem}
+.account-actions button{cursor:pointer;border:1px solid var(--gold);font:inherit;padding:.75rem 1.1rem;background:var(--gold);color:#0D1433}
+.account-actions button.secondary{background:transparent;color:var(--gold)}
+.account-actions button{transition:background-color .2s ease,color .2s ease,transform .2s ease,box-shadow .2s ease}
+.account-actions button:not(:disabled):hover{background:#e0c16e;color:#0D1433;transform:translateY(-3px);box-shadow:0 6px 18px rgba(201,168,76,.25)}
+.account-actions button.secondary:not(:disabled):hover{background:var(--gold);color:#0D1433}
+.account-actions button:focus-visible{outline:2px solid #f4db99;outline-offset:4px}
+.account-actions button:not(:disabled):active{transform:translateY(0);box-shadow:none}
+.account-actions button:disabled{opacity:.55;cursor:wait}
+@media(prefers-reduced-motion:reduce){.account-actions button{transition:none}.account-actions button:not(:disabled):hover{transform:none}}
+.account-card [hidden]{display:none!important}
+#accountMessage{margin-top:1rem;color:#f4db99}
+@media(max-width:600px){.account-link{font-size:.7rem}.nav-logo .wordmark{font-size:.8rem}}
+</style>
+<style>
+.nav-account-actions{display:flex;align-items:center;gap:.6rem;flex-shrink:0}
+.nav-account-actions .account-link{margin-left:0}
+@media(max-width:600px){#navbar{padding-left:1rem;padding-right:1rem}.nav-account-actions{gap:.4rem}.nav-account-actions .nav-cta{padding:.6rem .65rem!important}}
+</style>
+
+<style id="error-analysis-style">
+.fa-wrap{max-width:1200px;margin:2.5rem auto 0;border:1px solid rgba(183,148,64,.35);background:var(--midnight);padding:2rem}.fa-wrap h3{font-family:var(--font-display);font-size:2.3rem;font-weight:400}.fa-wrap h4{font-family:var(--font-display);font-size:1.65rem;margin:1rem 0 .7rem}.fa-wrap h5{font-size:1rem;color:var(--gold-lt);margin:1rem 0 .5rem}.fa-wrap p{line-height:1.7;margin:.5rem 0;color:var(--ice)}.fa-muted{font-size:.9rem;color:var(--gray)!important}.fa-topic{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,.1)}.fa-topic span{color:var(--gold-lt);white-space:nowrap}.fa-card{margin:1rem 0;padding:1.5rem;background:var(--navy);border-left:3px solid var(--gold)}.fa-wrap details{margin:1rem 0;padding:1rem;border:1px solid rgba(255,255,255,.12)}.fa-wrap summary{cursor:pointer;color:var(--offwhite);line-height:1.6}.fa-example{padding-top:.6rem}.fa-plan{padding-left:1.5rem;color:var(--ice);line-height:1.8}.fa-plan li{margin:.7rem 0}.fa-notice{padding:1rem;border:1px solid rgba(183,148,64,.4)}.fa-wrap button{border:0;cursor:pointer;font-family:var(--font-body);margin:1rem .7rem 0 0}.fa-wrap button:disabled{opacity:.6;cursor:wait}.fa-practice{margin:.7rem .5rem 0 0}.fa-wrap a:focus-visible,.fa-wrap button:focus-visible,.fa-wrap summary:focus-visible{outline:2px solid var(--gold-lt);outline-offset:4px}@media(max-width:600px){.fa-wrap{padding:1.2rem}.fa-topic{align-items:flex-start;flex-direction:column}.fa-card{padding:1rem}}
+</style>
+<style>
+.fa-summary{margin:1.5rem 0;padding:1.5rem;border:1px solid var(--gold);background:var(--navy)}.fa-plan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.fa-step{display:flex;flex-direction:column;align-items:flex-start;background:var(--navy);padding:1.4rem;border:1px solid rgba(183,148,64,.3)}.fa-step-number{display:grid;place-items:center;width:2.2rem;height:2.2rem;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:600}.fa-step h5{font-size:1.1rem!important}.fa-step .fa-practice{margin-top:auto;font-size:.72rem;letter-spacing:.04em;text-transform:none;line-height:1.5}.fa-step p{margin-bottom:1rem}.fa-example+.fa-example{border-top:1px solid rgba(255,255,255,.15);margin-top:1rem;padding-top:1rem}.fa-wrong{color:#ffb6b6}.fa-right{color:#a7e9be}.fa-more{margin-top:1.5rem}@media(max-width:950px){.fa-plan-grid{grid-template-columns:1fr}.fa-topic .fa-practice{white-space:normal}}
+</style><style>.exercise-categories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;max-width:1200px;margin:0 auto 1.5rem}.category-button{font:inherit;cursor:pointer;margin-top:auto;width:100%}.category-button[aria-expanded="true"]{background:#B79440;color:#0D1433}.exercise-panel{max-width:1200px;margin:0 auto}.exercise-panel[hidden]{display:none!important}.exercise-panel-title{font-family:var(--font-display);color:#D4AF60;font-size:2rem;margin:2rem 0 1rem}.exercise-panel .reveal{opacity:1!important;transform:none!important}@media(max-width:620px){.exercise-categories{grid-template-columns:1fr}}</style><style>.learning-goals{max-width:760px;margin:1.5rem auto 0;padding:1.1rem 1.3rem;text-align:left;border:1px solid #B7944066;background:#ffffff06;border-radius:4px;font-family:Jost,Arial,sans-serif}.learning-goals h2{font:600 1rem Jost,Arial,sans-serif;color:#D4AF60;margin:0 0 .65rem}.learning-goals p,.learning-goals li{color:#C0D4F2;font-size:.95rem;line-height:1.6}.learning-goals ul{margin:.5rem 0 0;padding-left:1.2rem}.learning-goals p{margin:0}.level-learning-goals{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0 2rem}.level-learning-goals .learning-goals{margin:0;max-width:none}.level-learning-goals .learning-goals h3{font:600 1.1rem Jost,Arial,sans-serif;color:#D4AF60;margin:0 0 .7rem}.goals-note{font-size:.85rem;color:#C0D4F2;margin:0 0 1.5rem}@media(max-width:760px){.level-learning-goals{grid-template-columns:1fr}.learning-goals{padding:1rem}}</style><style id="foxora-language-header">#navbar a[aria-label="Sprache auswählen"]{text-decoration:none}#navbar a[aria-label="Sprache auswählen"]:hover span{color:#D4AF60}@media(max-width:600px){#navbar{flex-wrap:wrap}#navbar .brand{font-size:.8rem;letter-spacing:.03em}#navbar>.actions{margin:.25rem 0}}</style><style id="foxora-navigation-design">/* Foxora: shared header and language navigation */
+#navbar{gap:20px;padding-left:clamp(16px,3vw,48px);padding-right:clamp(16px,3vw,48px);flex-wrap:wrap}
+#navbar .foxora-header-brand{display:flex;align-items:center;gap:24px;flex-shrink:0}
+#navbar .foxora-brand-link{display:flex;align-items:center;gap:9px;color:#fff;text-decoration:none;white-space:nowrap;font:600 22px/1.2 'Cormorant Garamond',Georgia,serif;letter-spacing:.025em;transition:color .2s}
+.foxora-brand-link img{object-fit:contain;flex-shrink:0}
+#navbar .foxora-brand-link:hover{color:#D4AF60}
+.foxora-language-switcher{position:relative;margin:0;flex-shrink:0}
+.foxora-language-switcher>summary{display:flex;align-items:center;gap:7px;list-style:none;cursor:pointer;color:#C0D4F2;user-select:none;padding:5px 0;font:400 11px/1.5 Jost,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.foxora-language-switcher>summary::-webkit-details-marker{display:none}
+.foxora-language-switcher>summary::marker{content:''}
+.foxora-language-label{position:relative;padding-bottom:3px}
+.foxora-language-label::after,.foxora-language-menu a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:#B79440;transition:width .3s}
+.foxora-language-switcher>summary:hover,.foxora-language-switcher[open]>summary{color:#fff}
+.foxora-language-switcher>summary:hover .foxora-language-label::after,.foxora-language-switcher[open] .foxora-language-label::after{width:100%}
+.foxora-chevron{font:15px Arial,sans-serif;color:#D4AF60;transition:transform .2s}
+.foxora-language-switcher[open] .foxora-chevron{transform:rotate(180deg)}
+.foxora-language-menu{position:absolute;top:calc(100% + 16px);left:0;width:min(390px,calc(100vw - 32px));max-height:min(540px,70vh);overflow:auto;overscroll-behavior:contain;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 14px;background:#121E47;border:1px solid #B7944066;border-radius:8px;padding:14px;box-shadow:0 18px 45px #0006;z-index:300}
+.foxora-language-switcher:not([open])>.foxora-language-menu{display:none}
+#navbar .foxora-language-menu a{position:relative;display:flex;flex-direction:column;gap:2px;color:#C0D4F2;text-decoration:none!important;padding:10px 8px;border:0;border-radius:3px;font:500 13px/1.5 Jost,Arial,sans-serif;letter-spacing:.01em;text-transform:none;background:transparent;transition:color .2s,background .2s}
+.foxora-language-menu a span{font-size:11px;color:#96a8c8;font-weight:400}
+#navbar .foxora-language-menu a[aria-current=page]{color:#D4AF60;background:#b7944014}
+#navbar .foxora-language-menu a:hover,#navbar .foxora-language-menu a:focus-visible{color:#fff;background:#ffffff05}
+.foxora-language-menu a:hover::after,.foxora-language-menu a:focus-visible::after{width:100%}
+#navbar .nav-links{gap:clamp(10px,1.7vw,26px)}
+#navbar .nav-links a{font-size:11px;letter-spacing:.08em;white-space:nowrap}
+#navbar>.actions{gap:8px;flex-wrap:nowrap}
+#navbar>.actions a,#navbar .nav-cta{font-size:11px;padding:8px 14px;letter-spacing:.06em;white-space:nowrap}
+.foxora-brand-link:focus-visible,.foxora-language-switcher>summary:focus-visible,.foxora-language-menu a:focus-visible{outline:2px solid #D4AF60;outline-offset:4px}
+@media(max-width:1100px){#navbar .nav-links{display:none}#navbar{gap:12px}}
+@media(max-width:600px){#navbar .foxora-header-brand{width:100%;justify-content:space-between;gap:12px}#navbar .foxora-brand-link{font-size:21px}.foxora-language-switcher>summary{font-size:10px}.foxora-language-menu{left:auto;right:0;width:min(360px,calc(100vw - 32px))}#navbar>.actions{margin:0 0 0 auto}}
+@media(prefers-reduced-motion:reduce){.foxora-brand-link,.foxora-chevron,.foxora-language-label::after,.foxora-language-menu a,.foxora-language-menu a::after{transition:none!important}}
+
+/* Navigation: brand | language selection | theory */
+#navbar .foxora-header-navigation{display:flex;align-items:center;justify-content:center;gap:clamp(14px,2vw,28px);flex:1;min-width:0}
+#navbar .foxora-header-brand{width:auto;flex-shrink:0}
+#navbar .nav-links{margin:0;padding:0;list-style:none}
+#navbar .foxora-language-menu{width:340px;grid-template-columns:1fr 1fr;gap:6px;padding:12px;background:#121E47;border-radius:10px;box-sizing:border-box;text-align:left}
+#navbar .foxora-language-menu a{min-height:46px;padding:11px 12px;justify-content:center;font:500 13px/1.4 Jost,Arial,sans-serif;letter-spacing:0;text-transform:none;border-radius:5px;white-space:normal}
+#navbar .foxora-language-menu a::after{bottom:4px;left:12px;max-width:calc(100% - 24px)}
+#navbar .foxora-language-menu a:hover{background:#ffffff09;color:#fff}
+#navbar .foxora-language-menu a[aria-current=page]{border-left:2px solid #D4AF60;padding-left:10px}
+#navbar .nav-account-actions{display:flex;gap:8px;flex-shrink:0}
+@media(max-width:1100px){#navbar .foxora-header-navigation{justify-content:flex-start}#navbar .nav-links{display:none}}
+@media(max-width:600px){#navbar .foxora-header-brand{width:auto}#navbar .foxora-header-navigation{justify-content:flex-end}#navbar .foxora-language-menu{left:auto;right:0;width:min(340px,calc(100vw - 32px))}#navbar .nav-account-actions,#navbar>.actions{margin-left:auto}}
+
+/* Slightly larger type with more efficient header spacing */
+#navbar{gap:16px;padding-left:clamp(16px,2vw,32px);padding-right:clamp(16px,2vw,32px)}
+#navbar .foxora-header-navigation{gap:clamp(12px,1.5vw,22px)}
+#navbar .nav-links{gap:clamp(10px,1.3vw,20px)}
+#navbar .nav-links a,.foxora-language-switcher>summary{font-size:12px;letter-spacing:.06em}
+#navbar .foxora-brand-link{font-size:24px}
+#navbar>.actions a,#navbar .nav-cta{font-size:12px;padding:8px 12px;letter-spacing:.04em}
+#navbar .foxora-language-menu a{font-size:14px;min-height:48px}
+@media(max-width:600px){#navbar{gap:10px}#navbar .foxora-brand-link{font-size:23px}.foxora-language-switcher>summary{font-size:11px}#navbar .foxora-header-navigation{gap:10px}}
+
+/* Spread navigation across the available desktop width */
+@media(min-width:1101px){
+ #navbar .foxora-header-navigation{justify-content:space-between;gap:clamp(22px,2.8vw,54px);margin:0 clamp(18px,2.4vw,46px)}
+ #navbar .nav-links{flex:1;justify-content:space-between;gap:clamp(16px,2.1vw,40px)}
+}
+@media(min-width:1101px) and (max-width:1350px){
+ #navbar .foxora-header-navigation{margin:0 8px;gap:18px}
+ #navbar .nav-links{gap:14px}
+}
+
+/* Narrow header: language selector below the brand */
+@media(max-width:600px){
+ #navbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:12px 16px}
+ #navbar .foxora-header-brand{grid-column:1;grid-row:1;width:auto;min-width:0}
+ #navbar .foxora-header-navigation{grid-column:1;grid-row:2;justify-content:flex-start;margin:0;min-width:0}
+ #navbar .nav-account-actions,#navbar>.actions{grid-column:2;grid-row:1 / span 2;margin:0;gap:6px;align-self:center}
+ #navbar .foxora-language-switcher>summary{font-size:10px;letter-spacing:.04em;padding:3px 0}
+ #navbar .foxora-language-menu{left:0;right:auto;top:calc(100% + 12px);width:min(340px,calc(100vw - 32px))}
+ #navbar .foxora-brand-link{font-size:22px;gap:7px}
+ #navbar .foxora-brand-link img{width:32px;height:32px}
+ #navbar .nav-cta,#navbar>.actions a{font-size:10px;padding:7px 9px;letter-spacing:.02em}
+}
+@media(max-width:360px){#navbar{gap:4px 8px;padding:10px 12px}#navbar .nav-account-actions,#navbar>.actions{flex-direction:column;gap:4px}#navbar .foxora-language-menu{width:calc(100vw - 24px)}}
+
+/* Keep brand and selector together; stack them on phones */
+@media(max-width:700px){
+ #navbar,#navbar.scrolled{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px}
+ #navbar .foxora-header-brand{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:8px;flex:0 1 auto;width:auto;min-width:0}
+ #navbar .foxora-header-navigation{display:none}
+ #navbar .foxora-language-switcher{position:relative;display:block;margin:0;transform:none}
+ #navbar .foxora-language-switcher>summary{position:static;display:flex;font-size:10px;line-height:1.5;letter-spacing:.04em;padding:0;transform:none}
+ #navbar .foxora-brand-link{position:static;font-size:22px;line-height:1.3;gap:7px}
+ #navbar .foxora-brand-link img{width:32px;height:32px}
+ #navbar .nav-account-actions,#navbar>.actions{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:6px;margin:0;flex:0 1 auto}
+ #navbar .nav-cta,#navbar>.actions a{font-size:10px;padding:7px 9px;letter-spacing:.02em}
+ #navbar .foxora-language-menu{left:0;right:auto;top:calc(100% + 12px);width:min(340px,calc(100vw - 32px))}
+}
+@media(max-width:360px){#navbar .nav-account-actions,#navbar>.actions{flex-direction:column;align-items:stretch}}
+
+/* Scrollable language menu on mobile, including short landscape screens */
+@media(max-width:700px){
+ #navbar .foxora-language-menu{max-height:min(360px,calc(100vh - 150px));max-height:min(360px,calc(100dvh - 150px));overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#D4AF60 #1b294f;scrollbar-gutter:stable;touch-action:pan-y;padding-right:14px}
+ #navbar .foxora-language-menu::-webkit-scrollbar{width:6px}
+ #navbar .foxora-language-menu::-webkit-scrollbar-track{background:#1b294f;border-radius:6px}
+ #navbar .foxora-language-menu::-webkit-scrollbar-thumb{background:#D4AF60;border-radius:6px}
+ #navbar .foxora-language-menu a{flex-shrink:0}
+}
+</style></head>
+<body>
+<div class="fox-guide" id="foxGuide" aria-live="polite">
+  <div class="fox-bubble" id="foxBubble"><b>Hello! 👋</b><br>Good to see you. Ready for a little German practice?</div>
+  <img id="foxMascot" src="fuchs-idle.png" alt="Foxora German learning fox" title="Click for a learning tip">
+</div>
+
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="foxora-header-brand"><a class="foxora-brand-link" href="main.html" aria-label="Foxora – Home"><img src="fuchs-idle.png" alt="" width="40" height="40"><span>Foxora</span></a><details class="foxora-language-switcher"><summary><span class="foxora-language-label">Choose language</span><span class="foxora-chevron" aria-hidden="true">⌄</span></summary><div class="foxora-language-menu" aria-label="All languages"><a href="../main.html">French</a><a href="../english/main.html">English</a><a href="../italian/main.html">Italian</a><a href="../spanish/main.html">Spanish</a><a href="../portuguese/main.html">Portuguese</a><a href="../greek/main.html">Greek</a><a href="../dutch/main.html">Dutch</a><a href="../swedish/main.html">Swedish</a><a href="../turkish/main.html">Turkish</a><a href="../korean/main.html">Korean</a><a href="../japanese/main.html">Japanese</a><a href="main.html" aria-current="page">German</a></div></details></div>
+  <div class="foxora-header-navigation"><ul class="nav-links">
+    <li><a href="#theorie">Theory</a></li>
+    <li><a href="#Spi">Exercises</a></li>
+    <li><a href="#Fortschritt">My progress</a></li><li><a href="#Pruefung">Exams</a></li><li><a href="#lernwerkstatt">Learning workshop</a></li>
+  </ul></div>
+  <div class="nav-account-actions">
+    <a href="#Premium" class="account-link nav-cta" id="premiumNav">Premium</a>
+    <a href="#Konto" class="account-link nav-cta" id="accountNav">Sign in</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-orb orb-1"></div>
+  <div class="hero-orb orb-2"></div>
+  <div class="hero-orb orb-3"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">GERMAN · LEVELS 1–3</p>
+    <h1 class="hero-title"><em>German</em><br>understand &amp; apply.</h1>
+    <p class="hero-sub">Interactive exercises for levels 1, 2 and 3 — with multiple-choice tasks, writing and targeted review.</p>
+    <div class="hero-actions">
+      <a href="#Spi" class="btn-primary">Start practising</a>
+      
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- Ler -->
+<section id="Ler">
+  <div class="Ler-grid">
+    <div class="reveal">
+      <p class="section-label">Learn German</p>
+      <h2 class="section-title">Step by step<br>towards greater <em>confidence.</em></h2>
+      <div class="gold-bar"></div>
+      <p class="section-body">Choose your topic and level. Practise recognising patterns and writing your own answers. Incorrect answers return later so you can review difficult points.</p>
+      <div class="Ler-stats">
+        <div class="stat"><div class="stat-number">3</div><div class="stat-label">Levels</div></div>
+        <div class="stat"><div class="stat-number">19</div><div class="stat-label">Topic areas</div></div>
+        <div class="stat"><div class="stat-number">57</div><div class="stat-label">Practice modules</div></div>
+      </div>
+    </div>
+    <div class="Ler-visual reveal reveal-delay-2">
+      <p class="Ler-quote">Understand.<br><span>Practise.</span><br>Progress.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Spi -->
+<section id="theorie" style="background:#F5F7FC;color:#0D1433">
+<div class="Spi-header reveal"><p class="section-label">Theory</p><h2 class="section-title" style="color:#0D1433">German <em>understand</em></h2><div class="gold-bar"></div><p class="section-body" style="color:#2E406B">13 topics instead of 39 separate pages: open a topic and switch directly between levels 1, 2 and 3.</p></div>
+<div class="Spi-grid"><a href="deutsch-en-theorie-sein-haben.html" class="service-card reveal"><div class="service-num">01</div><div class="service-title">🔤 Sein &amp; Haben</div><div class="service-desc">Theory for levels 1, 2 and 3 · rules, examples, memory aids and common mistakes.</div></a><a href="deutsch-en-theorie-artikel-plural.html" class="service-card reveal"><div class="service-num">02</div><div class="service-title">📘 Articles &amp; plurals</div><div class="service-desc">Theory for levels 1, 2 and 3 · rules, examples, memory aids and common mistakes.</div></a><a href="deutsch-en-theorie-adjektive.html" class="service-card reveal"><div class="service-num">03</div><div class="service-title">🎨 Adjectives &amp; comparisons</div><div class="service-desc">Theory for levels 1, 2 and 3 · rules, examples, memory aids and common mistakes.</div></a><a href="deutsch-en-theorie-pronomen.html" class="service-card reveal"><div class="service-num">04</div><div class="service-title">👤 Pronouns &amp; possession</div><div class="service-desc">Theory for levels 1, 2 and 3 · rules, examples, memory aids and common mistakes.</div></a><a href="deutsch-en-theorie-akkusativ.html" class="service-card reveal"><div class="service-num">05</div><div class="service-title">🚫 Accusative</div><div class="service-desc">Theory for levels 1, 2 and 3 · rules, examples, memory aids and common mistakes.</div></a><a href="deutsch-en-theorie-satzbau.html" class="service-card reveal"><div class="service-num">06</div><div class="service-title">❓ Word order &amp; questions</div><div class="service-desc">Theory for levels 1, 2 and 3 · rules, examples, memory aids and common mistakes.</div></a><a href="deutsch-en-theorie-praepositionen.html" class="service-card reveal"><div class="service-num">07</div><div class="service-title">📍 Prepositions</div><div class="service-desc">Theory for levels 1, 2 and 3 · rules, examples, memory aids and common mistakes.</div></a><a href="deutsch-en-theorie-konjunktiv.html" class="service-card reveal"><div class="service-num">08</div><div class="service-title">💭 Konjunktiv II</div><div class="service-desc">Theory for levels 1, 2 and 3 · rules, examples, memory aids and common mistakes.</div></a><a href="deutsch-en-theorie-perfekt.html" class="service-card reveal"><div class="service-num">09</div><div class="service-title">⏮️ Perfekt</div><div class="service-desc">Theory for levels 1, 2 and 3 · rules, examples, memory aids and common mistakes.</div></a><a href="deutsch-en-theorie-praeteritum.html" class="service-card reveal"><div class="service-num">10</div><div class="service-title">🕰️ Präteritum</div><div class="service-desc">Theory for levels 1, 2 and 3 · rules, examples, memory aids and common mistakes.</div></a><a href="deutsch-en-theorie-modalverben.html" class="service-card reveal"><div class="service-num">11</div><div class="service-title">⏭️ Modal verbs</div><div class="service-desc">Theory for levels 1, 2 and 3 · rules, examples, memory aids and common mistakes.</div></a><a href="deutsch-en-theorie-praesens.html" class="service-card reveal"><div class="service-num">12</div><div class="service-title">⚡ Present tense</div><div class="service-desc">Theory for levels 1, 2 and 3 · verb endings, irregular forms and present-tense usage.</div></a>
+<a href="deutsch-en-unregelmaessige-verben-liste.html" class="service-card reveal">
+  <div class="service-title">📚 Irregular verb reference</div>
+  <div class="service-desc">Look up and learn · a clear verb list with present, simple past and perfect forms.</div>
+</a>
+<a href="deutsch-en-theorie-dativ.html" class="service-card reveal"><div class="service-num">13</div><div class="service-title">✨ Dative</div><div class="service-desc">Theory for levels 1, 2 and 3 · recipients, dative articles, verbs and prepositions.</div></a></div></section>
+<section id="Spi"><div class="Spi-header reveal"><p class="section-label">Interactive practice</p><h2 class="section-title">What would you like to <em>practise?</em></h2><div class="gold-bar"></div><p class="section-body">Choose grammar or everyday German. Level 1 is free; levels 2 and 3 require Premium.</p></div><div class="level-learning-goals" aria-label="Learning goals for the three levels"><article class="learning-goals"><h3>Level 1 · Foundations</h3><p>You can introduce yourself, ask simple questions and express wishes.</p></article><article class="learning-goals"><h3>Level 2 · Everyday confidence</h3><p>You can describe experiences, explain plans and politely ask for help.</p></article><article class="learning-goals"><h3>Level 3 · Connected communication</h3><p>You can justify opinions, explain problems and suggest solutions.</p></article></div><p class="goals-note">These levels describe our internal difficulty stages. They are not certified A1, A2 or B1 levels.</p><div class="exercise-categories"><article class="topic-card"><div class="topic-top"><h3>Grammar</h3></div><p>Practise verbs, articles, cases, adjectives and more.</p><button class="level-btn category-button" id="chooseGrammar" aria-controls="Grammatik" aria-expanded="false">Open grammar →</button></article><article class="topic-card"><div class="topic-top"><h3>Everyday German</h3></div><p>Use German with family, in your free time, at school, while eating, shopping and travelling.</p><button class="level-btn category-button" id="chooseEveryday" aria-controls="Alltag" aria-expanded="false">Open everyday topics →</button></article></div><div id="Grammatik" class="exercise-panel" hidden><h3 class="exercise-panel-title">Grammar</h3><div class="Spi-grid"><article class="topic-card reveal"><div class="topic-top"><h3>Sein &amp; Haben</h3></div><p>Introduce people, describe states and express possession.</p><div class="level-picker"><a class="level-btn" href="deutsch-en-sein-haben-1-oberstufe.html">Level 1</a><a class="level-btn" href="deutsch-en-sein-haben-2-oberstufe.html">Level 2</a><a class="level-btn" href="deutsch-en-sein-haben-3-oberstufe.html">Level 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Articles &amp; plurals</h3></div><p>Learn noun gender and plural forms.</p><div class="level-picker"><a class="level-btn" href="deutsch-en-artikel-plural-1-oberstufe.html">Level 1</a><a class="level-btn" href="deutsch-en-artikel-plural-2-oberstufe.html">Level 2</a><a class="level-btn" href="deutsch-en-artikel-plural-3-oberstufe.html">Level 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Adjectives &amp; comparisons</h3></div><p>Describe nouns and compare things.</p><div class="level-picker"><a class="level-btn" href="deutsch-en-adjektive-1-oberstufe.html">Level 1</a><a class="level-btn" href="deutsch-en-adjektive-2-oberstufe.html">Level 2</a><a class="level-btn" href="deutsch-en-adjektive-3-oberstufe.html">Level 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Pronouns &amp; possession</h3></div><p>Replace people and express ownership.</p><div class="level-picker"><a class="level-btn" href="deutsch-en-pronomen-1-oberstufe.html">Level 1</a><a class="level-btn" href="deutsch-en-pronomen-2-oberstufe.html">Level 2</a><a class="level-btn" href="deutsch-en-pronomen-3-oberstufe.html">Level 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Accusative</h3></div><p>Use direct objects and accusative prepositions.</p><div class="level-picker"><a class="level-btn" href="deutsch-en-akkusativ-1-oberstufe.html">Level 1</a><a class="level-btn" href="deutsch-en-akkusativ-2-oberstufe.html">Level 2</a><a class="level-btn" href="deutsch-en-akkusativ-3-oberstufe.html">Level 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Word order &amp; questions</h3></div><p>Build main clauses, questions and subordinate clauses.</p><div class="level-picker"><a class="level-btn" href="deutsch-en-satzbau-1-oberstufe.html">Level 1</a><a class="level-btn" href="deutsch-en-satzbau-2-oberstufe.html">Level 2</a><a class="level-btn" href="deutsch-en-satzbau-3-oberstufe.html">Level 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Prepositions</h3></div><p>Express place, movement and duration.</p><div class="level-picker"><a class="level-btn" href="deutsch-en-praepositionen-1-oberstufe.html">Level 1</a><a class="level-btn" href="deutsch-en-praepositionen-2-oberstufe.html">Level 2</a><a class="level-btn" href="deutsch-en-praepositionen-3-oberstufe.html">Level 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Konjunktiv II</h3></div><p>Express polite wishes and hypothetical situations.</p><div class="level-picker"><a class="level-btn" href="deutsch-en-konjunktiv-1-oberstufe.html">Level 1</a><a class="level-btn" href="deutsch-en-konjunktiv-2-oberstufe.html">Level 2</a><a class="level-btn" href="deutsch-en-konjunktiv-3-oberstufe.html">Level 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Perfekt</h3></div><p>Tell people about past events.</p><div class="level-picker"><a class="level-btn" href="deutsch-en-perfekt-1-oberstufe.html">Level 1</a><a class="level-btn" href="deutsch-en-perfekt-2-oberstufe.html">Level 2</a><a class="level-btn" href="deutsch-en-perfekt-3-oberstufe.html">Level 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Präteritum</h3></div><p>Describe past states, habits and events.</p><div class="level-picker"><a class="level-btn" href="deutsch-en-praeteritum-1-oberstufe.html">Level 1</a><a class="level-btn" href="deutsch-en-praeteritum-2-oberstufe.html">Level 2</a><a class="level-btn" href="deutsch-en-praeteritum-3-oberstufe.html">Level 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Modal verbs</h3></div><p>Express ability, permission, wishes and obligations.</p><div class="level-picker"><a class="level-btn" href="deutsch-en-modalverben-1-oberstufe.html">Level 1</a><a class="level-btn" href="deutsch-en-modalverben-2-oberstufe.html">Level 2</a><a class="level-btn" href="deutsch-en-modalverben-3-oberstufe.html">Level 3</a></div></article>
+<article class="topic-card reveal"><div class="topic-top"><h3>Present tense</h3></div><p>Talk about routines and what is happening now.</p><div class="level-picker"><a class="level-btn" href="deutsch-en-praesens-1-oberstufe.html">Level 1</a><a class="level-btn" href="deutsch-en-praesens-2-oberstufe.html">Level 2</a><a class="level-btn" href="deutsch-en-praesens-3-oberstufe.html">Level 3</a></div></article><article class="topic-card reveal"><div class="topic-top"><h3>Dative</h3></div><p>Express recipients and use dative verbs.</p><div class="level-picker"><a class="level-btn" href="deutsch-en-dativ-1-oberstufe.html">Level 1</a><a class="level-btn" href="deutsch-en-dativ-2-oberstufe.html">Level 2</a><a class="level-btn" href="deutsch-en-dativ-3-oberstufe.html">Level 3</a></div></article></div>
+</div><div id="Alltag" class="exercise-panel" hidden><h3 class="exercise-panel-title">Everyday German</h3><div class="Spi-grid"><article class="topic-card"><div class="topic-top"><h3>Family</h3></div><p>Understand conversations and write your own complete German sentences about family.</p><div class="level-picker"><a class="level-btn" href="deutsch-en-alltag-familie-1-oberstufe.html">Level 1</a><a class="level-btn" href="deutsch-en-alltag-familie-2-oberstufe.html">Level 2</a><a class="level-btn" href="deutsch-en-alltag-familie-3-oberstufe.html">Level 3</a></div></article><article class="topic-card"><div class="topic-top"><h3>Food &amp; drinks</h3></div><p>Understand conversations and write your own complete German sentences about food &amp; drinks.</p><div class="level-picker"><a class="level-btn" href="deutsch-en-alltag-essen-1-oberstufe.html">Level 1</a><a class="level-btn" href="deutsch-en-alltag-essen-2-oberstufe.html">Level 2</a><a class="level-btn" href="deutsch-en-alltag-essen-3-oberstufe.html">Level 3</a></div></article><article class="topic-card"><div class="topic-top"><h3>Hobbies &amp; leisure</h3></div><p>Understand conversations and write your own complete German sentences about hobbies &amp; leisure.</p><div class="level-picker"><a class="level-btn" href="deutsch-en-alltag-hobbys-1-oberstufe.html">Level 1</a><a class="level-btn" href="deutsch-en-alltag-hobbys-2-oberstufe.html">Level 2</a><a class="level-btn" href="deutsch-en-alltag-hobbys-3-oberstufe.html">Level 3</a></div></article><article class="topic-card"><div class="topic-top"><h3>School &amp; learning</h3></div><p>Understand conversations and write your own complete German sentences about school &amp; learning.</p><div class="level-picker"><a class="level-btn" href="deutsch-en-alltag-schule-1-oberstufe.html">Level 1</a><a class="level-btn" href="deutsch-en-alltag-schule-2-oberstufe.html">Level 2</a><a class="level-btn" href="deutsch-en-alltag-schule-3-oberstufe.html">Level 3</a></div></article><article class="topic-card"><div class="topic-top"><h3>Shopping</h3></div><p>Understand conversations and write your own complete German sentences about shopping.</p><div class="level-picker"><a class="level-btn" href="deutsch-en-alltag-einkaufen-1-oberstufe.html">Level 1</a><a class="level-btn" href="deutsch-en-alltag-einkaufen-2-oberstufe.html">Level 2</a><a class="level-btn" href="deutsch-en-alltag-einkaufen-3-oberstufe.html">Level 3</a></div></article><article class="topic-card"><div class="topic-top"><h3>Travel</h3></div><p>Understand conversations and write your own complete German sentences about travel.</p><div class="level-picker"><a class="level-btn" href="deutsch-en-alltag-reisen-1-oberstufe.html">Level 1</a><a class="level-btn" href="deutsch-en-alltag-reisen-2-oberstufe.html">Level 2</a><a class="level-btn" href="deutsch-en-alltag-reisen-3-oberstufe.html">Level 3</a></div></article></div></div></section>
+
+
+<section id="Heute" style="background:#0D1433;padding-top:5rem">
+  <div class="Spi-header reveal"><p class="section-label">Your personal learning plan</p><h2 class="section-title">Today <em>learn</em></h2><div class="gold-bar"></div>
+  <p class="section-body">The app prioritises due reviews, earlier mistakes and uncertain answers.</p></div>
+  <div class="learning-dashboard"><div class="dash-grid">
+    <div class="dash-card"><div class="dash-num" id="dStreak">0</div><div class="dash-label">Daily streak</div></div>
+    <div class="dash-card"><div class="dash-num" id="dGoal">0/20</div><div class="dash-label">Daily goal</div><div class="goal-track"><div class="goal-fill" id="dGoalFill"></div></div></div>
+  </div></div>
+  <div class="daily-suggestion-wrap"><div class="today-box"><div><h3 id="todayTitle">Your next session</h3><p id="todayText">The app looks for the topic that would benefit most from review.</p></div><a id="todayBtn" class="btn-smart" href="#Spi">Learn today</a>
+</div></div>
+</section>
+<section id="Fortschritt" style="background:#0D1433">
+  <div class="Spi-header reveal">
+    <p class="section-label">Your learning journey</p>
+    <h2 class="section-title">My <em>progress</em></h2>
+    <div class="gold-bar"></div>
+    <p class="section-body">Your progress is automatically summarised from the exercises you complete. See what you have finished today and which exercises you have completed overall.</p>
+  </div>
+  <div style="max-width:1200px;margin:0 auto 2rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem">
+    <div class="analytics" style="margin:0">
+      <p class="section-label">Today</p>
+      <h3 style="font-family:var(--font-display);font-size:1.6rem;font-weight:400;margin-bottom:1rem">Completed today</h3>
+      <div class="weak-list" id="todayCompletedList"></div>
+    </div>
+    <div class="analytics" style="margin:0">
+      <p class="section-label">Overall</p>
+      <h3 style="font-family:var(--font-display);font-size:1.6rem;font-weight:400;margin-bottom:1rem">Completed overall</h3>
+      <div class="weak-list" id="totalCompletedList"></div>
+    </div>
+  </div>
+
+<div class="fa-wrap" id="Fehleranalyse">
+<p class="section-label">Learn from mistakes</p><h3>Your <em>error review</em></h3>
+<p>Topic overview is free · mistake examples and your personal learning plan with Premium.</p>
+<p class="fa-muted" id="analysisAccount"></p><div id="analysisBasic"></div>
+<h4>Detailed review <span style="font:500 .75rem var(--font-body);color:var(--gold-lt)">PREMIUM</span></h4>
+<p>See what to practise next and start your personal three-step learning plan.</p>
+<button class="btn-smart" type="button" id="analysisRefresh">Create my learning plan</button><a class="btn-smart" href="#Premium">Explore Premium</a>
+<p role="status" aria-live="polite" id="analysisStatus"></p><div id="analysisDetail"></div>
+</div>
+</section>
+<section id="Pruefung" style="background:#121E47">
+  <div class="Spi-header reveal">
+    <p class="section-label">Exam practice</p>
+    <h2 class="section-title">Your knowledge <em>test</em></h2>
+    <div class="gold-bar"></div>
+    <p class="section-body">Take a comprehensive exam covering all topics at one level. There are no hints or immediate feedback during the exam. Your full results appear at the end.</p>
+  </div>
+  <div class="Spi-grid">
+    <a href="deutsch-en-grammatik-pruefung-1-oberstufe.html" class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-title">Comprehensive grammar exam · Level 1</div>
+      <div class="service-desc">26 mixed questions · 13 topics · 30 minutes · results at the end.</div>
+    </a>
+    <a href="deutsch-en-grammatik-pruefung-2-oberstufe.html" class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-title">Comprehensive grammar exam · Level 2</div>
+      <div class="service-desc">26 mixed questions · 13 topics · 30 minutes · results at the end.</div>
+    </a>
+    <a href="deutsch-en-grammatik-pruefung-3-oberstufe.html" class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-title">Comprehensive grammar exam · Level 3</div>
+      <div class="service-desc">26 mixed questions · 13 topics · 30 minutes · results at the end.</div>
+    </a>
+  </div>
+<div class="Spi-grid"><a href="deutsch-en-alltag-pruefung-1-oberstufe.html" class="service-card"><div class="service-num">04</div><div class="service-title">Comprehensive everyday exam · Level 1</div><div class="service-desc">30 random questions · 6 everyday topics · 30 minutes · Premium · results at the end.</div></a><a href="deutsch-en-alltag-pruefung-2-oberstufe.html" class="service-card"><div class="service-num">05</div><div class="service-title">Comprehensive everyday exam · Level 2</div><div class="service-desc">30 random questions · 6 everyday topics · 30 minutes · Premium · results at the end.</div></a><a href="deutsch-en-alltag-pruefung-3-oberstufe.html" class="service-card"><div class="service-num">06</div><div class="service-title">Comprehensive everyday exam · Level 3</div><div class="service-desc">30 random questions · 6 everyday topics · 30 minutes · Premium · results at the end.</div></a></div></section>
+<!-- Pru -->
+<section id="Pru">
+  <div class="Pru-container">
+    <div class="reveal">
+      <p class="section-label">Suggested learning path</p>
+      <h2 class="section-title" style="color:var(--navy)">Build your <em style="color:var(--gold)">confidence</em></h2>
+      <div class="gold-bar"></div>
+    </div>
+    <div class="Pru-steps">
+      <div class="Pru-step reveal"><div class="step-circle">01</div><div class="step-title">Choose a topic</div><div class="step-desc">Start with verbs, articles, nouns, adjectives or pronouns.</div></div>
+      <div class="Pru-step reveal"><div class="step-circle">02</div><div class="step-title">Choose a level</div><div class="step-desc">Choose level 1, 2 or 3 to match your current skills.</div></div>
+      <div class="Pru-step reveal"><div class="step-circle">03</div><div class="step-title">Practise actively</div><div class="step-desc">Answer multiple-choice questions and write German forms yourself.</div></div>
+      <div class="Pru-step reveal"><div class="step-circle">04</div><div class="step-title">Review</div><div class="step-desc">Incorrect answers return so you can practise until the form sticks.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<section class="learning-lab" id="lernwerkstatt">
+ <div class="lab-wrap">
+  <div class="lab-head">
+   <div class="lab-kicker">Learn how to learn</div>
+   <h2>Your learning workshop</h2>
+   <p>Here you learn German and discover <strong>how</strong> to practise effectively. Try a method and find out what helps you remember.</p>
+  </div>
+  <div class="lab-grid">
+<article class="lab-card"><div class="lab-icon">🗣️</div><h3>Apply your German</h3><p>Write your own sentences, listen to German examples and respond aloud to everyday situations. Level 1 is free; levels 2 and 3 require Premium.</p><a class="lab-btn" href="deutsch-en-jetzt-anwenden.html" style="display:inline-block;text-decoration:none">Start writing &amp; speaking</a></article>
+   <article class="lab-card"><div class="lab-icon">🧠</div><h3>Memory aids &amp; mnemonics</h3><p>Connect a difficult rule or word with an image, sentence or personal idea.</p><button class="lab-btn" data-panel="mnemo">Try it</button><div class="lab-panel" id="mnemo"><b>How it works:</b> Choose something you often forget and invent a short, memorable association.<input class="lab-input" id="mnemoText" placeholder="My memory aid …"><button class="lab-btn" onclick="saveLab(this,'mnemoText')">Save</button><div class="saved-note">Saved only on this device.</div></div></article>
+   <article class="lab-card"><div class="lab-icon">🗂️</div><h3>Flashcards</h3><p>Follow this sequence: <strong>New → Unsure → Learned → Confident</strong>. Uncertain items return sooner.</p><button class="lab-btn" onclick="location.href='deutsch-en-vokabeltrainer.html'">Start flashcards</button></article>
+   <article class="lab-card"><div class="lab-icon">✍️</div><h3>Active recall</h3><p>Cover the answer, recall it from memory and only then write it down.</p><button class="lab-btn" data-panel="recall">View the method</button><div class="lab-panel" id="recall">1. Read the question.<br>2. Keep the answer covered.<br>3. Say or write your answer.<br>4. Check it.<br>5. Recall incorrect answers again later.</div></article>
+   <article class="lab-card"><div class="lab-icon">🗺️</div><h3>Mindmap</h3><p>Organise a topic into key ideas and examples. This helps you understand rules and connections.</p><button class="lab-btn" data-panel="mindmap">Open template</button><div class="lab-panel" id="mindmap"><input class="lab-input" id="mindTopic" placeholder="Topic, e.g. pronouns"><input class="lab-input" id="mindBranches" placeholder="Branches, e.g. personal · possessive · accusative · dative"><button class="lab-btn" onclick="saveLab(this,'mindTopic','mindBranches')">Save</button></div></article>
+   <article class="lab-card"><div class="lab-icon">🔎</div><h3>Learn from mistakes</h3><p>After a mistake, ask what the correct answer is and why your answer was incorrect.</p><button class="lab-btn" data-panel="errors">Three-step method</button><div class="lab-panel" id="errors"><b>1.</b> Identify the mistake. <br><b>2.</b> Explain the rule in your own words. <br><b>3.</b> Solve a similar question. The app automatically prioritises uncertain answers.</div></article>
+   <article class="lab-card"><div class="lab-icon">💡</div><h3>Choose a strategy</h3><p><b>Verbs:</b> Person → stem → ending.<br><b>Vocabulary:</b> Cover → recall → check.<br><b>Pronouns:</b> Find the noun phrase → replace → check position.<br><b>Adjectives:</b> Identify the noun → gender, number and case → choose the ending.</p></article>
+  </div>
+  <div class="study-plan">
+   <h3>⏱️ Your 15-minute learning session</h3>
+   <div class="plan-steps"><div class="plan-step"><b>5 min.</b><br>Review due items and earlier mistakes.</div><div class="plan-step"><b>7 min.</b><br>Solve questions actively, with as little help as possible.</div><div class="plan-step"><b>3 min.</b><br>Explain mistakes and recall difficult items again.</div></div>
+   <div style="margin-top:1.3rem"><a class="lab-btn" href="deutsch-en-15-minuten-lerneinheit.html" style="display:inline-block;text-decoration:none">Open 15-minute session</a></div>
+  </div>
+ </div>
+</section>
+
+
+<section class="v7-competence" id="kompetenzlernen"><div class="v7-comp-wrap">
+<p class="section-label">Build practical skills</p><h2 class="section-title">Beyond finding answers — <em>understand and apply</em></h2><div class="gold-bar"></div>
+<div class="v7-comp-grid">
+<div class="v7-comp-card"><div class="v7-comp-icon">🔎</div><h3>Discover</h3><p>Use what you already know and discover rules through examples.</p></div>
+<div class="v7-comp-card"><div class="v7-comp-icon">🧭</div><h3>Your learning path</h3><p>Use hints, strategies, memory aids and the workshop when needed.</p></div>
+<div class="v7-comp-card"><div class="v7-comp-icon">🎯</div><h3>Adapt your practice</h3><p>Review uncertain items more often and rely less on help as your confidence grows.</p></div>
+<div class="v7-comp-card"><div class="v7-comp-icon">✍️</div><h3>Apply</h3><p>Combine multiple-choice questions, your own writing and practical language use.</p></div>
+<div class="v7-comp-card"><div class="v7-comp-icon">🔁</div><h3>Use mistakes</h3><p>Reflect briefly on your approach after a mistake and try again.</p></div>
+<div class="v7-comp-card"><div class="v7-comp-icon">🤝</div><h3>Learn together</h3><p>Export and share your flashcard sets and import sets from other learners.</p></div>
+</div></div></section>
+
+
+<section id="Premium" style="scroll-margin-top:110px;background:#121E47;padding:3rem 1.25rem"><div class="account-card">
+<p class="section-label">More ways to learn</p><h2>Premium · CHF 6.90 / month</h2>
+<p>All level 2 and 3 exercises, all comprehensive exams and unlimited 15-minute sessions.</p>
+<p>Level 1 stays free. With a free account you can start two 15-minute sessions per week.</p>
+<p>Renews automatically each month. Cancel through Manage subscription at the end of your paid period.</p>
+<div class="account-actions"><button type="button" id="premiumSubscribe">Subscribe to Premium</button><button type="button" class="secondary" id="premiumManage">Manage subscription</button></div>
+<p id="premiumStatus" role="status" aria-live="polite">Sign in to check your Premium status.</p>
+</div></section>
+<script id="premium-ui">
+(()=>{const status=document.getElementById('premiumStatus'),subscribe=document.getElementById('premiumSubscribe'),manage=document.getElementById('premiumManage');let refreshing=false,lastActor=null;
+async function refresh(){if(refreshing)return;refreshing=true;try{await FRLearning.ready;lastActor=FRLearning.account;if(lastActor==='guest'){status.textContent='Sign in to your account. Level 1 stays free.';return}const d=await FRPremium.status();status.textContent=d.premium?(d.paid_until?'Premium active until '+new Date(d.paid_until).toLocaleDateString('en-GB')+'.':'Premium is active.'):`Free account: ${d.remaining} of 2 sessions remaining this week (Monday–Sunday).`;subscribe.hidden=!!d.premium;}catch(e){status.textContent=e.message;}finally{refreshing=false;}}
+for(const [b,fn] of [[subscribe,'checkout'],[manage,'portal']])b.addEventListener('click',async()=>{b.disabled=true;try{await FRPremium[fn]()}catch(e){status.textContent=e.message;if(FRLearning.account==='guest')location.hash='Konto';}finally{b.disabled=false;}});
+FRLearning.ready.then(refresh);window.addEventListener('frlearningchange',()=>{if(lastActor!==FRLearning.account){subscribe.hidden=false;void refresh();}});window.addEventListener('focus',refresh);
+})();
+</script>
+<section id="Konto">
+ <div class="account-card">
+  <p class="section-label">Your account</p>
+  <h2>Sign in &amp; keep learning</h2>
+  <p>Sign in or register with your email address.</p>
+  <form id="accountForm">
+   <label for="accountRegisterName">Name (for registration)</label>
+   <input id="accountRegisterName" type="text" autocomplete="given-name" maxlength="60" placeholder="Your name">
+   <label for="accountEmail">Email address</label>
+   <input id="accountEmail" type="email" autocomplete="email" required maxlength="254">
+   <label for="accountPassword">Password</label>
+   <input id="accountPassword" type="password" autocomplete="current-password" required>
+   <div class="account-actions">
+    <button type="submit" value="login">Sign in</button>
+    <button type="submit" value="register" class="secondary">Register</button>
+   </div>
+   <div class="account-actions"><button type="button" id="accountForgot" class="secondary">Forgot password?</button></div>
+  </form>
+  <form id="accountResetForm" hidden>
+   <h3>Set a new password</h3>
+   <p>Choose a new password with at least 8 characters.</p>
+   <label for="accountNewPassword">New password</label>
+   <input id="accountNewPassword" type="password" autocomplete="new-password" minlength="8" required>
+   <label for="accountConfirmPassword">Repeat new password</label>
+   <input id="accountConfirmPassword" type="password" autocomplete="new-password" minlength="8" required>
+   <div class="account-actions"><button type="submit" disabled>Save password</button></div>
+  </form>
+  <details id="accountRecoveryHelp" hidden><summary>Request a new password link</summary><label for="accountRecoveryEmail">Email</label><input id="accountRecoveryEmail" type="email" autocomplete="email" placeholder="name@example.com"><button id="accountRecoveryResend" type="button">Request a new password link</button></details><div id="accountSignedIn" hidden>
+   <p>Signed in as <strong id="accountUser"></strong></p>
+   <form id="accountNameForm">
+    <label for="accountName">Name</label>
+    <input id="accountName" type="text" autocomplete="given-name" maxlength="60" required placeholder="What should the fox call you?">
+    <div class="account-actions"><button type="submit">Save name</button></div>
+   </form>
+   <div class="account-actions"><button type="button" id="accountLogout">Sign out</button></div>
+  </div>
+  <p id="accountMessage" role="status" aria-live="polite">Loading sign-in …</p>
+  <div class="account-actions"><button type="button" id="installAppButton" hidden>Install app</button></div>
+  <details id="installAppHelp"><summary style="cursor:pointer;color:var(--gold)">Install on your device</summary><p id="installAppHint">Computer: open the site in Chrome or Edge and choose Install app from the browser menu. Android: Chrome menu → Add to Home screen → Install. iPhone/iPad: Safari → Share → Add to Home Screen.</p></details>
+  <p id="learningSyncStatus" role="status" style="font-size:.85rem;color:var(--ice)">When signed in, your progress syncs with your account. Otherwise you learn locally as a guest.</p>
+ </div>
+</section>
+
+<footer>
+  <div class="footer-logo">
+    <div class="monogram">DE</div>
+    <span class="wordmark">Learn German</span>
+  </div>
+  <p class="footer-copy">© 2026 · Foxora German</p>
+  <div class="footer-links"><a href="#hero">Back to top ↑</a></div>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+<script>
+const modules=DE_EN_CATALOG.map(m=>({...m,key:m.module,title:m.title+" · Level "+m.level}));
+const grid=document.getElementById('progressGrid');
+modules.forEach(m=>{let d={};try{d=JSON.parse(localStorage.getItem(m.key))||{}}catch(e){}const score=d.lastScore??'–',best=d.best??'–',done=d.completed||0;const card=document.createElement('div');card.className='service-card';card.style.cursor='default';card.innerHTML=`<div class="service-num">${score}${score==='–'?'':'%'}</div><div class="service-title">${m.title}</div><div class="service-desc">Last result: ${score}${score==='–'?'':'%'} · Best: ${best}${best==='–'?'':'%'} · Completed rounds: ${done}</div>`;grid?.appendChild(card)});
+document.getElementById('resetProgress')?.addEventListener('click',()=>{
+  if(confirm('Delete all German learning progress on this device?')){
+    modules.forEach(m=>localStorage.removeItem(m.key));
+    location.reload();
+  }
+});
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(err=>console.warn('Could not load service worker:',err)));
+}
+</script>
+
+<script>
+const renderLearningDashboard = ()=>{
+ if(!window.FRLearning)return;
+
+ const byId=id=>document.getElementById(id);
+ const s=FRLearning.summary();
+ const history=Array.isArray(s.history)?s.history:[];
+ const todayKey=new Date().toLocaleDateString('en-CA');
+
+ // Alle 36 Übungslinks direkt aus den 12 Themenkarten lesen.
+ const exercises=[...document.querySelectorAll('#Spi a.level-btn')].map(a=>{
+   const href=(a.getAttribute('href')||'').split('?')[0];
+   const card=a.closest('.topic-card');
+   const topic=card?.querySelector('h3')?.textContent.trim()||'Exercise';
+   const level=Number((a.textContent.match(/\d+/)||[])[0]||0);
+   const key=DE_EN_CATALOG.find(m=>m.file===href)?.module||'';
+   return {href,key,topic,level,title:`${topic} · Level ${level}`};
+ });
+
+ const examInfo=[1,2,3].map(level=>({
+   level,
+   href:`deutsch-en-grammatik-pruefung-${level}-oberstufe.html`,
+   key:`de_en_exam_grammatik_${level}`,
+   title:`Comprehensive grammar exam · Level ${level}`
+ }));
+
+ const completedEver=new Set(history.map(h=>h.module));
+ const completedToday=new Set(history.filter(h=>h.date===todayKey).map(h=>h.module));
+
+ const titleFor=k=>{
+   const x=exercises.find(e=>e.key===k);
+   const c=DE_EN_CATALOG.find(m=>m.module===k);return x?x.title:c?c.title+' · Level '+c.level:k==='de_en_unit_15'?'15-minute session':k.replace(/^de_en_/,'').replace(/_/g,' ');
+ };
+ const completedUnique=arr=>[...new Set(arr.map(h=>h.module))];
+ const renderCompleted=(id,mods,hist,emptyText)=>{
+   const el=byId(id); if(!el)return;
+   if(!mods.length){el.innerHTML=`<div class="weak-row"><span>${emptyText}</span><b>–</b></div>`;return;}
+   el.innerHTML=mods.map(k=>{
+     const runs=hist.filter(h=>h.module===k);
+     const last=runs[runs.length-1]||{};
+     return `<div class="weak-row"><span>${titleFor(k)} <small>· ${runs.length} ${runs.length===1?'round':'rounds'}</small></span><b>${Number.isFinite(Number(last.pct))?Math.round(Number(last.pct))+'%':'completed'}</b></div>`;
+   }).join('');
+ };
+
+ const todayHistory=history.filter(h=>h.date===todayKey);
+ renderCompleted('todayCompletedList',completedUnique(todayHistory),todayHistory,'No exercises completed today yet.');
+ renderCompleted('totalCompletedList',completedUnique(history),history,'No exercises completed yet.');
+
+ byId('dStreak').textContent=s.streak;
+ byId('dGoal').textContent=Math.min(20,s.day.answered)+'/20';
+ byId('dGoalFill').style.width=Math.min(100,s.day.answered/20*100)+'%';
+
+ // Prüfung gilt als completed, sobald in ihrem lokalen Speicher ein Abschluss/Resultat vorhanden ist.
+ function examDone(exam){return completedEver.has(exam.key);}
+
+ // Stabile Tagesauswahl: innerhalb desselben Tages bleibt der Vorschlag gleich.
+ function dayPick(arr,salt=''){
+   if(!arr.length)return null;
+   const seed=todayKey+'|'+salt;
+   let h=2166136261;
+   for(let i=0;i<seed.length;i++){h^=seed.charCodeAt(i);h=Math.imul(h,16777619)}
+   return arr[(h>>>0)%arr.length];
+ }
+
+ // Sobald alle 12 Übungen eines Niveaus mindestens einmal abgeschlossen sind,
+ // wird zuerst die entsprechende noch nicht absolvierte Gesamtprüfung vorgeschlagen.
+ let suggestion=null;
+ for(const exam of examInfo){
+   const levelExercises=exercises.filter(e=>e.level===exam.level&&!e.href.includes('-alltag-'));
+   const levelComplete=levelExercises.length===13 && levelExercises.every(e=>completedEver.has(e.key));
+   if(levelComplete && !examDone(exam)){
+     suggestion={...exam,isExam:true};
+     break;
+   }
+ }
+
+ // Sonst bevorzugt die App Übungen, die insgesamt noch nie abgeschlossen wurden.
+ if(!suggestion){
+   let pool=exercises.filter(e=>!completedEver.has(e.key) && !completedToday.has(e.key));
+   if(!pool.length) pool=exercises.filter(e=>!completedToday.has(e.key));
+   if(!pool.length) pool=exercises;
+   const state=s.modules||{};const due=exercises.map(e=>({...e,n:Object.values(state[e.key]?.questions||{}).filter(q=>q.due&&Date.parse(q.due)<=Date.now()&&q.strength<2).length})).filter(e=>e.n>0).sort((a,b)=>b.n-a.n);suggestion=due[0]||dayPick(pool,'daily-exercise');
+ }
+
+ if(suggestion){
+   byId('todayBtn').href=suggestion.href;
+   byId('todayTitle').textContent=suggestion.title;
+   byId('todayText').textContent=suggestion.isExam
+     ? `You have completed all 13 grammar exercises at level ${suggestion.level}. Try the comprehensive exam next.`
+     : completedEver.has(suggestion.key)
+       ? 'You have not completed this exercise today. Your suggestion changes daily.'
+       : 'You have not completed this exercise yet. Your suggestion changes daily.';
+   byId('todayBtn').textContent=suggestion.isExam?'Start exam':'Start exercise';
+ }
+};
+window.addEventListener('load',renderLearningDashboard);
+window.addEventListener('frlearningchange',renderLearningDashboard);
+window.addEventListener('frlearningchange',()=>{const el=document.getElementById('learningSyncStatus');if(el)el.textContent=FRLearning.status;});
+</script>
+
+
+<script>
+document.querySelectorAll('[data-panel]').forEach(b=>b.addEventListener('click',()=>{
+ const p=document.getElementById(b.dataset.panel); if(p)p.classList.toggle('open');
+}));
+function saveLab(button,...ids){
+ const data={};ids.forEach(id=>{const e=document.getElementById(id);if(e)data[id]=e.value});
+ try{const old=JSON.parse(localStorage.getItem('de_en_learning_methods')||'{}');Object.assign(old,data);localStorage.setItem('de_en_learning_methods',JSON.stringify(old));}catch(e){}
+ const b=button;if(b){const old=b.textContent;b.textContent='✓ Saved';setTimeout(()=>b.textContent=old,1200)}
+}
+window.addEventListener('load',()=>{
+ try{const d=JSON.parse(localStorage.getItem('de_en_learning_methods')||'{}');Object.entries(d).forEach(([id,v])=>{const e=document.getElementById(id);if(e)e.value=v})}catch(e){}
+});
+</script>
+
+
+<script>
+(function(){
+ const bubble=document.getElementById('foxBubble'), fox=document.getElementById('foxMascot');
+ if(!bubble||!fox)return;
+ const tips=[
+  '<b>Let’s go! 💪</b><br>Even ten minutes of focused practice help you progress.',
+  '<b>A little tip ✨</b><br>Say your German answers aloud — it helps you remember.',
+  '<b>Keep going! 🦊</b><br>Mistakes are part of learning. Try difficult questions again.',
+  '<b>Sehr gut! 🇩🇪</b><br>Short, regular reviews help more than one long study session.'
+ ];
+ let i=0, hideTimer;
+ function say(msg){bubble.innerHTML=msg;bubble.classList.remove('is-hidden');clearTimeout(hideTimer);hideTimer=setTimeout(()=>bubble.classList.add('is-hidden'),9000)}
+ fox.addEventListener('click',()=>{i=(i+1)%tips.length;say(tips[i])});
+ document.querySelectorAll('#Spi .service-card').forEach(a=>a.addEventListener('mouseenter',()=>{
+   const t=a.querySelector('.service-title')?.textContent||'this exercise';
+   say('<b>Good choice! 📚</b><br>'+t+' — you can do it!');
+ }));
+ const progress=document.getElementById('Fortschritt');
+ if(progress&&'IntersectionObserver' in window){new IntersectionObserver(es=>{if(es[0].isIntersecting)say('<b>Look! ⭐</b><br>See what you have achieved so far.');},{threshold:.35}).observe(progress)}
+})();
+</script>
+
+
+
+
+
+<script id="account-auth">
+(async () => {
+ await window.FRLearning.ready;
+ const byId = id => document.getElementById(id);
+ const form = byId('accountForm');
+ const message = byId('accountMessage');
+ const buttons = [...document.querySelectorAll('#Konto button')];
+ const showMessage = text => { message.textContent = text; };
+ const busy = value => { buttons.forEach(button => button.disabled = value); if(!value && window.FRRecoveryArrival && !window.FRRecovery?.valid) byId('accountResetForm').querySelector('button[type="submit"]').disabled=true; };
+ if (!window.supabase) {
+   showMessage('Sign-in could not load. Check your connection and reload the page.');
+   busy(true); return;
+ }
+ let client;
+ try {
+   client = window.FRLearning.client;
+   if (!client) throw new Error("Offline");
+ } catch (_) { showMessage('Sign-in could not be initialised.'); busy(true); return; }
+ window.FRAccount = client;
+ let recovering = !!window.FRRecoveryArrival;
+ const resetForm = byId('accountResetForm');
+ function render(session) {
+   const user = session?.user;
+   form.hidden = recovering || !!user;
+   resetForm.hidden = !recovering;
+   resetForm.querySelector('button[type="submit"]').disabled = recovering && (!window.FRRecovery?.valid || !user || window.FRRecovery.userId !== user.id);
+   byId('accountSignedIn').hidden = !user || recovering;
+   byId('accountRecoveryHelp').hidden = !recovering;
+   byId('accountUser').textContent = user?.email || '';
+   byId('accountName').value = user?.user_metadata?.name || '';
+   byId('accountNav').textContent = user ? 'My account' : 'Sign in';
+   byId('accountPassword').value = '';
+ }
+ function errorText(error) {
+   const code = error?.code;
+   if (code === 'invalid_credentials') return 'Incorrect email address or password.';
+   if (code === 'email_not_confirmed') return 'Confirm your email address using the link in your inbox first.';
+   if (code === 'user_already_exists') return 'An account already exists for this email. Please sign in.';
+   if (code === 'same_password') return 'Your new password must be different from your previous password.';
+   if (code === 'session_not_found' || code === 'refresh_token_not_found' || code === 'refresh_token_already_used' || code === 'otp_expired' || error?.name === 'AuthSessionMissingError') return 'Your reset link has expired or the session is invalid. Request a new link and open it in the same browser.';
+   if (code === 'weak_password') return 'Your password is too weak. Use at least 8 characters with upper and lower case letters, numbers and symbols.';
+   if (code === 'signup_disabled') return 'New registrations are currently disabled.';
+   if (code === 'over_email_send_rate_limit' || code === 'over_request_rate_limit') return 'Too many attempts. Wait and try again later.';
+   if (error?.message) return 'The action failed: ' + error.message;
+   return 'The action failed. Check your connection and try again.';
+ }
+ client.auth.onAuthStateChange((event, session) => {
+   if (event === 'PASSWORD_RECOVERY') { recovering = true; location.hash = 'Konto'; }
+   render(session);
+   if (recovering) { showMessage(window.FRRecovery?.valid ? 'Set your new password now.' : 'This password link could not be verified. Request a new email and open its latest link.'); return; }
+   if (event === 'INITIAL_SESSION') showMessage(session ? 'You are signed in.' : 'Sign in or create an account.');
+   if (event === 'SIGNED_IN') showMessage('You are signed in.');
+   if (event === 'SIGNED_OUT') showMessage('You are signed out.');
+ });
+ byId('accountForgot').addEventListener('click', async () => {
+   const emailInput = byId('accountEmail');
+   if (!emailInput.reportValidity()) return;
+   busy(true); showMessage('Requesting link …');
+   try {
+     const redirect = new URL('./main.html', location.href);
+     redirect.search = '?reset=1'; redirect.hash = '';
+     const {error} = await client.auth.resetPasswordForEmail(emailInput.value.trim(), {redirectTo: redirect.href});
+     if (error) throw error;
+     showMessage('If an account exists for this email, you will receive a reset link. Check your spam folder too.');
+   } catch (error) { showMessage(errorText(error)); }
+   finally { busy(false); }
+ });
+ resetForm.addEventListener('submit', async event => {
+   event.preventDefault();
+   if (!window.FRRecovery?.valid) { showMessage('Please request a new password link.'); return; }
+   const {data: proof, error: proofError} = await client.auth.getUser();
+   if (proofError || proof.user?.id !== window.FRRecovery.userId) { showMessage('This password reset is no longer valid. Request a new link.'); return; }
+   const password = byId('accountNewPassword').value;
+   if (password.length < 8) { showMessage('Use at least 8 characters.'); return; }
+   if (password !== byId('accountConfirmPassword').value) { showMessage('The passwords do not match.'); return; }
+   busy(true); showMessage('Saving password …');
+   try {
+     const {error} = await client.auth.updateUser({password});
+     if (error) throw error;
+     resetForm.reset();
+     recovering = false;
+     window.FRRecovery?.complete();
+     document.documentElement.classList.remove('foxora-recovery');
+     const clean = new URL(location.href); clean.searchParams.delete('reset'); clean.hash = 'Konto';
+     history.replaceState(null, '', clean.href);
+     const {data} = await client.auth.getSession(); render(data.session);
+     showMessage('Your password has changed. You are signed in and can continue learning.');
+   } catch (error) { showMessage(errorText(error)); }
+   finally { busy(false); }
+ });
+ byId('accountNameForm').addEventListener('submit', async event => {
+   event.preventDefault();
+   const name = byId('accountName').value.trim().replace(/\s+/g, ' ');
+   if (!name || name.length > 60) { showMessage('Enter a name of up to 60 characters.'); return; }
+   busy(true); showMessage('Saving name …');
+   try {
+     const {error} = await client.auth.updateUser({data:{name}});
+     if (error) throw error;
+     showMessage('Your name was saved. The fox will now address you by name.');
+   } catch (error) { showMessage(errorText(error)); }
+   finally { busy(false); }
+ });
+ byId('accountRecoveryResend').addEventListener('click', async () => {
+   const input=byId('accountRecoveryEmail');if(!input.value.trim()||!input.reportValidity())return;
+   const button=byId('accountRecoveryResend');button.disabled=true;
+   try{const target=new URL('./main.html',location.href);target.search='?reset=1';target.hash='';const {error}=await client.auth.resetPasswordForEmail(input.value.trim(),{redirectTo:target.href});if(error)throw error;showMessage('If an account exists, a new password email has been requested. Open its latest link.');}catch(error){showMessage(errorText(error));}finally{button.disabled=false;}
+ });
+ const {data: initial} = await client.auth.getSession();
+ render(initial.session);
+ if (recovering) {
+   location.hash = 'Konto';
+   showMessage(window.FRRecovery?.valid ? 'Set your new password now.' : 'This password link could not be verified. Request a new email and open its latest link.');
+ }
+ form.addEventListener('submit', async event => {
+   event.preventDefault();
+   const mode = event.submitter?.value || 'login';
+   const email = byId('accountEmail').value.trim();
+   const password = byId('accountPassword').value;
+   const name = byId('accountRegisterName').value.trim().replace(/\s+/g, ' ');
+   if (mode === 'register' && !name) { showMessage('Enter your name.'); byId('accountRegisterName').focus(); return; }
+   if (mode === 'register' && password.length < 8) {
+     showMessage('Use a password with at least 8 characters for your new account.'); return;
+   }
+   busy(true); showMessage(mode === 'register' ? 'Creating account …' : 'Signing in …');
+   try {
+     const result = mode === 'register'
+       ? await client.auth.signUp({ email, password, options: { data: {name}, emailRedirectTo: new URL('./main.html', location.href).href } })
+       : await client.auth.signInWithPassword({ email, password });
+     if (result.error) throw result.error;
+     render(result.data.session);
+     showMessage(mode === 'register' && !result.data.session
+       ? 'Check your inbox. If registration is possible, you will receive a confirmation link.'
+       : 'You are signed in.');
+   } catch (error) { showMessage(errorText(error)); }
+   finally { byId('accountPassword').value = ''; busy(false); }
+ });
+ byId('accountLogout').addEventListener('click', async () => {
+   busy(true);
+   try {
+     const {error} = await client.auth.signOut({scope:'local'});
+     if (error) throw error;
+     render(null); showMessage('You are signed out on this device.');
+   } catch (error) { showMessage(errorText(error)); }
+   finally { busy(false); }
+ });
+})();
+</script>
+
+<script>
+(() => {
+ const button = document.getElementById('installAppButton');
+ const installed = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+ if (installed) { document.getElementById('installAppHelp').hidden = true; return; }
+ button.hidden = !window.FRInstallPrompt;
+ button.addEventListener('click', async () => {
+   const prompt = window.FRInstallPrompt; if (!prompt) return;
+   button.disabled = true;
+   try { await prompt.prompt(); await prompt.userChoice; }
+   catch (_) { document.getElementById('installAppHint').textContent = 'Please install the app through your browser menu.'; }
+   finally { window.FRInstallPrompt = null; button.hidden = true; button.disabled = false; }
+ });
+})();
+</script>
+<script src="german-error-analysis.js?v=exact-main2"></script>
+<script>(()=>{const panels=['Grammatik','Alltag'],buttons=['chooseGrammar','chooseEveryday'];function select(id,scroll=false){panels.forEach((p,i)=>{const open=p===id;document.getElementById(p).hidden=!open;document.getElementById(buttons[i]).setAttribute('aria-expanded',String(open));});if(scroll)document.getElementById(id).scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'});}buttons.forEach((b,i)=>document.getElementById(b).onclick=()=>select(panels[i],true));function hash(){const id=location.hash.slice(1);if(panels.includes(id))select(id);}window.addEventListener('hashchange',hash);hash();})();</script><script>(()=>{'use strict';const menus=[...document.querySelectorAll('.foxora-language-switcher')];menus.forEach(menu=>{menu.addEventListener('toggle',()=>{if(menu.open)menus.forEach(other=>{if(other!==menu)other.open=false;});});menu.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{menu.open=false;}));});document.addEventListener('click',event=>{menus.forEach(menu=>{if(menu.open&&!menu.contains(event.target))menu.open=false;});});document.addEventListener('keydown',event=>{if(event.key==='Escape'){menus.forEach(menu=>{if(menu.open){menu.open=false;menu.querySelector('summary').focus();}});}});})();
+</script></body>
+</html>
