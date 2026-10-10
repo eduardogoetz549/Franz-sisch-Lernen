@@ -1,0 +1,55 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><title>Italienisch – Unregelmässige Verben | Theorie</title><meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#0D1433,#121E47);font-family:Jost,sans-serif;color:#18213d}nav:not(.main-nav){position:sticky;top:0;z-index:5;background:#0D1433ee;border-bottom:1px solid #B7944055;padding:1rem 4rem;display:flex;justify-content:space-between;align-items:center}.brand{color:#fff;text-decoration:none;font-weight:600;letter-spacing:.15em}.home{color:#D4AF60;border:1px solid #B79440;padding:.5rem 1rem;text-decoration:none}.hero{text-align:center;color:#fff;padding:55px 20px 30px}.hero small{color:#D4AF60;letter-spacing:.18em}.hero h1{font:400 clamp(38px,7vw,62px) 'Cormorant Garamond';margin:10px}.hero h1 span{color:#D4AF60}.hero p{max-width:700px;margin:auto;color:#C0D4F2;line-height:1.7}.wrap{max-width:900px;margin:auto;padding:0 20px 70px}.tabs{display:flex;justify-content:center;gap:8px;margin:0 0 18px}.tab{border:1px solid #B79440;background:#fff;color:#0D1433;padding:11px 16px;font-weight:700;cursor:pointer}.tab.active{background:#B79440}.panel{display:none}.panel.active{display:block}.card{background:#fff;border:1px solid #e8dcc0;border-radius:18px;padding:clamp(22px,5vw,38px);box-shadow:0 18px 50px #0003}.block{border-bottom:1px solid #e5e9f5;padding:17px 0}.block:last-child{border:0}.block h3{margin:0 0 7px;font-family:'Cormorant Garamond';font-size:26px}.block p{margin:0;color:#566078;line-height:1.7}.example{margin-top:10px;background:#f7f0df;border-left:3px solid #B79440;padding:12px;color:#0D1433}.fox{background:#fff8e9;border-radius:12px;padding:14px;margin-top:10px}.warn{background:#fff3f3;border-radius:12px;padding:14px;margin-top:10px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}.btn{background:#B79440;color:#0D1433;padding:12px 17px;text-decoration:none;font-weight:800;border-radius:3px;transition:.2s}.btn:hover{background:#D4AF60;transform:translateY(-2px)}.back{background:#fff;border:1px solid #B79440}@media(max-width:700px){nav{padding:1rem}.tabs{flex-direction:column}.tab{width:100%}}
+
+/* Header identisch zur Hauptseite */
+:root{--navy:#0D1433;--midnight:#121E47;--gold:#B79440;--gold-lt:#D4AF60;--ice:#C0D4F2;--white:#FFFFFF;--ease:cubic-bezier(.4,0,.2,1)}
+nav.main-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 4rem;background:rgba(13,20,51,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(183,148,64,.2);transition:padding .3s var(--ease)}
+.main-nav .nav-logo{display:flex;align-items:center;gap:.75rem;color:inherit;text-decoration:none}
+.main-nav .monogram{width:34px;height:34px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:1rem;color:var(--navy);flex-shrink:0}
+.main-nav .wordmark{font-family:Jost,sans-serif;font-weight:600;letter-spacing:.18em;font-size:.9rem;color:#fff}
+.main-nav .nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none;margin:0;padding:0}
+.main-nav .nav-links a{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ice);font-weight:400;position:relative;padding-bottom:3px;text-decoration:none;transition:color .2s}
+.main-nav .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .3s var(--ease)}
+.main-nav .nav-links a:hover{color:#fff}.main-nav .nav-links a:hover::after{width:100%}
+.main-nav .nav-cta{background:transparent;border:1px solid var(--gold);color:var(--gold)!important;padding:.5rem 1.4rem;border-radius:2px;transition:all .25s!important}
+.main-nav .nav-cta:hover{background:var(--gold)!important;color:var(--navy)!important}.main-nav .nav-cta::after{display:none!important}
+body{padding-top:76px}
+@media(max-width:900px){nav.main-nav{padding:1rem 2rem}.main-nav .nav-links{display:none}}
+
+
+/* ── Übersicht unregelmässige Verben ── */
+.verb-reference{margin-top:3rem}
+.verb-reference h2{font-family:var(--font-display,'Cormorant Garamond',Georgia,serif);font-size:2.15rem;font-weight:400;margin-bottom:.65rem}
+.verb-reference-intro{color:var(--ice,#C0D4F2);line-height:1.7;margin-bottom:1.5rem;max-width:850px}
+.verb-controls{display:flex;gap:.65rem;flex-wrap:wrap;margin:1.2rem 0 1.5rem}
+.verb-filter{border:1px solid rgba(183,148,64,.38);background:transparent;color:var(--gold-lt,#D4AF60);padding:.62rem .9rem;font:600 .72rem Jost,Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:.22s}
+.verb-filter:hover,.verb-filter.active{background:var(--gold,#B79440);color:var(--navy,#0D1433);border-color:var(--gold,#B79440)}
+.verb-table-wrap{overflow-x:auto;border:1px solid rgba(183,148,64,.22);background:rgba(13,20,51,.45)}
+.verb-table{width:100%;border-collapse:collapse;min-width:940px}
+.verb-table th{background:var(--navy,#0D1433);color:var(--gold-lt,#D4AF60);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;text-align:left;padding:.9rem .85rem;border-bottom:1px solid rgba(183,148,64,.32)}
+.verb-table td{padding:.9rem .85rem;vertical-align:top;border-bottom:1px solid rgba(255,255,255,.07);color:var(--ice,#C0D4F2);font-size:.86rem;line-height:1.55}
+.verb-table tr:last-child td{border-bottom:0}.verb-table tbody tr:hover{background:rgba(183,148,64,.055)}
+.verb-name{color:#fff;font-weight:600}.verb-meaning{color:var(--gray,#8A95A8);font-size:.78rem;display:block;margin-top:.2rem}
+.verb-form{white-space:normal}.verb-note{margin-top:1rem;color:var(--gray,#8A95A8);font-size:.8rem;line-height:1.6}
+@media(max-width:700px){.verb-reference h2{font-size:1.8rem}.verb-filter{flex:1 1 calc(50% - .65rem);text-align:center}}
+
+</style>
+
+</head><body><nav class="main-nav" id="navbar">
+  <a href="main.html#hero" class="nav-logo">
+    <div class="monogram">IT</div>
+    <span class="wordmark">Italienisch lernen</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="main.html#Ler">Lernen</a></li>
+    <li><a href="main.html#theorie">Theorie</a></li>
+    <li><a href="main.html#Spi">Übungen</a></li>
+    <li><a href="main.html#Fortschritt">Mein Fortschritt</a></li>
+    <li><a href="main.html#Pruefung">Prüfung</a></li>
+    <li><a href="main.html#lernwerkstatt">Lernwerkstatt</a></li>
+    <li><a href="main.html#Spi" class="nav-cta">Jetzt üben</a></li>
+  </ul>
+</nav>
+<header class="hero"><small>📖 THEORIEÜBERBLICK · ITALIANO</small><h1>Unregelmässige Verben <span>verstehen</span></h1><p>Italienische Regeln und Beispiele mit deutschen Erklärungen. Wähle dein Niveau.</p></header><div class="wrap"><div class="tabs" role="tablist" aria-label="Niveau"><button class="tab active" id="tab-1" role="tab" aria-selected="true" aria-controls="panel-1" data-tab="1">Niveau 1</button><button class="tab " id="tab-2" role="tab" aria-selected="false" aria-controls="panel-2" data-tab="2">Niveau 2</button><button class="tab " id="tab-3" role="tab" aria-selected="false" aria-controls="panel-3" data-tab="3">Niveau 3</button></div><section class="panel active" id="panel-1" role="tabpanel" aria-labelledby="tab-1" data-level="1"><div class="card"><div class="block"><h3>📖 Häufige Präsensformen</h3><p>Essere, avere, andare und fare sind besonders wichtig. Lerne alle sechs Personen und verwende kurze Beispielsätze.</p><div class="example"><b>Beispiele:</b> sono, sei, è, siamo, siete, sono; ho, hai, ha, abbiamo, avete, hanno; vado, vai, va, andiamo, andate, vanno</div></div><div class="block"><h3>🦊 Merke!</h3><div class="fox">Regelmässige Endungen erklären nicht jede Form.</div></div><div class="block"><h3>⚠️ Typischer Fehler</h3><div class="warn">Io va ist falsch: io vado.</div></div><div class="actions"><a class="btn" href="italienisch-unregelmaessige-verben-1-oberstufe.html">✏️ Niveau 1 jetzt üben</a><a class="btn back" href="main.html#theorie">← Theorieübersicht</a><a class="btn back" href="italienisch-unregelmaessige-verben-liste.html">Verbenliste</a></div></div></section><section class="panel " id="panel-2" role="tabpanel" aria-labelledby="tab-2" data-level="2"><div class="card"><div class="block"><h3>📖 Weitere Präsensformen und Partizipien</h3><p>Dire: dico/dici/dice/diciamo/dite/dicono. Venire: vengo/vieni/viene/veniamo/venite/vengono. Partizipien können unregelmässig sein, auch wenn das Präsens regelmässig ist.</p><div class="example"><b>Beispiele:</b> fare → fatto; dire → detto; leggere → letto; scrivere → scritto; aprire → aperto</div></div><div class="block"><h3>🦊 Merke!</h3><div class="fox">Präsens und Partizip getrennt lernen.</div></div><div class="block"><h3>⚠️ Typischer Fehler</h3><div class="warn">Ein unregelmässiges Partizip macht nicht jede Zeitform unregelmässig.</div></div><div class="actions"><a class="btn" href="italienisch-unregelmaessige-verben-2-oberstufe.html">✏️ Niveau 2 jetzt üben</a><a class="btn back" href="main.html#theorie">← Theorieübersicht</a><a class="btn back" href="italienisch-unregelmaessige-verben-liste.html">Verbenliste</a></div></div></section><section class="panel " id="panel-3" role="tabpanel" aria-labelledby="tab-3" data-level="3"><div class="card"><div class="block"><h3>📖 Stämme in mehreren Zeiten</h3><p>Futuro und Condizionale teilen oft den Stamm. Der Congiuntivo kann einen eigenen Stamm haben. Fare/dire/bere haben im Imperfetto facevo/dicevo/bevevo.</p><div class="example"><b>Beispiele:</b> verrò / verrei / venga; sarò / sarei / sia; farò / farei / faccia; facevo</div></div><div class="block"><h3>🦊 Merke!</h3><div class="fox">Nutze die Verbenliste zum Vergleichen der Zeitformen.</div></div><div class="block"><h3>⚠️ Typischer Fehler</h3><div class="warn">Io venga gehört zum Congiuntivo, io vengo zum Indicativo.</div></div><div class="actions"><a class="btn" href="italienisch-unregelmaessige-verben-3-oberstufe.html">✏️ Niveau 3 jetzt üben</a><a class="btn back" href="main.html#theorie">← Theorieübersicht</a><a class="btn back" href="italienisch-unregelmaessige-verben-liste.html">Verbenliste</a></div></div></section></div><script>document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>{x.classList.remove("active");x.setAttribute("aria-selected","false")});document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");b.setAttribute("aria-selected","true");document.querySelector(".panel[data-level=\""+b.dataset.tab+"\"]").classList.add("active")})</script></body></html>
