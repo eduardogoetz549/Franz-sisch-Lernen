@@ -1,0 +1,1 @@
+(()=>{const normalize=s=>String(s??'').normalize('NFC').replace(/[’‘]/g,"'").replace(/\s+/g,' ').trim().replace(/[.!?]+$/,'');window.FRAnswers={normalize,check:(own,right,accepted=[])=>[right,...accepted].some(x=>normalize(own)===normalize(x))};})();
