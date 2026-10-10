@@ -680,7 +680,7 @@ window.addEventListener('appinstalled', () => {
 .welcome-fox-ground:after{content:'';position:absolute;left:13%;bottom:0;width:74%;height:13px;border-radius:50%;background:radial-gradient(ellipse,rgba(2,6,17,.58),transparent 72%);filter:blur(2px);pointer-events:none;z-index:-1}
 .welcome-fox-ground .welcome-fox{display:block;width:100%;max-width:none;position:relative;z-index:1;filter:drop-shadow(0 4px 5px rgba(0,0,0,.22))}
 @media(max-width:750px){.welcome-fox-ground{max-width:210px;flex-basis:210px}.welcome-fox-ground:before{height:30px;bottom:-7px}}
-</style><style id="foxora-integrated-platform">.welcome-fox-ground:before,.welcome-fox-ground:after{display:none}.welcome-fox-ground .welcome-fox{filter:none}</style></head>
+</style><style id="foxora-integrated-platform">.welcome-fox-ground:before,.welcome-fox-ground:after{display:none}.welcome-fox-ground .welcome-fox{filter:none}</style><style id="foxora-analysis-folders">.fa-fold{max-width:1200px;margin:2.5rem auto 0;border:1px solid #B7944059;background:var(--midnight);padding:0}.fa-fold>summary{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 24px;cursor:pointer;list-style:none;color:var(--gold-lt);font:400 28px/1.3 var(--font-display)}.fa-fold>summary::-webkit-details-marker{display:none}.fa-fold>summary:after,.fa-plan-fold>summary:after{content:'+';margin-left:auto;flex-shrink:0}.fa-fold[open]>summary:after,.fa-plan-fold[open]>summary:after{content:'−'}.fa-fold .fa-wrap{margin:0;border:0}.fa-plan-fold>summary{display:flex;align-items:center;gap:12px;font-weight:500}.fa-actions{display:flex;flex-wrap:wrap;align-items:stretch;gap:12px;margin:18px 0}.fa-wrap .fa-actions .btn-smart{display:flex;align-items:center;justify-content:center;box-sizing:border-box;margin:0;padding:14px 20px;min-height:48px;line-height:1.5;white-space:normal;text-align:center;max-width:100%;height:auto;position:static;transform:none;text-decoration:none;overflow-wrap:anywhere}.fa-fold>summary:focus-visible{outline:2px solid var(--gold-lt);outline-offset:4px}@media(max-width:600px){.fa-fold>summary{padding:16px 18px;font-size:25px}.fa-actions{flex-direction:column;gap:14px}.fa-wrap .fa-actions .btn-smart{width:100%;font-size:12px;letter-spacing:.04em}.fa-plan-fold{min-width:0}.fa-wrap .fa-topic{min-width:0}}</style></head>
 <body>
 
 
@@ -776,15 +776,15 @@ window.addEventListener('appinstalled', () => {
     </div>
   </div>
 
-<div class="fa-wrap" id="Fehleranalyse">
+<details class="fa-fold" id="analysisFold"><summary>Deine Fehleranalyse</summary><div class="fa-wrap" id="Fehleranalyse">
 <p class="section-label">Aus Fehlern lernen</p><h3>Deine <em>Fehleranalyse</em></h3>
 <p>Themenübersicht kostenlos · Fehlerbeispiele und dein persönlicher Lernplan mit Premium.</p>
 <p class="fa-muted" id="analysisAccount"></p><div id="analysisBasic"></div>
-<h4>Vertiefte Analyse <span style="font:500 .75rem var(--font-body);color:var(--gold-lt)">PREMIUM</span></h4>
+<details class="fa-plan-fold"><summary>Meinen Lernplan erstellen</summary><h4>Vertiefte Analyse <span style="font:500 .75rem var(--font-body);color:var(--gold-lt)">PREMIUM</span></h4>
 <p>Sieh, was du üben solltest, und starte deinen persönlichen Lernplan mit drei Schritten.</p>
-<button class="btn-smart" type="button" id="analysisRefresh">Meinen Lernplan erstellen</button><a class="btn-smart" href="#Premium">Premium ansehen</a>
+<div class="fa-actions"><button class="btn-smart" type="button" id="analysisRefresh">Meinen Lernplan erstellen</button><a class="btn-smart" href="#Premium">Premium ansehen</a></div>
 <p role="status" aria-live="polite" id="analysisStatus"></p><div id="analysisDetail"></div>
-</div>
+</details></div></details>
 </section>
 <section id="Pruefung" style="background:#121E47">
   <div class="Spi-header reveal">
